@@ -10,17 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetRunning">
+
         <activity
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".SingUp"
+            android:name=".SignUp"
             android:exported="false" />
-        <activity
-            android:name=".Login"
-            android:exported="false"
-            android:label="@string/title_activity_login"
-            tools:ignore="DuplicateActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

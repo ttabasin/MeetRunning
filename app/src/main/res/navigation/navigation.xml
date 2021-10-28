@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/login">
+    app:startDestination="@id/home">
     <activity
-        android:id="@+id/login"
-        android:name="cat.copernic.meetrunning.Login"
-        android:label="Login"
-        tools:layout="@layout/activity_login"/>
+        android:id="@+id/mainActivity"
+        android:name="cat.copernic.meetrunning.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+
     <fragment
         android:id="@+id/achivements"
         android:name="cat.copernic.meetrunning.Achivements"
@@ -84,9 +85,4 @@
         android:name="cat.copernic.meetrunning.Stats"
         android:label="fragment_stats"
         tools:layout="@layout/fragment_stats" />
-    <activity
-        android:id="@+id/singUp"
-        android:name="cat.copernic.meetrunning.SingUp"
-        android:label="activity_sing_up"
-        tools:layout="@layout/activity_sing_up" />
 </navigation>
