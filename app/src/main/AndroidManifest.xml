@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="cat.copernic.meetrunning">
 
     <application
@@ -16,9 +17,10 @@
             android:name=".SingUp"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".Login"
             android:exported="false"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_activity_login"
+            tools:ignore="DuplicateActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
