@@ -9,4 +9,84 @@
         android:name="cat.copernic.meetrunning.Login"
         android:label="Login"
         tools:layout="@layout/activity_login"/>
+    <fragment
+        android:id="@+id/achivements"
+        android:name="cat.copernic.meetrunning.Achivements"
+        android:label="fragment_achivements"
+        tools:layout="@layout/fragment_achivements" />
+    <fragment
+        android:id="@+id/addRoute"
+        android:name="cat.copernic.meetrunning.AddRoute"
+        android:label="fragment_add_route"
+        tools:layout="@layout/fragment_add_route" />
+    <fragment
+        android:id="@+id/addRouteMap"
+        android:name="cat.copernic.meetrunning.AddRouteMap"
+        android:label="fragment_add_route_map"
+        tools:layout="@layout/fragment_add_route_map" />
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="cat.copernic.meetrunning.EditProfile"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/favorites"
+        android:name="cat.copernic.meetrunning.Favorites"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/meetMap"
+        android:name="cat.copernic.meetrunning.MeetMap"
+        android:label="fragment_meet_map"
+        tools:layout="@layout/fragment_meet_map" />
+    <fragment
+        android:id="@+id/home"
+        android:name="cat.copernic.meetrunning.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/myRutes"
+        android:name="cat.copernic.meetrunning.MyRutes"
+        android:label="fragment_my_rutes"
+        tools:layout="@layout/fragment_my_rutes" />
+    <fragment
+        android:id="@+id/photos"
+        android:name="cat.copernic.meetrunning.Photos"
+        android:label="fragment_photos"
+        tools:layout="@layout/fragment_photos" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="cat.copernic.meetrunning.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/ranking"
+        android:name="cat.copernic.meetrunning.Ranking"
+        android:label="fragment_ranking"
+        tools:layout="@layout/fragment_ranking" />
+    <fragment
+        android:id="@+id/route"
+        android:name="cat.copernic.meetrunning.Route"
+        android:label="fragment_route"
+        tools:layout="@layout/fragment_route" />
+    <fragment
+        android:id="@+id/routeMap"
+        android:name="cat.copernic.meetrunning.RouteMap"
+        android:label="fragment_route_map"
+        tools:layout="@layout/fragment_route_map" />
+    <fragment
+        android:id="@+id/settings"
+        android:name="cat.copernic.meetrunning.Settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/stats"
+        android:name="cat.copernic.meetrunning.Stats"
+        android:label="fragment_stats"
+        tools:layout="@layout/fragment_stats" />
+    <activity
+        android:id="@+id/singUp"
+        android:name="cat.copernic.meetrunning.SingUp"
+        android:label="activity_sing_up"
+        tools:layout="@layout/activity_sing_up" />
 </navigation>
