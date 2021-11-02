@@ -17,7 +17,7 @@ class SignIn : AppCompatActivity() {
             startActivity(intent)
         }
         signInBt.setOnClickListener {
-            val intent = Intent(this, test::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
