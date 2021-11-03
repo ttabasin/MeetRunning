@@ -12,7 +12,7 @@
         <TextView
             android:id="@+id/titleSingUp"
             style="@style/txtViewLogin"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="48dp"
             android:text="@string/action_sign_up"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.078"
@@ -30,8 +30,8 @@
             app:layout_constraintTop_toBottomOf="@+id/titleSingUp" />
 
         <EditText
-            android:id="@+id/place"
-            style="@style/editTxtLogin"
+            android:id="@+id/editConfirmPassword"
+            style="@style/editTxtPasswd"
             android:layout_marginTop="4dp"
             android:hint="@string/prompt_password"
             app:layout_constraintStart_toStartOf="@+id/textConfirmPassword"
@@ -42,9 +42,10 @@
             style="@style/txtViewInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="@string/confirmPassword"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName4"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+            app:layout_constraintStart_toStartOf="@+id/editPassword"
+            app:layout_constraintTop_toBottomOf="@+id/editPassword" />
 
         <EditText
             android:id="@+id/SignUpEmail"
@@ -82,7 +83,7 @@
             app:layout_constraintTop_toBottomOf="@+id/SignUpConfirmEmail" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:id="@+id/editPassword"
             style="@style/editTxtPasswd"
             android:layout_marginTop="4dp"
             android:hint="@string/prompt_password"
@@ -94,7 +95,6 @@
             android:layout_width="326dp"
             android:layout_height="45dp"
             android:layout_gravity="start"
-            android:layout_marginBottom="116dp"
             android:backgroundTint="#AEDD94"
             android:fontFamily="@font/asap_bold"
             android:paddingStart="120dp"
@@ -104,16 +104,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox"
+            app:layout_constraintVertical_bias="0.128" />
 
         <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="CheckBox"
-            app:layout_constraintStart_toStartOf="@+id/place"
-            app:layout_constraintTop_toBottomOf="@+id/place" />
+            android:text="@string/checkBoxSignUp"
+            app:layout_constraintStart_toStartOf="@+id/editConfirmPassword"
+            app:layout_constraintTop_toBottomOf="@+id/editConfirmPassword" />
 
         <Button
             android:id="@+id/signInBtn"
