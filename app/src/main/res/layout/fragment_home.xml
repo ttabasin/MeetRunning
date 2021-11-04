@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bckground"
     tools:context=".HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -11,12 +12,15 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="end|bottom"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginBottom="50dp"
+        android:backgroundTint="#92D36E"
         android:clickable="true"
-        android:src="@android:drawable/ic_input_add" />
+        android:src="@android:drawable/ic_input_add"
+        app:fabCustomSize="75dp"
+        app:maxImageSize="30dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
