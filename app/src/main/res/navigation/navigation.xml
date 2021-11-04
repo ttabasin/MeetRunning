@@ -28,18 +28,18 @@
     <fragment
         android:id="@+id/favorites"
         android:name="cat.copernic.meetrunning.FavoritesFragment"
-        android:label="fragment_favorites"
+        android:label="@string/favorites"
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/meetMap"
         android:name="cat.copernic.meetrunning.MeetMapFragment"
-        android:label="fragment_meet_map"
+        android:label="@string/map"
         tools:layout="@layout/fragment_meet_map" />
     <fragment
         android:id="@+id/home"
         android:name="cat.copernic.meetrunning.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_addRoute"
             app:destination="@id/addRoute"
@@ -64,7 +64,7 @@
     <fragment
         android:id="@+id/ranking"
         android:name="cat.copernic.meetrunning.RankingFragment"
-        android:label="fragment_ranking"
+        android:label="@string/ranking"
         tools:layout="@layout/fragment_ranking" />
     <fragment
         android:id="@+id/route"
@@ -79,7 +79,7 @@
     <fragment
         android:id="@+id/settings"
         android:name="cat.copernic.meetrunning.SettingsFragment"
-        android:label="fragment_settings"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/stats"
