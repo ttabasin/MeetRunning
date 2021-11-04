@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.setContentView
+import androidx.navigation.findNavController
+import cat.copernic.meetrunning.databinding.FragmentHomeBinding
+
 
 class HomeFragment : Fragment() {
 
@@ -19,11 +21,15 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val binding = FragmentHomeBinding.inflate(layoutInflater)
+
+        binding.floatingActionButton.setOnClickListener {
+            it.findNavController().navigate(R.id.action_home_to_addRoute)
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return binding.root
     }
-
-
 
 
 }
