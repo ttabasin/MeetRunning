@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 
 class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,9 +18,19 @@ class SignInActivity : AppCompatActivity() {
             startActivity(intent)
         }
         signInBt.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            if (checkInput()){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
         }
 
     }
+
+    private fun checkInput() : Boolean{
+        if (findViewById<EditText>(R.id.username).text.isNotBlank() &&
+            findViewById<EditText>(R.id.password).text.isNotBlank()){
+            return true
+        }
+        return false
+    }   
 }
