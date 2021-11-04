@@ -42,9 +42,7 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_addRoute"
-            app:destination="@id/addRoute"
-            app:popUpTo="@id/home"
-            app:popUpToInclusive="true" />
+            app:destination="@id/addRoute" />
     </fragment>
     <fragment
         android:id="@+id/myRutes"
