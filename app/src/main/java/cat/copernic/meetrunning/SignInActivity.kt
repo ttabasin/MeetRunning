@@ -25,7 +25,7 @@ class SignInActivity : AppCompatActivity() {
         }
 
     }
-
+    //Comprueba que los campos no esten vacios
     private fun checkInput() : Boolean{
         if (findViewById<EditText>(R.id.username).text.isNotBlank() &&
             findViewById<EditText>(R.id.password).text.isNotBlank()){
