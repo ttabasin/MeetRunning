@@ -6,7 +6,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SignUpActivity">
+        tools:context=".SignUpActivity"
+        android:background="@color/bckground">
 
 
         <TextView
@@ -92,26 +93,21 @@
 
         <Button
             android:id="@+id/signUpContinue"
-            android:layout_width="326dp"
-            android:layout_height="45dp"
-            android:layout_gravity="start"
-            android:backgroundTint="#AEDD94"
-            android:fontFamily="@font/asap_bold"
-            android:paddingStart="120dp"
-            android:paddingEnd="120dp"
+            style="@style/buttonLog"
             android:text="@string/continuebtn"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkBox"
-            app:layout_constraintVertical_bias="0.128" />
+            app:layout_constraintVertical_bias="0.071" />
 
         <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/checkBoxSignUp"
             app:layout_constraintStart_toStartOf="@+id/editConfirmPassword"
             app:layout_constraintTop_toBottomOf="@+id/editConfirmPassword" />
@@ -127,5 +123,6 @@
             android:textColor="#257A22"
             app:layout_constraintEnd_toEndOf="@+id/signUpContinue"
             app:layout_constraintTop_toBottomOf="@+id/signUpContinue" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

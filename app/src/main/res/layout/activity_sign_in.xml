@@ -84,23 +84,14 @@
 
     <Button
         android:id="@+id/signInBt"
-        android:layout_width="326dp"
-        android:layout_height="45dp"
-        android:layout_gravity="start"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="64dp"
-        android:backgroundTint="#AEDD94"
-        android:fontFamily="@font/asap_bold"
-        android:paddingStart="120dp"
-        android:paddingEnd="120dp"
         android:text="@string/action_sign_in"
-        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.038" />
+        app:layout_constraintVertical_bias="0.038"
+        style="@style/buttonLog" />
 
     <Button
         android:id="@+id/signUpBt"
