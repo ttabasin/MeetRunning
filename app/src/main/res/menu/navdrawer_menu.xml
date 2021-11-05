@@ -3,18 +3,23 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
+            android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/home" />
         <item
             android:id="@+id/meetMap"
+            android:icon="@drawable/ic_baseline_map_24"
             android:title="@string/map" />
         <item
             android:id="@+id/ranking"
+            android:icon="@drawable/ic_baseline_bar_chart_24"
             android:title="@string/ranking" />
         <item
             android:id="@+id/favorites"
+            android:icon="@drawable/ic_baseline_star_24"
             android:title="@string/favorites" />
         <item
             android:id="@+id/settings"
+            android:icon="@drawable/ic_baseline_settings_24"
             android:title="@string/settings" />
     </group>
 </menu>

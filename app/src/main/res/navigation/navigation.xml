@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/addRoute"
         android:name="cat.copernic.meetrunning.AddRouteFragment"
-        android:label="fragment_add_route"
+        android:label="@string/add_route"
         tools:layout="@layout/fragment_add_route" />
     <fragment
         android:id="@+id/addRouteMap"

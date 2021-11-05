@@ -13,7 +13,9 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-        binding = DataBindingUtil.setContentView<ActivitySignUpBinding>(this, R.layout.activity_sign_up)
+
+        binding =
+            DataBindingUtil.setContentView<ActivitySignUpBinding>(this, R.layout.activity_sign_up)
 
         binding.signUpContinue.setOnClickListener {
             if (checkInput()) {
@@ -30,10 +32,11 @@ class SignUpActivity : AppCompatActivity() {
     private fun checkInput(): Boolean {
         if (binding.editPassword.text.isNotBlank() && binding.editPassword.text.isNotBlank()
             && binding.SignUpEmail.text.isNotBlank() && binding.SignUpConfirmEmail.text.isNotBlank()
-            && binding.checkBox.isChecked) {
+            && binding.checkBox.isChecked
+        ) {
             return true
         }
-        Toast.makeText(this, "Campos vacios", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Empty Fields!", Toast.LENGTH_LONG).show()
         return false
     }
 }

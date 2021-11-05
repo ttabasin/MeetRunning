@@ -14,7 +14,8 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
-        binding = DataBindingUtil.setContentView<ActivitySignInBinding>(this, R.layout.activity_sign_in)
+        binding =
+            DataBindingUtil.setContentView<ActivitySignInBinding>(this, R.layout.activity_sign_in)
 
         binding.signUpBt.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
@@ -26,7 +27,6 @@ class SignInActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-
     }
 
     private fun checkInput(): Boolean {
@@ -35,7 +35,7 @@ class SignInActivity : AppCompatActivity() {
         ) {
             return true
         }
-        Toast.makeText(this, "Campos vacios", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Empty Fields!", Toast.LENGTH_LONG).show()
         return false
     }
 }
