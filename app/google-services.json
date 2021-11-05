@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "378714828313",
+    "firebase_url": "https://meetrunning-project-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "meetrunning-project",
+    "storage_bucket": "meetrunning-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378714828313:android:dbae5c12ba6d7e1b970488",
+        "android_client_info": {
+          "package_name": "cat.copernic.meetrunning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378714828313-jko99mloj2fb6jb81pdnabes5u9pnlde.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqnzwPf4LwHaBRG2KgG7W9D1hx58nfZfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378714828313-jko99mloj2fb6jb81pdnabes5u9pnlde.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
