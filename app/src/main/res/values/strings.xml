@@ -30,4 +30,6 @@
     <string name="confirmPassword">Confirm Password</string>
     <string name="checkBoxSignUp">I agree to the Terms of Service and Privacy Policiy</string>
     <string name="add_route">Add Route</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
 </resources>

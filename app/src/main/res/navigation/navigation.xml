@@ -14,11 +14,15 @@
         android:id="@+id/addRoute"
         android:name="cat.copernic.meetrunning.AddRouteFragment"
         android:label="@string/add_route"
-        tools:layout="@layout/fragment_add_route" />
+        tools:layout="@layout/fragment_add_route" >
+        <action
+            android:id="@+id/action_addRoute_to_addRouteMap"
+            app:destination="@id/addRouteMap" />
+    </fragment>
     <fragment
         android:id="@+id/addRouteMap"
         android:name="cat.copernic.meetrunning.AddRouteMapFragment"
-        android:label="fragment_add_route_map"
+        android:label="@string/add_route"
         tools:layout="@layout/fragment_add_route_map" />
     <fragment
         android:id="@+id/editProfile"

@@ -9,46 +9,46 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/editTitle"
             android:layout_width="293dp"
             android:layout_height="39dp"
             android:layout_marginStart="56dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/edit_text_border"
             android:ems="10"
-            android:hint="Title"
+            android:hint="@string/title"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextMultiLine2"
+            android:id="@+id/editDescription"
             android:layout_width="0dp"
             android:layout_height="184dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/edit_text_border"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="Description"
+            android:hint="@string/description"
             android:inputType="textMultiLine"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
+            app:layout_constraintEnd_toEndOf="@+id/editTitle"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+            app:layout_constraintStart_toStartOf="@+id/editTitle"
+            app:layout_constraintTop_toBottomOf="@+id/editTitle" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/imgRuta"
             android:layout_width="0dp"
             android:layout_height="142dp"
             android:layout_marginTop="28dp"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextMultiLine2"
+            app:layout_constraintEnd_toEndOf="@+id/editDescription"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine2"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="@+id/editDescription"
+            app:layout_constraintTop_toBottomOf="@+id/txtTime"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <Button
-            android:id="@+id/signUpContinue"
+            android:id="@+id/btnContinue"
             style="@style/buttonLog"
             android:text="@string/continuebtn"
             android:textColor="#000000"
@@ -56,30 +56,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/imgRuta"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/txtKm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/edit_text_border"
             android:text="14 KM"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine2"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
+            app:layout_constraintStart_toStartOf="@+id/editDescription"
+            app:layout_constraintTop_toBottomOf="@+id/editDescription" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/txtTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_border"
             android:text="2:00:00"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextMultiLine2"
+            app:layout_constraintEnd_toEndOf="@+id/editDescription"
             app:layout_constraintHorizontal_bias="0.587"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="@+id/textView2" />
+            app:layout_constraintStart_toEndOf="@+id/txtKm"
+            app:layout_constraintTop_toTopOf="@+id/txtKm" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
