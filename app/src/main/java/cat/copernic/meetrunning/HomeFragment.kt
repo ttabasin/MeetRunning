@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R.layout.fragment_home
 import cat.copernic.meetrunning.databinding.FragmentHomeBinding
 import com.google.firebase.database.*
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 
 
 class HomeFragment : Fragment() {
 
-    private val db = FirebaseFirestore.getInstance()
-    private lateinit var dbref: DatabaseReference
     private lateinit var postRecyclerView: RecyclerView
     private lateinit var postArrayList: ArrayList<Post>
+    private lateinit var postAdapter: PostAdapter
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,37 +34,41 @@ class HomeFragment : Fragment() {
             it.findNavController().navigate(R.id.action_home_to_addRoute)
         }
 
+
         postRecyclerView = binding.recycler
         postRecyclerView.layoutManager = LinearLayoutManager(context)
         postRecyclerView.setHasFixedSize(true)
 
-        postArrayList = arrayListOf<Post>()
-        getPostData()
+        postArrayList = arrayListOf()
+
+        postAdapter = PostAdapter(postArrayList)
+
+        postRecyclerView.adapter = postAdapter
+
+        EventChangeListener()
 
         // Inflate the layout for this fragment
         return binding.root
     }
 
-    private fun getPostData() {
-        dbref = FirebaseDatabase.getInstance().getReference("Posts")
-        dbref.addValueEventListener(object : ValueEventListener {
+    private fun EventChangeListener() {
 
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                if (snapshot.exists()) {
-
-                    for (postSnapshot in snapshot.children) {
-                        val post = postSnapshot.getValue(Post::class.java)
-                        postArrayList.add(post!!)
-                    }
-                    postRecyclerView.adapter = PostAdapter(postArrayList)
+        db = FirebaseFirestore.getInstance()
+        db.collection("posts").addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                if (error != null) {
+                    Log.e("Firestore Error", error.message.toString())
+                    return
                 }
-            }
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        postArrayList.add(dc.document.toObject(Post::class.java))
 
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("Not yet implemented")
+                    }
+                }
+                postAdapter.notifyDataSetChanged()
             }
         })
     }
-
 }
+

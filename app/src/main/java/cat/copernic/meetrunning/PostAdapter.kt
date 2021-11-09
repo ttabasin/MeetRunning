@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import android.widget.Toast
 
 class PostAdapter(private val postList : ArrayList<Post>) : RecyclerView.Adapter<PostAdapter.MyViewHolder>() {
 
@@ -24,6 +25,10 @@ class PostAdapter(private val postList : ArrayList<Post>) : RecyclerView.Adapter
 
         holder.title.text = currentPost.title
         holder.description.text = currentPost.description
+
+        holder.itemView.setOnClickListener{ view ->
+            view.findNavController().navigate(R.id.action_home_to_route)
+        }
         //holder.image.imageAlpha = currentPost.image
 
     }
@@ -32,10 +37,12 @@ class PostAdapter(private val postList : ArrayList<Post>) : RecyclerView.Adapter
         return postList.size
     }
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         val title : TextView = itemView.findViewById(R.id.txt_title)
         val description : TextView = itemView.findViewById(R.id.txt_desc)
+
+
         //val image : ImageView = itemView.findViewById(R.id.image_post)
 
     }
