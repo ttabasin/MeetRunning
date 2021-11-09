@@ -3,6 +3,7 @@ package cat.copernic.meetrunning
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
@@ -34,7 +35,9 @@ class SignUpActivity : AppCompatActivity() {
             && binding.SignUpEmail.text.isNotBlank() && binding.SignUpConfirmEmail.text.isNotBlank()
             && binding.checkBox.isChecked
         ) {
-            if (binding.editPassword.text.equals(binding.editConfirmPassword.text)) {
+            Log.d("signup", binding.editConfirmPassword.text.toString())
+            if (binding.editPassword.text.toString() == binding.editConfirmPassword.text.toString()) {
+
                 return true
             }
             Toast.makeText(this, R.string.error_passwd, Toast.LENGTH_LONG).show()
