@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/bckground">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,12 +13,14 @@
             android:id="@+id/editTextTextPersonName2"
             android:layout_width="293dp"
             android:layout_height="39dp"
-            android:layout_marginStart="56dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/edit_text_border"
             android:ems="10"
             android:hint="Title"
             android:inputType="textPersonName"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,6 +34,8 @@
             android:gravity="start|top"
             android:hint="Description"
             android:inputType="textMultiLine"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
@@ -40,11 +45,12 @@
             android:id="@+id/imageView3"
             android:layout_width="0dp"
             android:layout_height="142dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="416dp"
             app:layout_constraintEnd_toEndOf="@+id/editTextTextMultiLine2"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine2"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@color/ic_launcher_background"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <Button
@@ -60,26 +66,70 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/distanceTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/edit_text_border"
+            android:padding="5dp"
             android:text="14 KM"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine2"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/timeTxt"
+            app:layout_constraintHorizontal_bias="0.619"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.526" />
+
+        <TextView
+            android:id="@+id/timeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="2:00:00"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.425"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.527" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/txtViewLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INFO"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.143"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2"
+            app:layout_constraintVertical_bias="0.052" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/txtViewInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@string/distance"
+            app:layout_constraintBottom_toTopOf="@+id/distanceTxt"
+            app:layout_constraintEnd_toStartOf="@+id/textView3"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.842" />
 
         <TextView
             android:id="@+id/textView3"
+            style="@style/txtViewInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_border"
-            android:text="2:00:00"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextMultiLine2"
-            app:layout_constraintHorizontal_bias="0.587"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="@+id/textView2" />
+            android:text="@string/time"
+            app:layout_constraintBottom_toTopOf="@+id/timeTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.395"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.997" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

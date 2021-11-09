@@ -34,7 +34,6 @@ class HomeFragment : Fragment() {
             it.findNavController().navigate(R.id.action_home_to_addRoute)
         }
 
-
         postRecyclerView = binding.recycler
         postRecyclerView.layoutManager = LinearLayoutManager(context)
         postRecyclerView.setHasFixedSize(true)

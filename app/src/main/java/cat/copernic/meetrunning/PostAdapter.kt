@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.view.menu.ActionMenuItemView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 
 class PostAdapter(private val postList : ArrayList<Post>) : RecyclerView.Adapter<PostAdapter.MyViewHolder>() {
@@ -38,5 +39,6 @@ class PostAdapter(private val postList : ArrayList<Post>) : RecyclerView.Adapter
         //val image : ImageView = itemView.findViewById(R.id.image_post)
 
     }
+
 
 }

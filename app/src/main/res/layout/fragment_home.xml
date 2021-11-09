@@ -9,6 +9,10 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
@@ -26,6 +30,7 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_row"/>
+        android:layout_marginTop="50dp"
+        tools:listitem="@layout/item_row" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
