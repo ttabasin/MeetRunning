@@ -13,6 +13,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="settings">Settings</string>
+    <string name="distance">Distance</string>
+    <string name="time">Time</string>
     <string name="favorites">Favorites</string>
     <string name="ranking">Ranking</string>
     <string name="map">Map</string>
@@ -23,6 +25,9 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="start">Start</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="continuebtn">Continue</string>
@@ -30,6 +35,10 @@
     <string name="confirmPassword">Confirm Password</string>
     <string name="checkBoxSignUp">I agree to the Terms of Service and Privacy Policiy</string>
     <string name="add_route">Add Route</string>
-    <string name="title">Title</string>
-    <string name="description">Description</string>
+    <string name="accept">Accept</string>
+    <string name="logOut">LogOut</string>
+    <!-- Strings used for ERRORS -->
+    <string name="error_auth">An error occurred authenticating the user</string>
+    <string name="error_empt">Empty Fields!</string>
+    <string name="error_passwd">Passwords don\'t match</string>
 </resources>

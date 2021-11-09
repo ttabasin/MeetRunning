@@ -22,4 +22,29 @@
             android:icon="@drawable/ic_baseline_settings_24"
             android:title="@string/settings" />
     </group>
+    <group>
+        <item
+            android:id="@+id/i1"
+            android:checkable="false"
+            android:enabled="false"
+            android:title="" />
+        <item
+            android:id="@+id/i2"
+            android:checkable="false"
+            android:enabled="false"
+            android:title="" />
+        <item
+            android:id="@+id/i3"
+            android:checkable="false"
+            android:enabled="false"
+            android:title="" />
+        <item
+            android:id="@+id/i4"
+            android:checkable="false"
+            android:enabled="false"
+            android:title="" />
+        <item
+            android:id="@+id/logOut"
+            android:title="@string/logOut" />
+    </group>
 </menu>

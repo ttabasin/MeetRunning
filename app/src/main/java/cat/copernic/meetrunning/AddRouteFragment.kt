@@ -11,28 +11,24 @@ import cat.copernic.meetrunning.databinding.FragmentHomeBinding
 
 class AddRouteFragment : Fragment() {
 
-    private lateinit var binding: FragmentAddRouteBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentAddRouteBinding.inflate(layoutInflater)
+        val binding = FragmentAddRouteBinding.inflate(layoutInflater)
 
-        binding.btnContinue.setOnClickListener {
-            if (checkInput()){
-                it.findNavController().navigate(R.id.action_addRoute_to_addRouteMap)
-            }
+        binding.signUpContinue.setOnClickListener {
+            it.findNavController().navigate(R.id.action_addRoute_to_addRouteMap)
         }
+
         // Inflate the layout for this fragment
         return binding.root
-    }
-
-    private fun checkInput(): Boolean {
-        if (binding.editTitle.text.isNotBlank() && binding.editDescription.text.isNotBlank()) {
-            return true
-        }
-        return false
     }
 
 }
