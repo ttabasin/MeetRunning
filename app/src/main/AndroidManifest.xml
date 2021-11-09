@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="cat.copernic.meetrunning">
 
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
