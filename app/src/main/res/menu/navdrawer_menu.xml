@@ -44,7 +44,7 @@
             android:enabled="false"
             android:title="" />
         <item
-            android:id="@+id/logOut"
+            android:id="@+id/signInActivity"
             android:title="@string/logOut" />
     </group>
 </menu>
