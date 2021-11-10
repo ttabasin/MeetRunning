@@ -48,8 +48,16 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupActionBarWithNavController(this,navController, appBarConfiguration)
         NavigationUI.setupWithNavController(binding.navView, navController)
+        //añade el email al nav header
         binding.navView.getHeaderView(0).findViewById<TextView>(R.id.emailMenu).text =
             FirebaseAuth.getInstance().currentUser?.email.toString()
+        //logOut
+        binding.navView.menu.getItem(9).setOnMenuItemClickListener {
+            val intent = Intent(this, SignInActivity::class.java)
+            FirebaseAuth.getInstance().signOut()
+            startActivity(intent)
+            true
+        }
 
     }
 

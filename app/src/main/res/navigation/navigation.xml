@@ -91,8 +91,4 @@
         android:name="cat.copernic.meetrunning.StatsFragment"
         android:label="fragment_stats"
         tools:layout="@layout/fragment_stats" />
-    <activity
-        android:id="@+id/signInActivity"
-        android:name="cat.copernic.meetrunning.SignInActivity"
-        android:label="SignInActivity" />
 </navigation>
