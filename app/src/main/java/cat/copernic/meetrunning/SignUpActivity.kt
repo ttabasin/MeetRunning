@@ -9,6 +9,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import cat.copernic.meetrunning.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.android.gms.tasks.Task
+
+import androidx.annotation.NonNull
+
+import com.google.android.gms.tasks.OnCompleteListener
+
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -55,8 +62,18 @@ class SignUpActivity : AppCompatActivity() {
                 auth.createUserWithEmailAndPassword(
                     binding.SignUpConfirmEmail.text.toString(),
                     binding.editPassword.text.toString()
-                ).addOnCompleteListener() {
+                ).addOnCompleteListener {
                     if (it.isSuccessful) {
+                        //Añade el nombre de usuario
+                        val profileUpdates = UserProfileChangeRequest.Builder()
+                            .setDisplayName(binding.SignUpEmail.text.toString()).build()
+
+                        auth.currentUser?.updateProfile(profileUpdates)
+                            ?.addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Log.d("User", "User profile updated.")
+                                }
+                            }
                         showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
                     } else {
                         showAlert()

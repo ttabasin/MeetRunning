@@ -57,6 +57,9 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.profile)
             drawerLayout.closeDrawers()
         }
+        //Usuario al header
+        binding.navView.getHeaderView(0).findViewById<TextView>(R.id.usernameMenu).text =
+                FirebaseAuth.getInstance().currentUser?.displayName.toString()
         //logOut
         binding.navView.menu.getItem(9).setOnMenuItemClickListener {
             val intent = Intent(this, SignInActivity::class.java)

@@ -19,7 +19,7 @@
             android:id="@+id/photoProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="test"
+            android:contentDescription="@string/profile"
             android:paddingTop="1dp"
             app:srcCompat="@mipmap/ic_launcher_round" />
 
@@ -36,7 +36,7 @@
             android:id="@+id/emailMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="username@test.com"
+            android:text=""
             android:textColor="@color/black" />
     </LinearLayout>
 </layout>
