@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -51,6 +52,11 @@ class MainActivity : AppCompatActivity() {
         //añade el email al nav header
         binding.navView.getHeaderView(0).findViewById<TextView>(R.id.emailMenu).text =
             FirebaseAuth.getInstance().currentUser?.email.toString()
+        //Pantalla perfil
+        binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.photoProfile).setOnClickListener {
+            navController.navigate(R.id.profile)
+            drawerLayout.closeDrawers()
+        }
         //logOut
         binding.navView.menu.getItem(9).setOnMenuItemClickListener {
             val intent = Intent(this, SignInActivity::class.java)

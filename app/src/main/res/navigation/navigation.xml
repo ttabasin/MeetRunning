@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/myRutes"
         android:name="cat.copernic.meetrunning.MyRutesFragment"
-        android:label="fragment_my_rutes"
+        android:label="Profile"
         tools:layout="@layout/fragment_my_rutes" />
     <fragment
         android:id="@+id/photos"
@@ -64,7 +64,7 @@
     <fragment
         android:id="@+id/profile"
         android:name="cat.copernic.meetrunning.ProfileActivity"
-        android:label="fragment_profile"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/ranking"

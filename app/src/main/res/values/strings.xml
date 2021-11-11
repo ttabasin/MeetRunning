@@ -41,4 +41,5 @@
     <string name="error_auth">An error occurred authenticating the user</string>
     <string name="error_empt">Empty Fields!</string>
     <string name="error_passwd">Passwords don\'t match</string>
+    <string name="profile">Profile</string>
 </resources>
