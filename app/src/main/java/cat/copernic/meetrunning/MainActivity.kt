@@ -1,25 +1,17 @@
 package cat.copernic.meetrunning
 
-import android.content.ClipData
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import cat.copernic.meetrunning.databinding.ActivityMainBinding
-import cat.copernic.meetrunning.databinding.NavHeaderBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 enum class ProviderType {
     BASIC
@@ -41,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.home, R.id.meetMap, R.id.ranking, R.id.favorites, R.id.settings, R.id.signInActivity
+                R.id.home, R.id.meetMap, R.id.ranking, R.id.favorites, R.id.settings, R.id.signInActivity, R.id.profile
             ), drawerLayout
         )
 
