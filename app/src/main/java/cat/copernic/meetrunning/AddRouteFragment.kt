@@ -39,7 +39,6 @@ class AddRouteFragment : Fragment() {
         binding.signUpContinue.setOnClickListener {
             it.findNavController().navigate(R.id.action_addRoute_to_addRouteMap)
         }
-        var picId = 0
 
         binding.imageView3.setOnClickListener {
             dispatchTakePictureIntent()
