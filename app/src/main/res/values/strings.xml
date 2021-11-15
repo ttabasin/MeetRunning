@@ -42,6 +42,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_sign_up">Sign up</string>
     <string name="start">Start</string>
+    <string name="finish">Finish</string>
 
     <!-- Errors -->
     <string name="error_auth">An error occurred authenticating the user</string>

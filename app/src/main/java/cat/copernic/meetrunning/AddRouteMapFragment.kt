@@ -3,7 +3,9 @@ package cat.copernic.meetrunning
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -57,6 +59,7 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
     private fun enableMyLocation(){
         if (isPermissionGranted()){
             mMap.isMyLocationEnabled = true
+
         }else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
