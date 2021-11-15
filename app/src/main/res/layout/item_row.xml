@@ -11,7 +11,8 @@
         android:layout_height="150dp"
         android:layout_margin="5dp"
         android:background="@drawable/customborder"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:cardBackgroundColor="@color/bckground">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -35,64 +36,52 @@
                 android:id="@+id/txt_ubi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="314dp"
                 android:layout_marginBottom="1dp"
                 android:text="CITY"
                 app:layout_constraintBottom_toTopOf="@+id/image_post"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txt_title"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/txt_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:id="@+id/image_post"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#A6CC84"
+                android:layout_width="385dp"
+                android:layout_height="100dp"
+                android:background="@mipmap/bosque"
                 android:padding="50dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.4" />
 
-            <TextView
-                android:id="@+id/likes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_baseline_thumb_up_24"
-                android:text="24"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <ImageButton
+                android:id="@+id/favButton"
+                android:layout_width="53dp"
+                android:layout_height="41dp"
+                android:layout_marginTop="92dp"
+                android:backgroundTint="#00FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.022"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_post"
-                app:layout_constraintVertical_bias="0.333" />
+                app:layout_constraintTop_toTopOf="@+id/image_post"
+                app:srcCompat="@drawable/ic_baseline_star_border_24" />
 
-            <TextView
-                android:id="@+id/comments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:drawableStart="@drawable/ic_baseline_textsms_24"
-                android:text="34"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.07"
-                app:layout_constraintStart_toEndOf="@+id/likes"
-                app:layout_constraintTop_toBottomOf="@+id/image_post"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <Button
-                android:id="@+id/share"
-                android:layout_width="44dp"
-                android:layout_height="28dp"
-                android:background="?android:attr/selectableItemBackground"
-                app:icon="?attr/actionModeShareDrawable"
+            <ImageButton
+                android:id="@+id/shareButton"
+                android:layout_width="49dp"
+                android:layout_height="35dp"
+                android:backgroundTint="#00FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/ic_baseline_share_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
