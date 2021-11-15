@@ -3,12 +3,9 @@ package cat.copernic.meetrunning
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import android.widget.Toast
 
 class PostAdapter(private val postList : ArrayList<Post>) : RecyclerView.Adapter<PostAdapter.MyViewHolder>() {
 
@@ -40,7 +37,7 @@ class PostAdapter(private val postList : ArrayList<Post>) : RecyclerView.Adapter
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         val title : TextView = itemView.findViewById(R.id.txt_title)
-        val description : TextView = itemView.findViewById(R.id.txt_desc)
+        val description : TextView = itemView.findViewById(R.id.txt_ubi)
 
 
         //val image : ImageView = itemView.findViewById(R.id.image_post)

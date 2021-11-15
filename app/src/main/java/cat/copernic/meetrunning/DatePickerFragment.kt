@@ -2,9 +2,7 @@ package cat.copernic.meetrunning
 
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
@@ -30,15 +28,11 @@ class DatePickerFragment :
         c.set(Calendar.DAY_OF_MONTH, day)
 
         val selectedDate = SimpleDateFormat("MM", Locale.ENGLISH).format(c.time)
-
         val selectedDateBundle = Bundle()
 
         selectedDateBundle.putString("SELECTED_DATE", selectedDate)
-
         setFragmentResult("REQUEST_KEY", selectedDateBundle)
 
     }
-
-
 
 }

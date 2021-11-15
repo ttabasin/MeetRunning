@@ -17,11 +17,9 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
         binding.apply {
 
             //Posar el mes actual com a text
-
             val c = Calendar.getInstance()
             val currentMonth = c.get(Calendar.MONTH) + 1
             monthText.text = changeMonth(currentMonth.toString())
-
 
             calendar.setOnClickListener {
                 //Crear una instància de DatePickerFragment
@@ -54,40 +52,40 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
         lateinit var month: String
         when {
             date.toString() == "01" -> {
-                month = "Gener"
+                month = getString(R.string.january)
             }
             date.toString() == "02" -> {
-                month = "Febrer"
+                month = getString(R.string.february)
             }
             date.toString() == "03" -> {
-                month = "Març"
+                month = getString(R.string.march)
             }
             date.toString() == "04" -> {
-                month = "Abril"
+                month = getString(R.string.april)
             }
             date.toString() == "05" -> {
-                month = "Maig"
+                month = getString(R.string.may)
             }
             date.toString() == "06" -> {
-                month = "Juny"
+                month = getString(R.string.june)
             }
             date.toString() == "07" -> {
-                month = "Juliol"
+                month = getString(R.string.july)
             }
             date.toString() == "08" -> {
-                month = "Agost"
+                month = getString(R.string.august)
             }
             date.toString() == "09" -> {
-                month = "Setembre"
+                month = getString(R.string.september)
             }
             date.toString() == "10" -> {
-                month = "Octubre"
+                month = getString(R.string.october)
             }
             date.toString() == "11" -> {
-                month = "Novembre"
+                month = getString(R.string.november)
             }
             date.toString() == "12" -> {
-                month = "Desembre"
+                month = getString(R.string.december)
             }
         }
         return month
