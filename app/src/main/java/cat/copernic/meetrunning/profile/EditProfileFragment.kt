@@ -1,10 +1,11 @@
-package cat.copernic.meetrunning
+package cat.copernic.meetrunning.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import cat.copernic.meetrunning.R
 
 class EditProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters

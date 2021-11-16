@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning
+package cat.copernic.meetrunning.home
 
 import android.widget.ImageView
 

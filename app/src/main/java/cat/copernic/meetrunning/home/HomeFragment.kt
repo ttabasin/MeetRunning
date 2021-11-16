@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning
+package cat.copernic.meetrunning.home
 
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil.setContentView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.R.layout.fragment_home
 import cat.copernic.meetrunning.databinding.FragmentHomeBinding
 import com.google.firebase.database.*

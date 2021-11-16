@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning
+package cat.copernic.meetrunning.ranking
 
 import android.app.DatePickerDialog
 import android.app.Dialog

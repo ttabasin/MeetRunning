@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/achivements"
-        android:name="cat.copernic.meetrunning.AchivementsFragment"
+        android:name="cat.copernic.meetrunning.profile.AchivementsFragment"
         android:label="fragment_achivements"
         tools:layout="@layout/fragment_achivements" />
     <fragment
         android:id="@+id/addRoute"
-        android:name="cat.copernic.meetrunning.AddRouteFragment"
+        android:name="cat.copernic.meetrunning.addRoute.AddRouteFragment"
         android:label="@string/add_route"
         tools:layout="@layout/fragment_add_route" >
         <action
@@ -21,12 +21,12 @@
     </fragment>
     <fragment
         android:id="@+id/addRouteMap"
-        android:name="cat.copernic.meetrunning.AddRouteMapFragment"
+        android:name="cat.copernic.meetrunning.addRoute.AddRouteMapFragment"
         android:label="@string/add_route"
         tools:layout="@layout/fragment_add_route_map" />
     <fragment
         android:id="@+id/editProfile"
-        android:name="cat.copernic.meetrunning.EditProfileFragment"
+        android:name="cat.copernic.meetrunning.profile.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
@@ -41,7 +41,7 @@
         tools:layout="@layout/fragment_meet_map" />
     <fragment
         android:id="@+id/home"
-        android:name="cat.copernic.meetrunning.HomeFragment"
+        android:name="cat.copernic.meetrunning.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
@@ -53,32 +53,32 @@
     </fragment>
     <fragment
         android:id="@+id/myRutes"
-        android:name="cat.copernic.meetrunning.MyRutesFragment"
+        android:name="cat.copernic.meetrunning.profile.MyRutesFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_my_rutes" />
     <fragment
         android:id="@+id/photos"
-        android:name="cat.copernic.meetrunning.PhotosFragment"
+        android:name="cat.copernic.meetrunning.profile.PhotosFragment"
         android:label="fragment_photos"
         tools:layout="@layout/fragment_photos" />
     <fragment
         android:id="@+id/profile"
-        android:name="cat.copernic.meetrunning.ProfileActivity"
+        android:name="cat.copernic.meetrunning.profile.ProfileActivity"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/ranking"
-        android:name="cat.copernic.meetrunning.RankingFragment"
+        android:name="cat.copernic.meetrunning.ranking.RankingFragment"
         android:label="@string/ranking"
         tools:layout="@layout/fragment_ranking" />
     <fragment
         android:id="@+id/route"
-        android:name="cat.copernic.meetrunning.RouteFragment"
+        android:name="cat.copernic.meetrunning.route.RouteFragment"
         android:label="fragment_route"
         tools:layout="@layout/fragment_route" />
     <fragment
         android:id="@+id/routeMap"
-        android:name="cat.copernic.meetrunning.RouteMapFragment"
+        android:name="cat.copernic.meetrunning.route.RouteMapFragment"
         android:label="fragment_route_map"
         tools:layout="@layout/fragment_route_map" />
     <fragment
@@ -88,7 +88,7 @@
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/stats"
-        android:name="cat.copernic.meetrunning.StatsFragment"
+        android:name="cat.copernic.meetrunning.profile.StatsFragment"
         android:label="fragment_stats"
         tools:layout="@layout/fragment_stats" />
 </navigation>

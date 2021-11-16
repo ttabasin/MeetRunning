@@ -1,14 +1,27 @@
-package cat.copernic.meetrunning
+package cat.copernic.meetrunning.ranking
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentRankingBinding
+import cat.copernic.meetrunning.home.Post
+import cat.copernic.meetrunning.home.PostAdapter
+import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
 import java.util.*
 
 class RankingFragment : Fragment(R.layout.fragment_ranking) {
     private var _binding: FragmentRankingBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var recyclerRanking: RecyclerView
+    private lateinit var userArrayList: ArrayList<User>
+    private lateinit var userAdapter: UserAdapter
+    private lateinit var db: FirebaseFirestore
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,6 +54,38 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
                 datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
             }
         }
+
+
+
+
+        recyclerRanking = binding.recyclerRanking
+        recyclerRanking.layoutManager = LinearLayoutManager(context)
+        recyclerRanking.setHasFixedSize(true)
+
+        userArrayList = arrayListOf()
+
+        userAdapter = UserAdapter(userArrayList)
+
+        recyclerRanking.adapter = userAdapter
+
+        EventChangeListener()
+
+    }
+
+    private fun EventChangeListener() {
+
+        db = FirebaseFirestore.getInstance()
+        db.collection("users").addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        userArrayList.add(dc.document.toObject(User::class.java))
+
+                    }
+                }
+                userAdapter.notifyDataSetChanged()
+            }
+        })
     }
 
     override fun onDestroyView() {

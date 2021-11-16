@@ -1,6 +1,5 @@
-package cat.copernic.meetrunning
+package cat.copernic.meetrunning.addRoute
 
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,16 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import cat.copernic.meetrunning.databinding.FragmentAddRouteBinding
-import cat.copernic.meetrunning.databinding.FragmentHomeBinding
-import androidx.core.app.ActivityCompat.startActivityForResult
 
 import android.provider.MediaStore
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
 import android.util.Log
+import cat.copernic.meetrunning.R
 
 
 class AddRouteFragment : Fragment() {
