@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.Polyline
+import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.coroutines.*
 import kotlin.math.*
 
@@ -77,16 +80,18 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
                         location = LatLng(it.latitude, it.longitude)
                         Log.d("location", "$location $c")
                         positions.add(location)
-                        mMap.addMarker(
+                        /*mMap.addMarker(
                             MarkerOptions()
                                 .position(location)
                                 .title(c.toString())
-                        )
+                        )*/
                         if (c > 0){
                             Log.d("pos", positions[c-1].toString())
                             //Log.d("d", calculateDistance(location, positions.get(c-1)).toString())
                             distance += calculateDistance(location, positions[c-1])
                             binding.textDistance.text = "${"%.3f".format(distance)}Km"
+                            mMap.addPolyline(PolylineOptions().add(location, positions[c-1])
+                                .color(Color.GREEN).width(25F))
                         }
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
                         c++
