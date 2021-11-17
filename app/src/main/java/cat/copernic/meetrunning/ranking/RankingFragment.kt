@@ -1,15 +1,12 @@
 package cat.copernic.meetrunning.ranking
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentRankingBinding
-import cat.copernic.meetrunning.home.Post
-import cat.copernic.meetrunning.home.PostAdapter
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import java.util.*
@@ -95,41 +92,41 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
 
     private fun changeMonth(date: String): String {
         lateinit var month: String
-        when {
-            date.toString() == "01" -> {
+        when (date) {
+            "01" -> {
                 month = getString(R.string.january)
             }
-            date.toString() == "02" -> {
+            "02" -> {
                 month = getString(R.string.february)
             }
-            date.toString() == "03" -> {
+            "03" -> {
                 month = getString(R.string.march)
             }
-            date.toString() == "04" -> {
+            "04" -> {
                 month = getString(R.string.april)
             }
-            date.toString() == "05" -> {
+            "05" -> {
                 month = getString(R.string.may)
             }
-            date.toString() == "06" -> {
+            "06" -> {
                 month = getString(R.string.june)
             }
-            date.toString() == "07" -> {
+            "07" -> {
                 month = getString(R.string.july)
             }
-            date.toString() == "08" -> {
+            "08" -> {
                 month = getString(R.string.august)
             }
-            date.toString() == "09" -> {
+            "09" -> {
                 month = getString(R.string.september)
             }
-            date.toString() == "10" -> {
+            "10" -> {
                 month = getString(R.string.october)
             }
-            date.toString() == "11" -> {
+            "11" -> {
                 month = getString(R.string.november)
             }
-            date.toString() == "12" -> {
+            "12" -> {
                 month = getString(R.string.december)
             }
         }

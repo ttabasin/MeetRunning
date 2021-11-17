@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning
+package cat.copernic.meetrunning.authentication
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import cat.copernic.meetrunning.MainActivity
+import cat.copernic.meetrunning.ProviderType
+import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
 

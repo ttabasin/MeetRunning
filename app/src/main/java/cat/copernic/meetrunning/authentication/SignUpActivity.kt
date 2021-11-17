@@ -1,5 +1,6 @@
-package cat.copernic.meetrunning
+package cat.copernic.meetrunning.authentication
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,9 +11,10 @@ import androidx.databinding.DataBindingUtil
 import cat.copernic.meetrunning.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.android.gms.tasks.Task
 
-import androidx.annotation.NonNull
+import cat.copernic.meetrunning.MainActivity
+import cat.copernic.meetrunning.ProviderType
+import cat.copernic.meetrunning.R
 
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.FirebaseFirestore
@@ -36,7 +38,6 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         setup()
-
     }
 
     private fun checkInput(): Boolean {
@@ -67,12 +68,14 @@ class SignUpActivity : AppCompatActivity() {
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
 
+                        db = FirebaseFirestore.getInstance()
                         val user = hashMapOf(
                             "username" to binding.SignUpEmail.text.toString(),
-                            "email" to  binding.SignUpConfirmEmail.text.toString()
+                            "email" to binding.SignUpConfirmEmail.text.toString()
                         )
 
-                        //db.collection("users").document(binding.SignUpConfirmEmail.text.toString()).set(user)
+                        db.collection("users").document(binding.SignUpConfirmEmail.text.toString()).set(user)
+
 
                         //Añade el nombre de usuario
                         val profileUpdates = UserProfileChangeRequest.Builder()
