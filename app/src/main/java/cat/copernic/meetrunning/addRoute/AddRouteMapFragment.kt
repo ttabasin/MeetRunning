@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentAddRouteMapBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.coroutines.*
 import kotlin.math.*
@@ -57,7 +59,8 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
-        mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+        //mMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
+        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style))
         enableMyLocation()
         getCurrentLocation()
         //val sydney = LatLng(-34.0, 151.0)
