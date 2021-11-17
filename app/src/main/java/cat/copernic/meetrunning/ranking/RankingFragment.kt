@@ -46,14 +46,10 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
                         monthText.text = changeMonth(date.toString())
                     }
                 }
-
                 //Mostrar el calendari
                 datePickerFragment.show(supportFragmentManager, "DatePickerFragment")
             }
         }
-
-
-
 
         recyclerRanking = binding.recyclerRanking
         recyclerRanking.layoutManager = LinearLayoutManager(context)

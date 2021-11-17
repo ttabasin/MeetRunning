@@ -31,7 +31,7 @@
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/favorites"
-        android:name="cat.copernic.meetrunning.FavoritesFragment"
+        android:name="cat.copernic.meetrunning.favorites.FavoritesFragment"
         android:label="@string/favorites"
         tools:layout="@layout/fragment_favorites" />
     <fragment
