@@ -6,14 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
-import cat.copernic.meetrunning.R.layout.fragment_home
 import cat.copernic.meetrunning.databinding.FragmentHomeBinding
-import com.google.firebase.database.*
 import com.google.firebase.firestore.*
 
 

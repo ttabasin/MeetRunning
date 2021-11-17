@@ -22,11 +22,11 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".authentication.SignUpActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".authentication.SignInActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

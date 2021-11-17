@@ -9,9 +9,13 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseAuth
 
 class PostAdapter(private val postList: ArrayList<Post>) :
     RecyclerView.Adapter<PostAdapter.MyViewHolder>() {
+
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -26,11 +30,14 @@ class PostAdapter(private val postList: ArrayList<Post>) :
 
         val currentPost = postList[position]
 
+
+
         holder.title.text = currentPost.title
         holder.description.text = currentPost.description
 
         holder.itemView.setOnClickListener { view ->
             view.findNavController().navigate(R.id.action_home_to_route)
+            Log.i("PostAdapter", "$currentPost")
         }
         //holder.image.imageAlpha = currentPost.image
 
@@ -47,7 +54,14 @@ class PostAdapter(private val postList: ArrayList<Post>) :
         }
 
         holder.favButton.setOnClickListener {
-            Log.i("PostAdapter", "clickFav")
+
+            db = FirebaseFirestore.getInstance()
+            val route = currentPost
+            val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
+
+
+            db.collection("users").document(currentUser).collection("favorites").add(route)
+
         }
     }
 
