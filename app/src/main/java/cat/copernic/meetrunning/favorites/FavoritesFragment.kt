@@ -10,17 +10,18 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
+import cat.copernic.meetrunning.databinding.FragmentFavoritesBinding
 import cat.copernic.meetrunning.databinding.FragmentHomeBinding
-import cat.copernic.meetrunning.home.Post
-import cat.copernic.meetrunning.home.PostAdapter
+import cat.copernic.meetrunning.home.PostHome
+import cat.copernic.meetrunning.home.PostAdapterHome
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
 class FavoritesFragment : Fragment() {
 
     private lateinit var postRecyclerView: RecyclerView
-    private lateinit var postArrayList: ArrayList<Post>
-    private lateinit var postAdapter: PostAdapter
+    private lateinit var postArrayList: ArrayList<PostHome>
+    private lateinit var postAdapter: PostAdapterHome
     private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
@@ -28,11 +29,7 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding = FragmentHomeBinding.inflate(layoutInflater)
-
-        binding.floatingActionButton.setOnClickListener {
-            it.findNavController().navigate(R.id.action_home_to_addRoute)
-        }
+        val binding = FragmentFavoritesBinding.inflate(layoutInflater)
 
 
         postRecyclerView = binding.recycler
@@ -41,7 +38,7 @@ class FavoritesFragment : Fragment() {
 
         postArrayList = arrayListOf()
 
-        postAdapter = PostAdapter(postArrayList)
+        postAdapter = PostAdapterHome(postArrayList)
 
         postRecyclerView.adapter = postAdapter
 
@@ -59,14 +56,9 @@ class FavoritesFragment : Fragment() {
         db.collection("users").document(currentUser).collection("favorites")
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                if (error != null) {
-                    Log.e("Firestore Error", error.message.toString())
-                    return
-                }
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
-                        postArrayList.add(dc.document.toObject(Post::class.java))
-
+                        postArrayList.add(dc.document.toObject(PostHome::class.java))
                     }
                 }
                 postAdapter.notifyDataSetChanged()

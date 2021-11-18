@@ -17,8 +17,8 @@ import com.google.firebase.firestore.*
 class HomeFragment : Fragment() {
 
     private lateinit var postRecyclerView: RecyclerView
-    private lateinit var postArrayList: ArrayList<Post>
-    private lateinit var postAdapter: PostAdapter
+    private lateinit var postHomeArrayList: ArrayList<PostHome>
+    private lateinit var postAdapterHome: PostAdapterHome
     private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
@@ -37,11 +37,11 @@ class HomeFragment : Fragment() {
         postRecyclerView.layoutManager = LinearLayoutManager(context)
         postRecyclerView.setHasFixedSize(true)
 
-        postArrayList = arrayListOf()
+        postHomeArrayList = arrayListOf()
 
-        postAdapter = PostAdapter(postArrayList)
+        postAdapterHome = PostAdapterHome(postHomeArrayList)
 
-        postRecyclerView.adapter = postAdapter
+        postRecyclerView.adapter = postAdapterHome
 
         EventChangeListener()
 
@@ -60,11 +60,11 @@ class HomeFragment : Fragment() {
                 }
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
-                        postArrayList.add(dc.document.toObject(Post::class.java))
+                        postHomeArrayList.add(dc.document.toObject(PostHome::class.java))
 
                     }
                 }
-                postAdapter.notifyDataSetChanged()
+                postAdapterHome.notifyDataSetChanged()
             }
         })
     }

@@ -12,8 +12,8 @@ import cat.copernic.meetrunning.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
 
-class PostAdapter(private val postList: ArrayList<Post>) :
-    RecyclerView.Adapter<PostAdapter.MyViewHolder>() {
+class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
+    RecyclerView.Adapter<PostAdapterHome.MyViewHolder>() {
 
     private lateinit var db: FirebaseFirestore
 
@@ -28,12 +28,13 @@ class PostAdapter(private val postList: ArrayList<Post>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val currentPost = postList[position]
-
-
+        val currentPost = postHomeList[position]
+        val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
+        db = FirebaseFirestore.getInstance()
+        val route = currentPost
 
         holder.title.text = currentPost.title
-        holder.description.text = currentPost.description
+        holder.ubication.text = currentPost.description
 
         holder.itemView.setOnClickListener { view ->
             view.findNavController().navigate(R.id.action_home_to_route)
@@ -53,26 +54,42 @@ class PostAdapter(private val postList: ArrayList<Post>) :
             startActivity(shareIntent)*/
         }
 
+        val exists = db.collection("users").document(currentUser).collection("favorites")
+            .document(currentPost.title.toString())
+
+        Log.i("PostAdapter1", "$exists")
+
+        /*if(existeix){
+        holder.favButton.setImageResource(R.drawable.ic_baseline_star_24check)
+
         holder.favButton.setOnClickListener {
 
-            db = FirebaseFirestore.getInstance()
-            val route = currentPost
-            val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
-
-
-            db.collection("users").document(currentUser).collection("favorites").add(route)
-
+            db.collection("users").document(currentUser).collection("favorites")
+                .document(currentPost.title.toString()).delete(route)
+            holder.favButton.setImageResource(R.drawable.ic_baseline_star_24)
         }
+
+        } else {*/
+
+        holder.favButton.setOnClickListener {
+            db.collection("users").document(currentUser).collection("favorites")
+                .document(currentPost.title.toString()).set(route)
+
+            holder.favButton.setImageResource(R.drawable.ic_baseline_star_24check)
+        }
+
+        //}
+
     }
 
     override fun getItemCount(): Int {
-        return postList.size
+        return postHomeList.size
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val title: TextView = itemView.findViewById(R.id.txt_title)
-        val description: TextView = itemView.findViewById(R.id.txt_ubication)
+        val ubication: TextView = itemView.findViewById(R.id.txt_ubication)
         val shareButton: ImageButton = itemView.findViewById(R.id.shareButton)
         val favButton: ImageButton = itemView.findViewById(R.id.favButton)
 
