@@ -47,7 +47,7 @@ class AddRouteFragment : Fragment() {
         binding.signUpContinue.setOnClickListener {
             val db = FirebaseFirestore.getInstance()
             val gcd = Geocoder(context, Locale.getDefault())
-            val route = PostHome(
+            val route = Route(
                 binding.editTextTextPersonName2.text.toString(),
                 binding.editTextTextMultiLine2.text.toString(),
                 args.route.toMutableList(),
@@ -91,4 +91,11 @@ class AddRouteFragment : Fragment() {
     }
 
 }
+data class Route(
+    var title: String = "",
+    var description: String = "",
+    var route: MutableList<LatLng> = ArrayList(),
+    var user: String = "",
+    var city: String = ""
+)
 

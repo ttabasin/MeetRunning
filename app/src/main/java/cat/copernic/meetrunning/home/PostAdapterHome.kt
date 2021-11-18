@@ -34,10 +34,10 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
         val route = currentPost
 
         holder.title.text = currentPost.title
-        holder.ubication.text = currentPost.description
+        holder.ubication.text = currentPost.city
 
         holder.itemView.setOnClickListener { view ->
-            view.findNavController().navigate(R.id.action_home_to_route)
+            view.findNavController().navigate(HomeFragmentDirections.actionHomeToRoute(currentPost))
             Log.i("PostAdapter", "$currentPost")
         }
         //holder.image.imageAlpha = currentPost.image
