@@ -42,7 +42,7 @@ class AddRouteFragment : Fragment() {
 
         binding = FragmentAddRouteBinding.inflate(layoutInflater)
         val args = AddRouteFragmentArgs.fromBundle(requireArguments())
-        binding.distanceTxt.text = args.distance.toString()
+        binding.distanceTxt.text ="${"%.3f".format(args.distance)}Km"
 
         binding.signUpContinue.setOnClickListener {
             val db = FirebaseFirestore.getInstance()
@@ -52,7 +52,8 @@ class AddRouteFragment : Fragment() {
                 binding.editTextTextMultiLine2.text.toString(),
                 args.route.toMutableList(),
                 FirebaseAuth.getInstance().currentUser?.email.toString(),
-                gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality
+                gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality,
+                args.distance.toDouble()
             )
             Log.d("city", gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality)
             db.collection("posts").document(binding.editTextTextPersonName2.text.toString())
@@ -96,6 +97,7 @@ data class Route(
     var description: String = "",
     var route: MutableList<LatLng> = ArrayList(),
     var user: String = "",
-    var city: String = ""
+    var city: String = "",
+    var distance: Double = 0.0
 )
 
