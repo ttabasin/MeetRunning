@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
         val binding = FragmentHomeBinding.inflate(layoutInflater)
 
         binding.floatingActionButton.setOnClickListener {
-            it.findNavController().navigate(R.id.action_home_to_addRoute)
+            it.findNavController().navigate(R.id.action_home_to_addRouteMap)
         }
 
 

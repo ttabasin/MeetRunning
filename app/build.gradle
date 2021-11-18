@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
     id 'com.google.gms.google-services'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'androidx.navigation.safeargs'
+    id "kotlin-kapt"
 }
 
 android {
@@ -56,12 +58,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
-    implementation "com.google.android.material:material:$version"
+    implementation "com.google.android.material:material:1.4.0"
     implementation 'com.firebaseui:firebase-ui-database:5.0.0'
     implementation 'com.google.firebase:firebase-core:20.0.0'
     implementation platform('com.google.firebase:firebase-bom:28.4.1')
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-auth:21.0.1'
 
-    implementation('androidx.fragment:fragment-ktx:1.4.0-alpha02')
+    implementation('androidx.fragment:fragment-ktx:1.4.0-rc01')
 }

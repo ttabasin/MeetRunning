@@ -14,7 +14,13 @@ import android.provider.MediaStore
 import android.content.Intent
 import android.graphics.Bitmap
 import android.util.Log
+import androidx.navigation.fragment.findNavController
 import cat.copernic.meetrunning.R
+import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import java.util.*
 
 
 class AddRouteFragment : Fragment() {
@@ -31,9 +37,21 @@ class AddRouteFragment : Fragment() {
     ): View? {
 
         binding = FragmentAddRouteBinding.inflate(layoutInflater)
+        val args = AddRouteFragmentArgs.fromBundle(requireArguments())
+        binding.distanceTxt.text = args.distance.toString()
 
         binding.signUpContinue.setOnClickListener {
-            it.findNavController().navigate(R.id.action_addRoute_to_addRouteMap)
+            val db = FirebaseFirestore.getInstance()
+            val data = hashMapOf(
+                "title" to binding.editTextTextPersonName2.text.toString(),
+                "description" to binding.editTextTextMultiLine2.text.toString(),
+                "route" to args.route.toMutableList(),
+                "user" to FirebaseAuth.getInstance().currentUser?.email.toString()
+            )
+            db.collection("posts").document(binding.editTextTextPersonName2.text.toString())
+                .set(data).addOnCompleteListener{
+                    findNavController().navigate(AddRouteFragmentDirections.actionAddRouteToHome())
+                }
         }
 
         binding.imageView3.setOnClickListener {

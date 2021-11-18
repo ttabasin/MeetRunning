@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentAddRouteMapBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -36,6 +37,7 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
     private var btnPressed = false
     private val positions: ArrayList<LatLng> = arrayListOf()
     private lateinit var job: Job
+    private var distance = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +55,8 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
             btnPressed = true
             job.cancel()
             Log.i("array", "${positions.size} $positions")
+            it.findNavController().navigate(AddRouteMapFragmentDirections
+                .actionAddRouteMapToAddRoute(positions.toTypedArray(), distance.toFloat()))
         }
         return binding.root
     }
@@ -69,9 +73,9 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
     @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
         if(isPermissionGranted()){
-            job = GlobalScope.launch(Dispatchers.Default) {
+            job = GlobalScope.launch(Dispatchers.IO) {
                 delay(10000)
-                var distance = 0.0
+                distance = 0.0
                 var c = 0
                 while (!btnPressed) {
                     fusedLocationClient.lastLocation.addOnSuccessListener {
@@ -103,6 +107,7 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
                 arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_LOCATION_PERMISSION
             )
+            getCurrentLocation()
         }
     }
 
