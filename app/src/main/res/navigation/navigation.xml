@@ -14,16 +14,26 @@
         android:id="@+id/addRoute"
         android:name="cat.copernic.meetrunning.addRoute.AddRouteFragment"
         android:label="@string/add_route"
-        tools:layout="@layout/fragment_add_route" >
+        tools:layout="@layout/fragment_add_route">
+        <argument
+            android:name="route"
+            app:argType="com.google.android.gms.maps.model.LatLng[]" />
+        <argument
+            android:name="distance"
+            app:argType="float" />
         <action
-            android:id="@+id/action_addRoute_to_addRouteMap"
-            app:destination="@id/addRouteMap" />
+            android:id="@+id/action_addRoute_to_home"
+            app:destination="@id/home" />
     </fragment>
     <fragment
         android:id="@+id/addRouteMap"
         android:name="cat.copernic.meetrunning.addRoute.AddRouteMapFragment"
         android:label="@string/add_route"
-        tools:layout="@layout/fragment_add_route_map" />
+        tools:layout="@layout/fragment_add_route_map">
+        <action
+            android:id="@+id/action_addRouteMap_to_addRoute"
+            app:destination="@id/addRoute" />
+    </fragment>
     <fragment
         android:id="@+id/editProfile"
         android:name="cat.copernic.meetrunning.profile.EditProfileFragment"
@@ -45,11 +55,11 @@
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_home_to_addRoute"
-            app:destination="@id/addRoute" />
-        <action
             android:id="@+id/action_home_to_route"
             app:destination="@id/route" />
+        <action
+            android:id="@+id/action_home_to_addRouteMap"
+            app:destination="@id/addRouteMap" />
     </fragment>
     <fragment
         android:id="@+id/myRutes"
