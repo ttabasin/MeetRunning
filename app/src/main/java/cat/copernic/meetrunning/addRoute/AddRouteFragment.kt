@@ -6,33 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
-import cat.copernic.meetrunning.databinding.FragmentAddRouteBinding
-
 import android.provider.MediaStore
-
 import android.content.Intent
 import android.graphics.Bitmap
 import android.location.Geocoder
 import android.util.Log
 import androidx.navigation.fragment.findNavController
-import cat.copernic.meetrunning.R
-import cat.copernic.meetrunning.home.PostHome
+import cat.copernic.meetrunning.databinding.FragmentAddRouteBinding
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
-import com.squareup.okhttp.Route
 import java.util.*
 import java.util.Locale
 
-
 class AddRouteFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     private lateinit var binding: FragmentAddRouteBinding
     override fun onCreateView(
@@ -44,23 +31,29 @@ class AddRouteFragment : Fragment() {
         val args = AddRouteFragmentArgs.fromBundle(requireArguments())
         binding.distanceTxt.text ="${"%.3f".format(args.distance)}Km"
 
-        binding.signUpContinue.setOnClickListener {
-            val db = FirebaseFirestore.getInstance()
-            val gcd = Geocoder(context, Locale.getDefault())
-            val route = Route(
-                binding.editTextTextPersonName2.text.toString(),
-                binding.editTextTextMultiLine2.text.toString(),
-                args.route.toMutableList(),
-                FirebaseAuth.getInstance().currentUser?.email.toString(),
-                gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality,
-                args.distance.toDouble()
-            )
-            Log.d("city", gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality)
-            db.collection("posts").document(binding.editTextTextPersonName2.text.toString())
-                .set(route).addOnCompleteListener {
-                    findNavController().navigate(AddRouteFragmentDirections.actionAddRouteToHome())
-                }
-        }
+        /*if(binding.editTextDescription.text.isEmpty()){
+            binding.signUpContinue.setEnabled(false)
+        }else{*/
+            binding.signUpContinue.setOnClickListener {
+                val db = FirebaseFirestore.getInstance()
+                val gcd = Geocoder(context, Locale.getDefault())
+                val route = Route(
+                    binding.editTextTitle.text.toString(),
+                    binding.editTextDescription.text.toString(),
+                    args.route.toMutableList(),
+                    FirebaseAuth.getInstance().currentUser?.email.toString(),
+                    gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality,
+                    args.distance.toDouble()
+                )
+                Log.d("city", gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality)
+                db.collection("posts").document(binding.editTextTitle.text.toString())
+                    .set(route).addOnCompleteListener {
+                        findNavController().navigate(AddRouteFragmentDirections.actionAddRouteToHome())
+                    }
+            }
+        //}
+
+
 
         binding.imageView3.setOnClickListener {
             dispatchTakePictureIntent()

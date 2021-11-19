@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentHomeBinding
 import com.google.firebase.firestore.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class HomeFragment : Fragment() {
@@ -61,7 +62,6 @@ class HomeFragment : Fragment() {
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         postHomeArrayList.add(dc.document.toObject(PostHome::class.java))
-
                     }
                 }
                 postAdapterHome.notifyDataSetChanged()

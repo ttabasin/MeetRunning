@@ -20,17 +20,15 @@ import com.google.firebase.firestore.*
 class FavoritesFragment : Fragment() {
 
     private lateinit var postRecyclerView: RecyclerView
-    private lateinit var postArrayList: ArrayList<PostHome>
-    private lateinit var postAdapter: PostAdapterHome
+    private lateinit var postArrayList: ArrayList<PostFav>
+    private lateinit var postAdapter: PostAdapterFav
     private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding = FragmentFavoritesBinding.inflate(layoutInflater)
-
 
         postRecyclerView = binding.recycler
         postRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -38,17 +36,17 @@ class FavoritesFragment : Fragment() {
 
         postArrayList = arrayListOf()
 
-        postAdapter = PostAdapterHome(postArrayList)
+        postAdapter = PostAdapterFav(postArrayList)
 
         postRecyclerView.adapter = postAdapter
 
-        EventChangeListener()
+        addRouteToList()
 
         // Inflate the layout for this fragment
         return binding.root
     }
 
-    private fun EventChangeListener() {
+    private fun addRouteToList() {
 
         db = FirebaseFirestore.getInstance()
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
@@ -58,7 +56,7 @@ class FavoritesFragment : Fragment() {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
-                        postArrayList.add(dc.document.toObject(PostHome::class.java))
+                        postArrayList.add(dc.document.toObject(PostFav::class.java))
                     }
                 }
                 postAdapter.notifyDataSetChanged()

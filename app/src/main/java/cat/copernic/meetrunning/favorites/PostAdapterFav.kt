@@ -20,7 +20,7 @@ class PostAdapterFav(private val postFavList: ArrayList<PostFav>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.item_row,
+            R.layout.item_row_fav,
             parent, false
         )
         return MyViewHolder(itemView)
@@ -31,17 +31,15 @@ class PostAdapterFav(private val postFavList: ArrayList<PostFav>) :
         val currentPost = postFavList[position]
 
         holder.title.text = currentPost.title
-        holder.ubication.text = currentPost.description
+        holder.location.text = currentPost.city
 
         holder.itemView.setOnClickListener { view ->
-            view.findNavController().navigate(R.id.action_home_to_route)
+            view.findNavController().navigate(R.id.action_favorites_to_route)
             Log.i("PostAdapter", "$currentPost")
         }
-        //holder.image.imageAlpha = currentPost.image
 
         holder.shareButton.setOnClickListener {
             Log.i("PostAdapter", "clickShare")
-
             /*val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
@@ -52,14 +50,11 @@ class PostAdapterFav(private val postFavList: ArrayList<PostFav>) :
         }
 
         holder.favButton.setOnClickListener {
-
             db = FirebaseFirestore.getInstance()
-            val route = currentPost
             val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
-
-            db.collection("users").document(currentUser).collection("favorites").add(route)
-            holder.favButton.setImageResource(R.drawable.ic_baseline_star_24check)
-
+            db.collection("users").document(currentUser).collection("favorites")
+                .document(currentPost.title.toString()).delete()
+            holder.favButton.setImageResource(R.drawable.ic_baseline_star_border_24)
         }
     }
 
@@ -69,10 +64,10 @@ class PostAdapterFav(private val postFavList: ArrayList<PostFav>) :
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val title: TextView = itemView.findViewById(R.id.txt_title)
-        val ubication: TextView = itemView.findViewById(R.id.txt_ubication)
-        val shareButton: ImageButton = itemView.findViewById(R.id.shareButton)
-        val favButton: ImageButton = itemView.findViewById(R.id.favButton)
+        val title: TextView = itemView.findViewById(R.id.txt_title2)
+        val location: TextView = itemView.findViewById(R.id.txt_location2)
+        val shareButton: ImageButton = itemView.findViewById(R.id.shareButton2)
+        val favButton: ImageButton = itemView.findViewById(R.id.favButton2)
 
         //val image : ImageView = itemView.findViewById(R.id.image_post)
 
