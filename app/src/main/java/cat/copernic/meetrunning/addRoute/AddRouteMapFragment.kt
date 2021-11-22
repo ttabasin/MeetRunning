@@ -107,7 +107,7 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
                 arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_LOCATION_PERMISSION
             )
-            getCurrentLocation()
+            //getCurrentLocation()
         }
     }
 
@@ -176,9 +176,11 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.mapView.onDestroy()
-        btnPressed = true
-        job.cancel()
+        if (job.isActive){
+            binding.mapView.onDestroy()
+            btnPressed = true
+            job.cancel()
+        }
     }
 
     override fun onLowMemory() {
