@@ -29,6 +29,7 @@ class AddRouteFragment : Fragment() {
 
         binding = FragmentAddRouteBinding.inflate(layoutInflater)
         val args = AddRouteFragmentArgs.fromBundle(requireArguments())
+        val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
         binding.distanceTxt.text = "${"%.3f".format(args.distance)}Km"
 
         /*if(binding.editTextDescription.text.isEmpty()){
@@ -41,25 +42,29 @@ class AddRouteFragment : Fragment() {
                 binding.editTextTitle.text.toString(),
                 binding.editTextDescription.text.toString(),
                 args.route.toMutableList(),
-                FirebaseAuth.getInstance().currentUser?.email.toString(),
+                currentUser,
                 gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality,
                 args.distance.toDouble()
             )
 
-            val email = FirebaseAuth.getInstance().currentUser?.email
-            val a = db.collection("users").document(email.toString()).get().addOnSuccessListener {
-                db.collection("users").document(email.toString())
-                    .update(mapOf("distance" to args.distance.toDouble() + it.getDouble("distance")!!))
+            //Actualitzar la distància feta de l'usuari
+            db.collection("users").document(currentUser).get().addOnSuccessListener {
+                db.collection("users").document(currentUser)
+                    .update(
+                        mapOf(
+                            "distance" to args.distance.toDouble() + it.getDouble("distance")!!
+                        )
+                    )
             }
-            Log.d(
-                "city",
-                gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality
-            )
+
+            //Afegir la ruta i anar al home
             db.collection("posts").document(binding.editTextTitle.text.toString())
                 .set(route).addOnCompleteListener {
                     findNavController().navigate(AddRouteFragmentDirections.actionAddRouteToHome())
                 }
-            db.collection("useres").document(email.toString()).collection("routes")
+
+            //Afegir la ruta a l'usuari
+            db.collection("useres").document(currentUser).collection("routes")
                 .document(binding.editTextTitle.text.toString()).set(route)
         }
         //}

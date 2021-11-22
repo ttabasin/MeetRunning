@@ -71,7 +71,8 @@ class SignUpActivity : AppCompatActivity() {
                         db = FirebaseFirestore.getInstance()
                         val user = hashMapOf(
                             "username" to binding.SignUpEmail.text.toString(),
-                            "email" to binding.SignUpConfirmEmail.text.toString()
+                            "email" to binding.SignUpConfirmEmail.text.toString(),
+                            "distance" to 0.0
                         )
 
                         db.collection("users").document(binding.SignUpConfirmEmail.text.toString()).set(user)
