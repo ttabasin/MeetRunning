@@ -31,6 +31,12 @@ class SignInActivity : AppCompatActivity() {
 
     private fun setup() {
         val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+        if(auth != null){
+            val homeIntent = Intent(this, MainActivity::class.java)
+            startActivity(homeIntent)
+        }
+
         binding.signInBt.setOnClickListener {
 
             if (checkInput()) {
@@ -47,6 +53,7 @@ class SignInActivity : AppCompatActivity() {
                     }
             }
         }
+
     }
 
     private fun showAlert() {

@@ -34,7 +34,7 @@ class PostAdapterFav(private val postFavList: ArrayList<PostFav>) :
         holder.location.text = currentPost.city
 
         holder.itemView.setOnClickListener { view ->
-            view.findNavController().navigate(R.id.action_favorites_to_route)
+            view.findNavController().navigate(FavoritesFragmentDirections.actionFavoritesToRoute(null, currentPost))
             Log.i("PostAdapter", "$currentPost")
         }
 

@@ -16,7 +16,7 @@ import com.google.android.gms.maps.model.LatLng
 
 class RouteFragment : Fragment() {
 
- lateinit var binding: FragmentRouteBinding
+    lateinit var binding: FragmentRouteBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,17 +25,31 @@ class RouteFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentRouteBinding.inflate(layoutInflater)
         val args = RouteFragmentArgs.fromBundle(requireArguments())
-        binding.descriptionRoute.text = args.post.description
-        binding.titleRoute.text = args.post.title
-        binding.distanceTxt.text = "${"%.3f".format(args.post.distance)}Km"
-
         val pos: ArrayList<LatLng> = ArrayList()
-        for (p in args.post.route){
-            pos.add(LatLng(p.latitude, p.longitude))
+
+        if (args.post?.description.isNullOrEmpty()) {
+            Log.i("RouteFragment", "${args.post?.description}")
+            binding.descriptionRoute.text = args.postFav?.description
+            binding.titleRoute.text = args.postFav?.title
+            binding.distanceTxt.text = "${"%.3f".format(args.postFav?.distance)}Km"
+            for (p in args.postFav?.route!!) {
+                pos.add(LatLng(p.latitude, p.longitude))
+            }
+
+        } else {
+            Log.i("RouteFragment", "${args.post?.description} HOMEEEEEEEE")
+            binding.descriptionRoute.text = args.post?.description
+            binding.titleRoute.text = args.post?.title
+            binding.distanceTxt.text = "${"%.3f".format(args.post?.distance)}Km"
+            for (p in args.post?.route!!) {
+                pos.add(LatLng(p.latitude, p.longitude))
+            }
+
         }
 
         binding.signUpContinue.setOnClickListener {
-            it.findNavController().navigate(RouteFragmentDirections.actionRouteToRouteMap(pos.toTypedArray()))
+            it.findNavController()
+                .navigate(RouteFragmentDirections.actionRouteToRouteMap(pos.toTypedArray()))
         }
         return binding.root
     }
