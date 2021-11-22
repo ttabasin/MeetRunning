@@ -32,7 +32,7 @@ class SignInActivity : AppCompatActivity() {
     private fun setup() {
         val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-        if(auth != null){
+        if(auth.currentUser != null){
             val homeIntent = Intent(this, MainActivity::class.java)
             startActivity(homeIntent)
         }

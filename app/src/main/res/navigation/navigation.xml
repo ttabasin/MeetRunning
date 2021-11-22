@@ -106,11 +106,14 @@
     <fragment
         android:id="@+id/routeMap"
         android:name="cat.copernic.meetrunning.route.RouteMapFragment"
-        android:label="fragment_route_map"
-        tools:layout="@layout/fragment_route_map" >
+        android:label="@string/route_map"
+        tools:layout="@layout/fragment_route_map">
         <argument
             android:name="route"
             app:argType="com.google.android.gms.maps.model.LatLng[]" />
+        <action
+            android:id="@+id/action_routeMap_to_home"
+            app:destination="@id/home" />
     </fragment>
     <fragment
         android:id="@+id/settings"

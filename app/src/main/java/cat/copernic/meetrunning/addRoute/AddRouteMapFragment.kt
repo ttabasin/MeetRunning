@@ -98,7 +98,7 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
                         c++
                     }
-                    delay(15000)
+                    delay(5000)
                 }
             }
         }else{
@@ -177,6 +177,8 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
     override fun onDestroy() {
         super.onDestroy()
         binding.mapView.onDestroy()
+        btnPressed = true
+        job.cancel()
     }
 
     override fun onLowMemory() {
