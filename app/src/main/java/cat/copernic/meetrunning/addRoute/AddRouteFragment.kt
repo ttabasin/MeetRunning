@@ -29,30 +29,40 @@ class AddRouteFragment : Fragment() {
 
         binding = FragmentAddRouteBinding.inflate(layoutInflater)
         val args = AddRouteFragmentArgs.fromBundle(requireArguments())
-        binding.distanceTxt.text ="${"%.3f".format(args.distance)}Km"
+        binding.distanceTxt.text = "${"%.3f".format(args.distance)}Km"
 
         /*if(binding.editTextDescription.text.isEmpty()){
             binding.signUpContinue.setEnabled(false)
         }else{*/
-            binding.signUpContinue.setOnClickListener {
-                val db = FirebaseFirestore.getInstance()
-                val gcd = Geocoder(context, Locale.getDefault())
-                val route = Route(
-                    binding.editTextTitle.text.toString(),
-                    binding.editTextDescription.text.toString(),
-                    args.route.toMutableList(),
-                    FirebaseAuth.getInstance().currentUser?.email.toString(),
-                    gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality,
-                    args.distance.toDouble()
-                )
-                Log.d("city", gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality)
-                db.collection("posts").document(binding.editTextTitle.text.toString())
-                    .set(route).addOnCompleteListener {
-                        findNavController().navigate(AddRouteFragmentDirections.actionAddRouteToHome())
-                    }
-            }
-        //}
+        binding.signUpContinue.setOnClickListener {
+            val db = FirebaseFirestore.getInstance()
+            val gcd = Geocoder(context, Locale.getDefault())
+            val route = Route(
+                binding.editTextTitle.text.toString(),
+                binding.editTextDescription.text.toString(),
+                args.route.toMutableList(),
+                FirebaseAuth.getInstance().currentUser?.email.toString(),
+                gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality,
+                args.distance.toDouble()
+            )
 
+            val email = FirebaseAuth.getInstance().currentUser?.email
+            val a = db.collection("users").document(email.toString()).get().addOnSuccessListener {
+                db.collection("users").document(email.toString())
+                    .update(mapOf("distance" to args.distance.toDouble() + it.getDouble("distance")!!))
+            }
+            Log.d(
+                "city",
+                gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality
+            )
+            db.collection("posts").document(binding.editTextTitle.text.toString())
+                .set(route).addOnCompleteListener {
+                    findNavController().navigate(AddRouteFragmentDirections.actionAddRouteToHome())
+                }
+            db.collection("useres").document(email.toString()).collection("routes")
+                .document(binding.editTextTitle.text.toString()).set(route)
+        }
+        //}
 
 
         binding.imageView3.setOnClickListener {
@@ -85,6 +95,7 @@ class AddRouteFragment : Fragment() {
     }
 
 }
+
 data class Route(
     var title: String = "",
     var description: String = "",
