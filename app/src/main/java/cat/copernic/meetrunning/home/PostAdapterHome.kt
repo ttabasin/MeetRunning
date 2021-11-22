@@ -5,6 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filter.FilterResults
+import android.widget.Filterable
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
@@ -13,11 +16,16 @@ import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
+import java.util.ArrayList
+
+
+
 
 class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
-    RecyclerView.Adapter<PostAdapterHome.MyViewHolder>() {
+    RecyclerView.Adapter<PostAdapterHome.MyViewHolder>(), Filterable  {
 
     private lateinit var db: FirebaseFirestore
+    private var filteredPost = arrayListOf<PostHome>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -30,7 +38,7 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val currentPost = postHomeList[position]
+        val currentPost = filteredPost[position]
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
         db = FirebaseFirestore.getInstance()
 
@@ -76,7 +84,7 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
     }
 
     override fun getItemCount(): Int {
-        return postHomeList.size
+        return filteredPost.size
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -86,6 +94,33 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
         val shareButton: ImageButton = itemView.findViewById(R.id.shareButton)
         val favButton: ImageButton = itemView.findViewById(R.id.favButton)
 
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(charSequence: CharSequence): FilterResults {
+                val txt = charSequence.toString()
+                if (txt.isBlank()){
+                    filteredPost = postHomeList
+                }else{
+                    val fpost = arrayListOf<PostHome>()
+                    for (p in postHomeList){
+                        if (p.title?.lowercase()?.contains(txt.lowercase()) == true){
+                            fpost.add(p)
+                        }
+                    }
+                    filteredPost = fpost
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filteredPost
+                return filterResults
+            }
+
+            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+                filteredPost = filterResults.values as ArrayList<PostHome>
+                notifyDataSetChanged()
+            }
+        }
     }
 
 }
