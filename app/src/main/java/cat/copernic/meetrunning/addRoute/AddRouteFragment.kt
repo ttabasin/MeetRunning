@@ -11,7 +11,9 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.location.Geocoder
 import android.util.Log
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentAddRouteBinding
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
@@ -36,36 +38,42 @@ class AddRouteFragment : Fragment() {
             binding.signUpContinue.setEnabled(false)
         }else{*/
         binding.signUpContinue.setOnClickListener {
-            val db = FirebaseFirestore.getInstance()
-            val gcd = Geocoder(context, Locale.getDefault())
-            val route = Route(
-                binding.editTextTitle.text.toString(),
-                binding.editTextDescription.text.toString(),
-                args.route.toMutableList(),
-                currentUser,
-                gcd.getFromLocation(args.route[0].latitude, args.route[0].longitude, 1)[0].locality,
-                args.distance.toDouble()
-            )
+            if (checkInput()) {
+                val db = FirebaseFirestore.getInstance()
+                val gcd = Geocoder(context, Locale.getDefault())
+                val route = Route(
+                    binding.editTextTitle.text.toString(),
+                    binding.editTextDescription.text.toString(),
+                    args.route.toMutableList(),
+                    currentUser,
+                    gcd.getFromLocation(
+                        args.route[0].latitude,
+                        args.route[0].longitude,
+                        1
+                    )[0].locality,
+                    args.distance.toDouble()
+                )
 
-            //Actualitzar la distància feta de l'usuari
-            db.collection("users").document(currentUser).get().addOnSuccessListener {
-                db.collection("users").document(currentUser)
-                    .update(
-                        mapOf(
-                            "distance" to args.distance.toDouble() + it.getDouble("distance")!!
+                //Actualitzar la distància feta de l'usuari
+                db.collection("users").document(currentUser).get().addOnSuccessListener {
+                    db.collection("users").document(currentUser)
+                        .update(
+                            mapOf(
+                                "distance" to args.distance.toDouble() + it.getDouble("distance")!!
+                            )
                         )
-                    )
-            }
-
-            //Afegir la ruta i anar al home
-            db.collection("posts").document(binding.editTextTitle.text.toString())
-                .set(route).addOnCompleteListener {
-                    findNavController().navigate(AddRouteFragmentDirections.actionAddRouteToHome())
                 }
 
-            //Afegir la ruta a l'usuari
-            db.collection("useres").document(currentUser).collection("routes")
-                .document(binding.editTextTitle.text.toString()).set(route)
+                //Afegir la ruta i anar al home
+                db.collection("posts").document(binding.editTextTitle.text.toString())
+                    .set(route).addOnCompleteListener {
+                        findNavController().navigate(AddRouteFragmentDirections.actionAddRouteToHome())
+                    }
+
+                //Afegir la ruta a l'usuari
+                db.collection("useres").document(currentUser).collection("routes")
+                    .document(binding.editTextTitle.text.toString()).set(route)
+            }
         }
         //}
 
@@ -77,6 +85,14 @@ class AddRouteFragment : Fragment() {
 
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    private fun checkInput(): Boolean {
+        if (binding.editTextDescription.text.isNotBlank() && binding.editTextDescription.text.isNotBlank()) {
+            return true
+        }
+        Toast.makeText(requireContext(), R.string.error_empt, Toast.LENGTH_LONG).show()
+        return false
     }
 
     val REQUEST_IMAGE_CAPTURE = 1
