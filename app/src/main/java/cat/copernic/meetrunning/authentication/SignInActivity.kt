@@ -35,22 +35,22 @@ class SignInActivity : AppCompatActivity() {
         if(auth.currentUser != null){
             val homeIntent = Intent(this, MainActivity::class.java)
             startActivity(homeIntent)
-        }
+        }else{
+            binding.signInBt.setOnClickListener {
 
-        binding.signInBt.setOnClickListener {
-
-            if (checkInput()) {
-                auth.signInWithEmailAndPassword(
-                    binding.email.text.toString(),
-                    binding.password.text.toString()
-                )
-                    .addOnCompleteListener() {
-                        if (it.isSuccessful) {
-                            showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
-                        } else {
-                            showAlert()
+                if (checkInput()) {
+                    auth.signInWithEmailAndPassword(
+                        binding.email.text.toString(),
+                        binding.password.text.toString()
+                    )
+                        .addOnCompleteListener() {
+                            if (it.isSuccessful) {
+                                showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
+                            } else {
+                                showAlert()
+                            }
                         }
-                    }
+                }
             }
         }
 

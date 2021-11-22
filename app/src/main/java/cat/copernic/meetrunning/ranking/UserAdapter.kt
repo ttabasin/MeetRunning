@@ -25,7 +25,7 @@ class UserAdapter(private val userList: ArrayList<User>) :
         val currentPost = userList[position]
 
         holder.username.text = currentPost.username
-        holder.distance.text = currentPost.distance
+        holder.distance.text = currentPost.distance.toString() + "km"
 
         //holder.image.imageAlpha = currentPost.image
     }

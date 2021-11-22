@@ -1,6 +1,7 @@
 package cat.copernic.meetrunning.ranking
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -73,7 +74,10 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         userArrayList.add(dc.document.toObject(User::class.java))
-
+                        userArrayList.sortByDescending { it.distance }
+                        if(userArrayList.size > 5){
+                            userArrayList.removeAt(5)
+                        }
                     }
                 }
                 userAdapter.notifyDataSetChanged()
