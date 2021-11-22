@@ -1,6 +1,8 @@
 package cat.copernic.meetrunning.home
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -28,7 +30,19 @@ class HomeFragment : Fragment() {
     ): View? {
 
         val binding = FragmentHomeBinding.inflate(layoutInflater)
+        binding.search.addTextChangedListener(object : TextWatcher {
 
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                postAdapterHome.filter.filter(s)
+            }
+
+            override fun afterTextChanged(s: Editable) {
+
+            }
+        })
         binding.floatingActionButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_home_to_addRouteMap)
         }
@@ -42,10 +56,12 @@ class HomeFragment : Fragment() {
 
         postAdapterHome = PostAdapterHome(postHomeArrayList)
 
+
         postRecyclerView.adapter = postAdapterHome
 
         EventChangeListener()
-
+        val c: CharSequence = ""
+        postAdapterHome.filter.filter(c)
         // Inflate the layout for this fragment
         return binding.root
     }

@@ -4,6 +4,7 @@
     <string name="welcome">"Welcome !"</string>
     <string name="app_name">MeetRunning</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="search">Search</string>
 
     <!-- Registrar/Login -->
     <string name="username">Username</string>
@@ -33,6 +34,7 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="route_map">Route Map</string>
+    <string name="route">Route</string>
 
     <!-- Botons -->
     <string name="checkBoxSignUp">I agree to the Terms of Service and Privacy Policiy</string>
