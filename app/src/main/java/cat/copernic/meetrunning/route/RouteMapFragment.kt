@@ -29,7 +29,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.*
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -46,6 +50,7 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
     private var distance: Double = 0.0
     private val positions: ArrayList<GLatLng> = arrayListOf()
     private var btnPressed = false
+    private lateinit var time: Date
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +69,18 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
         binding.button.setOnClickListener {
             btnPressed = true
             job.cancel()
+            //Guarda el tiempo del usuario en la bd
+            val t = Calendar.getInstance().time.time - time.time
+            //val tFinal = SimpleDateFormat("HH:mm:ss").format(t)
+            val db = FirebaseFirestore.getInstance()
+            val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
+            db.collection("users").document(currentUser).get().addOnSuccessListener {
+                db.collection("users").document(currentUser).update(
+                    mapOf(
+                        "time" to t + it.get("time").toString().toInt()
+                    )
+                )
+            }
             Log.i("array", "${positions.size} $positions")
             it.findNavController().navigate(R.id.action_routeMap_to_home)
         }
@@ -87,6 +104,7 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
     @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
         if(isPermissionGranted()){
+            time = Calendar.getInstance().time
             job = GlobalScope.launch(Dispatchers.IO) {
                 var location: GLatLng
                 delay(10000)
