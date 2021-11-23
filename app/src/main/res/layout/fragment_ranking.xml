@@ -38,11 +38,54 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerRanking"
-        android:layout_width="388dp"
-        android:layout_height="571dp"
+        android:layout_width="318dp"
+        android:layout_height="426dp"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.854"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/monthText"
-        tools:layout_editor_absoluteX="1dp"
+        app:layout_constraintVertical_bias="0.209"
         tools:listitem="@layout/item_user" />
+
+    <ImageView
+        android:id="@+id/first"
+        android:layout_width="64dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/recyclerRanking"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.169"
+        app:srcCompat="@drawable/ic_olympic_medal_gold" />
+
+    <ImageView
+        android:id="@+id/second"
+        android:layout_width="64dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/recyclerRanking"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.321"
+        app:srcCompat="@drawable/ic_olympic_medal_silver" />
+
+    <ImageView
+        android:id="@+id/third"
+        android:layout_width="64dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/recyclerRanking"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.466"
+        app:srcCompat="@drawable/ic_olympic_medal_bronze" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

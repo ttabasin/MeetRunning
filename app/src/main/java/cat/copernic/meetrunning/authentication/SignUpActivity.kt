@@ -72,11 +72,12 @@ class SignUpActivity : AppCompatActivity() {
                         val user = hashMapOf(
                             "username" to binding.SignUpEmail.text.toString(),
                             "email" to binding.SignUpConfirmEmail.text.toString(),
-                            "distance" to 0.0
+                            "distance" to 0.0,
+                            "time" to 0
                         )
 
-                        db.collection("users").document(binding.SignUpConfirmEmail.text.toString()).set(user)
-
+                        db.collection("users").document(binding.SignUpConfirmEmail.text.toString())
+                            .set(user)
 
                         //Añade el nombre de usuario
                         val profileUpdates = UserProfileChangeRequest.Builder()

@@ -74,7 +74,7 @@ class AddRouteFragment : Fragment() {
                     }
 
                 //Afegir la ruta a l'usuari
-                db.collection("useres").document(currentUser).collection("routes")
+                db.collection("users").document(currentUser).collection("routes")
                     .document(binding.editTextTitle.text.toString()).set(route)
             }
         }
