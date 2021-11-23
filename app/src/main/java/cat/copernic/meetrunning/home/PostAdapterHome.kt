@@ -1,25 +1,22 @@
 package cat.copernic.meetrunning.home
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
-import android.widget.Filter.FilterResults
 import android.widget.Filterable
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import cat.copernic.meetrunning.MainActivity
 import cat.copernic.meetrunning.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
 import java.util.ArrayList
-
-
-
 
 class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
     RecyclerView.Adapter<PostAdapterHome.MyViewHolder>(), Filterable  {
@@ -50,16 +47,17 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
             Log.i("PostAdapter", "$currentPost")
         }
 
-        holder.shareButton.setOnClickListener {
+        holder.shareButton.setOnClickListener { view ->
             Log.i("PostAdapter", "clickShare")
 
-            /*val sendIntent: Intent = Intent().apply {
+            val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+                putExtra(Intent.EXTRA_TEXT, "${"Title: " + holder.title.text + " " + "Location: " + holder.location.text
+                }")
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
-            startActivity(shareIntent)*/
+            view.context.startActivity(shareIntent)
 
         }
 
