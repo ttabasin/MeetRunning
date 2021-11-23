@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_addRoute_to_home"
             app:destination="@id/home" />
+        <argument
+            android:name="time"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/addRouteMap"
@@ -93,10 +96,6 @@
         <argument
             android:name="post"
             app:argType="cat.copernic.meetrunning.home.PostHome"
-            app:nullable="true" />
-        <argument
-            android:name="postFav"
-            app:argType="cat.copernic.meetrunning.favorites.PostFav"
             app:nullable="true" />
         <action
             android:id="@+id/action_route_to_routeMap"

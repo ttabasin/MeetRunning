@@ -20,7 +20,7 @@ import com.google.firebase.firestore.*
 class FavoritesFragment : Fragment() {
 
     private lateinit var postRecyclerView: RecyclerView
-    private lateinit var postArrayList: ArrayList<PostFav>
+    private lateinit var postArrayList: ArrayList<PostHome>
     private lateinit var postAdapter: PostAdapterFav
     private lateinit var db: FirebaseFirestore
 
@@ -56,7 +56,7 @@ class FavoritesFragment : Fragment() {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
-                        postArrayList.add(dc.document.toObject(PostFav::class.java))
+                        postArrayList.add(dc.document.toObject(PostHome::class.java))
                     }
                 }
                 postAdapter.notifyDataSetChanged()

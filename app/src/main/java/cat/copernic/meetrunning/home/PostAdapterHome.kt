@@ -43,7 +43,7 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
         holder.location.text = currentPost.city
 
         holder.itemView.setOnClickListener { view ->
-            view.findNavController().navigate(HomeFragmentDirections.actionHomeToRoute(currentPost, null))
+            view.findNavController().navigate(HomeFragmentDirections.actionHomeToRoute(currentPost))
             Log.i("PostAdapter", "$currentPost")
         }
 

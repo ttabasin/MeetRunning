@@ -9,10 +9,11 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
+import cat.copernic.meetrunning.home.PostHome
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
 
-class PostAdapterFav(private val postFavList: ArrayList<PostFav>) :
+class PostAdapterFav(private val postFavList: ArrayList<PostHome>) :
     RecyclerView.Adapter<PostAdapterFav.MyViewHolder>() {
 
     private lateinit var db: FirebaseFirestore
@@ -34,7 +35,7 @@ class PostAdapterFav(private val postFavList: ArrayList<PostFav>) :
         holder.location.text = currentPost.city
 
         holder.itemView.setOnClickListener { view ->
-            view.findNavController().navigate(FavoritesFragmentDirections.actionFavoritesToRoute(null, currentPost))
+            view.findNavController().navigate(FavoritesFragmentDirections.actionFavoritesToRoute(currentPost))
             Log.i("PostAdapter", "$currentPost")
         }
 

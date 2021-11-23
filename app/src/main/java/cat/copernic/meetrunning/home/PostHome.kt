@@ -9,7 +9,8 @@ data class PostHome(
     var route: MutableList<LatLng> = ArrayList(),
     var user: String? = "",
     var city: String? = "",
-    var distance: Double = 0.0
+    var distance: Double = 0.0,
+    var time: Int = 0
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -17,7 +18,8 @@ data class PostHome(
         TODO("route"),
         parcel.readString(),
         parcel.readString(),
-        parcel.readDouble()
+        parcel.readDouble(),
+        parcel.readInt()
     ) {
     }
 
@@ -27,6 +29,7 @@ data class PostHome(
         parcel.writeString(user)
         parcel.writeString(city)
         parcel.writeDouble(distance)
+        parcel.writeInt(time)
     }
 
     override fun describeContents(): Int {

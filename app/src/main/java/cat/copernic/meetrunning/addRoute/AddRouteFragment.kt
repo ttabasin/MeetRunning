@@ -18,6 +18,7 @@ import cat.copernic.meetrunning.databinding.FragmentAddRouteBinding
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Locale
 
@@ -33,6 +34,7 @@ class AddRouteFragment : Fragment() {
         val args = AddRouteFragmentArgs.fromBundle(requireArguments())
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
         binding.distanceTxt.text = "${"%.3f".format(args.distance)}Km"
+        binding.timeTxt.text = SimpleDateFormat("HH:mm:ss").format(args.time)
 
         /*if(binding.editTextDescription.text.isEmpty()){
             binding.signUpContinue.setEnabled(false)
@@ -51,7 +53,8 @@ class AddRouteFragment : Fragment() {
                         args.route[0].longitude,
                         1
                     )[0].locality,
-                    args.distance.toDouble()
+                    args.distance.toDouble(),
+                    args.time
                 )
 
                 //Actualitzar la distància feta de l'usuari
@@ -123,6 +126,7 @@ data class Route(
     var route: MutableList<LatLng> = ArrayList(),
     var user: String = "",
     var city: String = "",
-    var distance: Double = 0.0
+    var distance: Double = 0.0,
+    var time: Int = 0
 )
 

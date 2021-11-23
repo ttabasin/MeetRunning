@@ -13,6 +13,7 @@ import cat.copernic.meetrunning.databinding.FragmentAddRouteMapBinding
 import cat.copernic.meetrunning.databinding.FragmentRouteBinding
 import cat.copernic.meetrunning.home.PostHome
 import com.google.android.gms.maps.model.LatLng
+import java.text.SimpleDateFormat
 
 class RouteFragment : Fragment() {
 
@@ -26,25 +27,13 @@ class RouteFragment : Fragment() {
         binding = FragmentRouteBinding.inflate(layoutInflater)
         val args = RouteFragmentArgs.fromBundle(requireArguments())
         val pos: ArrayList<LatLng> = ArrayList()
-
-        if (args.post?.description.isNullOrEmpty()) {
-            Log.i("RouteFragment", "${args.post?.description}")
-            binding.descriptionRoute.text = args.postFav?.description
-            binding.titleRoute.text = args.postFav?.title
-            binding.distanceTxt.text = "${"%.3f".format(args.postFav?.distance)}Km"
-            for (p in args.postFav?.route!!) {
-                pos.add(LatLng(p.latitude, p.longitude))
-            }
-
-        } else {
-            Log.i("RouteFragment", "${args.post?.description} HOMEEEEEEEE")
-            binding.descriptionRoute.text = args.post?.description
-            binding.titleRoute.text = args.post?.title
-            binding.distanceTxt.text = "${"%.3f".format(args.post?.distance)}Km"
-            for (p in args.post?.route!!) {
-                pos.add(LatLng(p.latitude, p.longitude))
-            }
-
+        
+        binding.descriptionRoute.text = args.post?.description
+        binding.titleRoute.text = args.post?.title
+        binding.distanceTxt.text = "${"%.3f".format(args.post?.distance)}Km"
+        binding.timeTxt.text = SimpleDateFormat("HH:mm:ss").format(args.post?.time)
+        for (p in args.post?.route!!) {
+            pos.add(LatLng(p.latitude, p.longitude))
         }
 
         binding.signUpContinue.setOnClickListener {
