@@ -4,6 +4,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.navigation.findNavController
@@ -14,9 +16,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
 
 class PostAdapterFav(private val postFavList: ArrayList<PostHome>) :
-    RecyclerView.Adapter<PostAdapterFav.MyViewHolder>() {
+    RecyclerView.Adapter<PostAdapterFav.MyViewHolder>(), Filterable {
 
     private lateinit var db: FirebaseFirestore
+    private var filteredPost = arrayListOf<PostHome>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -60,7 +63,7 @@ class PostAdapterFav(private val postFavList: ArrayList<PostHome>) :
     }
 
     override fun getItemCount(): Int {
-        return postFavList.size
+        return filteredPost.size
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -72,6 +75,33 @@ class PostAdapterFav(private val postFavList: ArrayList<PostHome>) :
 
         //val image : ImageView = itemView.findViewById(R.id.image_post)
 
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(charSequence: CharSequence): FilterResults {
+                val txt = charSequence.toString()
+                if (txt.isBlank()){
+                    filteredPost = postFavList
+                }else{
+                    val fpost = arrayListOf<PostHome>()
+                    for (p in postFavList){
+                        if (p.title?.lowercase()?.contains(txt.lowercase()) == true){
+                            fpost.add(p)
+                        }
+                    }
+                    filteredPost = fpost
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filteredPost
+                return filterResults
+            }
+
+            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+                filteredPost = filterResults.values as java.util.ArrayList<PostHome>
+                notifyDataSetChanged()
+            }
+        }
     }
 
 

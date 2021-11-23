@@ -1,6 +1,8 @@
 package cat.copernic.meetrunning.favorites
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,7 +31,19 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentFavoritesBinding.inflate(layoutInflater)
+        binding.search.addTextChangedListener(object : TextWatcher {
 
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                postAdapter.filter.filter(s)
+            }
+
+            override fun afterTextChanged(s: Editable) {
+
+            }
+        })
         postRecyclerView = binding.recycler
         postRecyclerView.layoutManager = LinearLayoutManager(context)
         postRecyclerView.setHasFixedSize(true)
@@ -41,6 +55,8 @@ class FavoritesFragment : Fragment() {
         postRecyclerView.adapter = postAdapter
 
         addRouteToList()
+        val c: CharSequence = ""
+        postAdapter.filter.filter(c)
 
         // Inflate the layout for this fragment
         return binding.root
