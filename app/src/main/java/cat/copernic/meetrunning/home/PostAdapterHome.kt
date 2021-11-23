@@ -52,8 +52,7 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
 
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "${"Title: " + holder.title.text + " " + "Location: " + holder.location.text
-                }")
+                putExtra(Intent.EXTRA_TEXT, "Title: ${holder.title.text} \nLocation: ${holder.location.text}")
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)

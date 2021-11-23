@@ -94,6 +94,7 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style))
         enableMyLocation()
         getCurrentLocation()
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(route[0]))
         for (i in 1 until route.size){
             mMap.addPolyline(
                 PolylineOptions().add(route[i], route[i-1])
