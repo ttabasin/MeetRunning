@@ -80,7 +80,7 @@
         tools:layout="@layout/fragment_photos" />
     <fragment
         android:id="@+id/profile"
-        android:name="cat.copernic.meetrunning.profile.ProfileActivity"
+        android:name="cat.copernic.meetrunning.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
     <fragment

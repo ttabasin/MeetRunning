@@ -1,5 +1,6 @@
 package cat.copernic.meetrunning.favorites
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -42,15 +43,16 @@ class PostAdapterFav(private val postFavList: ArrayList<PostHome>) :
             Log.i("PostAdapter", "$currentPost")
         }
 
-        holder.shareButton.setOnClickListener {
+        holder.shareButton.setOnClickListener { view ->
             Log.i("PostAdapter", "clickShare")
-            /*val sendIntent: Intent = Intent().apply {
+
+            val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+                putExtra(Intent.EXTRA_TEXT, "Title: ${holder.title.text} \nLocation: ${holder.location.text}")
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
-            startActivity(shareIntent)*/
+            view.context.startActivity(shareIntent)
         }
 
         holder.favButton.setOnClickListener {

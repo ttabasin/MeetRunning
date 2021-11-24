@@ -7,12 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import cat.copernic.meetrunning.R
 
-class ProfileActivity : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+class ProfileFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
