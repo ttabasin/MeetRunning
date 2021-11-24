@@ -35,7 +35,8 @@
         tools:layout="@layout/fragment_add_route_map">
         <action
             android:id="@+id/action_addRouteMap_to_addRoute"
-            app:destination="@id/addRoute" />
+            app:destination="@id/addRoute"
+            app:popUpTo="@id/home" />
     </fragment>
     <fragment
         android:id="@+id/editProfile"
@@ -72,7 +73,11 @@
         android:id="@+id/myRutes"
         android:name="cat.copernic.meetrunning.profile.MyRoutesFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_my_rutes" />
+        tools:layout="@layout/fragment_my_rutes" >
+        <action
+            android:id="@+id/action_myRutes_to_route"
+            app:destination="@id/route" />
+    </fragment>
     <fragment
         android:id="@+id/photos"
         android:name="cat.copernic.meetrunning.profile.PhotosFragment"
