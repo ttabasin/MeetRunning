@@ -95,7 +95,7 @@
         tools:layout="@layout/fragment_route">
         <argument
             android:name="post"
-            app:argType="cat.copernic.meetrunning.home.PostHome"
+            app:argType="cat.copernic.meetrunning.dataClass.PostHome"
             app:nullable="true" />
         <action
             android:id="@+id/action_route_to_routeMap"

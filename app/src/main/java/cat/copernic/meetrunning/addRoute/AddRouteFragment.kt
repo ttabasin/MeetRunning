@@ -51,7 +51,7 @@ class AddRouteFragment : Fragment() {
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
         binding.distanceTxt.text = "${"%.3f".format(args.distance)}Km"
         binding.timeTxt.text = SimpleDateFormat("HH:mm:ss").format(args.time - TimeZone.getDefault().rawOffset)
-        binding.imageButton.setOnClickListener {
+        binding.imageNext.setOnClickListener {
             if (pos  >= mArrayUri.size - 1){
                 binding.imageView3.setImageURI(mArrayUri[0])
                 pos = 0
@@ -60,6 +60,15 @@ class AddRouteFragment : Fragment() {
                 binding.imageView3.setImageURI(mArrayUri[pos])
             }
 
+        }
+        binding.imagePrev.setOnClickListener {
+            if (pos == 0){
+                pos = mArrayUri.size-1
+                binding.imageView3.setImageURI(mArrayUri[pos])
+            }else{
+                pos--
+                binding.imageView3.setImageURI(mArrayUri[pos])
+            }
         }
 
         /*if(binding.editTextDescription.text.isEmpty()){
@@ -108,6 +117,7 @@ class AddRouteFragment : Fragment() {
 
 
         binding.imageView3.setOnClickListener {
+            mArrayUri.clear()
             openGallery()
         }
 
@@ -137,6 +147,9 @@ class AddRouteFragment : Fragment() {
 
                 }
                 Log.d("img", "$data")
+                binding.imageView3.setImageURI(mArrayUri[0])
+            }else{
+                mArrayUri.add(result.data?.data)
                 binding.imageView3.setImageURI(mArrayUri[0])
             }
         }

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/bckground">
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -131,14 +130,24 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.997" />
 
-        <ImageButton
-            android:id="@+id/settingBT"
+        <ImageView
+            android:id="@+id/imagePrev"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
             app:layout_constraintEnd_toStartOf="@+id/imageView3"
             app:layout_constraintTop_toTopOf="@+id/imageView3"
-            app:srcCompat="@android:drawable/ic_media_play" />
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_left_24" />
+
+        <ImageView
+            android:id="@+id/imageNext"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/imageView3"
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
