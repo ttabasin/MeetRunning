@@ -52,22 +52,26 @@ class AddRouteFragment : Fragment() {
         binding.distanceTxt.text = "${"%.3f".format(args.distance)}Km"
         binding.timeTxt.text = SimpleDateFormat("HH:mm:ss").format(args.time - TimeZone.getDefault().rawOffset)
         binding.imageNext.setOnClickListener {
-            if (pos  >= mArrayUri.size - 1){
-                binding.imageView3.setImageURI(mArrayUri[0])
-                pos = 0
-            }else{
-                pos++
-                binding.imageView3.setImageURI(mArrayUri[pos])
+            if (mArrayUri.size != 0){
+                if (pos  >= mArrayUri.size - 1){
+                    binding.imageView3.setImageURI(mArrayUri[0])
+                    pos = 0
+                }else{
+                    pos++
+                    binding.imageView3.setImageURI(mArrayUri[pos])
+                }
             }
 
         }
         binding.imagePrev.setOnClickListener {
-            if (pos == 0){
-                pos = mArrayUri.size-1
-                binding.imageView3.setImageURI(mArrayUri[pos])
-            }else{
-                pos--
-                binding.imageView3.setImageURI(mArrayUri[pos])
+            if (mArrayUri.size != 0){
+                if (pos == 0){
+                    pos = mArrayUri.size-1
+                    binding.imageView3.setImageURI(mArrayUri[pos])
+                }else{
+                    pos--
+                    binding.imageView3.setImageURI(mArrayUri[pos])
+                }
             }
         }
 
@@ -137,18 +141,15 @@ class AddRouteFragment : Fragment() {
     private val startForActivityGallery = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){ result ->
         if (result.resultCode == Activity.RESULT_OK){
-
+            pos=0
             val data = result.data?.clipData
             if (data != null){
                 for (i in 0 until data.itemCount) {
                     mArrayUri.add(data.getItemAt(i).uri)
-                    Log.d("img", "${data.getItemAt(i).uri}")
-                    Log.d("puta mierda de android", "${mArrayUri[0]}")
-
                 }
                 Log.d("img", "$data")
                 binding.imageView3.setImageURI(mArrayUri[0])
-            }else{
+            }else if (result.data?.data != null){
                 mArrayUri.add(result.data?.data)
                 binding.imageView3.setImageURI(mArrayUri[0])
             }
