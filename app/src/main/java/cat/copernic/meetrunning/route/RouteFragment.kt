@@ -14,6 +14,8 @@ import cat.copernic.meetrunning.databinding.FragmentRouteBinding
 import cat.copernic.meetrunning.home.PostHome
 import com.google.android.gms.maps.model.LatLng
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class RouteFragment : Fragment() {
 
@@ -27,11 +29,12 @@ class RouteFragment : Fragment() {
         binding = FragmentRouteBinding.inflate(layoutInflater)
         val args = RouteFragmentArgs.fromBundle(requireArguments())
         val pos: ArrayList<LatLng> = ArrayList()
-        
+
         binding.descriptionRoute.text = args.post?.description
         binding.titleRoute.text = args.post?.title
         binding.distanceTxt.text = "${"%.3f".format(args.post?.distance)}Km"
-        binding.timeTxt.text = SimpleDateFormat("HH:mm:ss").format(args.post?.time)
+        binding.timeTxt.text =
+            SimpleDateFormat("HH:mm:ss").format(args.post?.time?.minus(TimeZone.getDefault().rawOffset))
         for (p in args.post?.route!!) {
             pos.add(LatLng(p.latitude, p.longitude))
         }

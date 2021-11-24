@@ -1,5 +1,7 @@
 package cat.copernic.meetrunning.addRoute
 
+import android.R.attr
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,21 +12,35 @@ import android.provider.MediaStore
 import android.content.Intent
 import android.graphics.Bitmap
 import android.location.Geocoder
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentAddRouteBinding
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.okhttp.Route
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Locale
+import java.util.ArrayList
+import android.R.attr.data
+
+
+
+
+
+
 
 class AddRouteFragment : Fragment() {
 
     private lateinit var binding: FragmentAddRouteBinding
+    private val mArrayUri: ArrayList<Uri?> = arrayListOf()
+    private var pos = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +50,17 @@ class AddRouteFragment : Fragment() {
         val args = AddRouteFragmentArgs.fromBundle(requireArguments())
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
         binding.distanceTxt.text = "${"%.3f".format(args.distance)}Km"
-        binding.timeTxt.text = SimpleDateFormat("HH:mm:ss").format(args.time)
+        binding.timeTxt.text = SimpleDateFormat("HH:mm:ss").format(args.time - TimeZone.getDefault().rawOffset)
+        binding.imageButton.setOnClickListener {
+            if (pos  >= mArrayUri.size - 1){
+                binding.imageView3.setImageURI(mArrayUri[0])
+                pos = 0
+            }else{
+                pos++
+                binding.imageView3.setImageURI(mArrayUri[pos])
+            }
+
+        }
 
         /*if(binding.editTextDescription.text.isEmpty()){
             binding.signUpContinue.setEnabled(false)
@@ -82,7 +108,7 @@ class AddRouteFragment : Fragment() {
 
 
         binding.imageView3.setOnClickListener {
-            dispatchTakePictureIntent()
+            openGallery()
         }
 
 
@@ -98,26 +124,31 @@ class AddRouteFragment : Fragment() {
         return false
     }
 
-    val REQUEST_IMAGE_CAPTURE = 1
+    private val startForActivityGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){ result ->
+        if (result.resultCode == Activity.RESULT_OK){
 
-    //Hace la foto
-    private fun dispatchTakePictureIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.also {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            val data = result.data?.clipData
+            if (data != null){
+                for (i in 0 until data.itemCount) {
+                    mArrayUri.add(data.getItemAt(i).uri)
+                    Log.d("img", "${data.getItemAt(i).uri}")
+                    Log.d("puta mierda de android", "${mArrayUri[0]}")
+
+                }
+                Log.d("img", "$data")
+                binding.imageView3.setImageURI(mArrayUri[0])
             }
         }
     }
 
-    //Pone la foto en el imageView
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Log.d("foto", "foto")
-            val imageBitmap = data?.extras?.get("data") as Bitmap
-            binding.imageView3.setImageBitmap(imageBitmap)
-        }
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        intent.action = Intent.ACTION_GET_CONTENT
+        startForActivityGallery.launch(intent)
     }
-
 }
 
 data class Route(

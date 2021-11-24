@@ -2,26 +2,19 @@ package cat.copernic.meetrunning.route
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import cat.copernic.meetrunning.R
-import cat.copernic.meetrunning.addRoute.AddRouteMapFragmentDirections
 import cat.copernic.meetrunning.databinding.FragmentRouteMapBinding
-import cat.copernic.meetrunning.home.LatLng
-import com.google.android.gms.maps.model.LatLng as GLatLng
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -33,11 +26,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.*
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
+import com.google.android.gms.maps.model.LatLng as GLatLng
 
 class RouteMapFragment : Fragment(), OnMapReadyCallback {
 
@@ -55,12 +48,11 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentRouteMapBinding.inflate(inflater)
 
-        var mapViewBundle: Bundle? = null
-        mapViewBundle = savedInstanceState?.getBundle("MapViewBundleKey")
+        val mapViewBundle: Bundle? = savedInstanceState?.getBundle("MapViewBundleKey")
         route = RouteMapFragmentArgs.fromBundle(requireArguments()).route.toList()
         binding.mapView.onCreate(mapViewBundle)
         binding.mapView.getMapAsync(this)
@@ -69,7 +61,7 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
         binding.button.setOnClickListener {
             btnPressed = true
             job.cancel()
-            //Guarda el tiempo del usuario en la bd
+            //Saves user time in the db
             val t = Calendar.getInstance().time.time - time.time
             //val tFinal = SimpleDateFormat("HH:mm:ss").format(t)
             val db = FirebaseFirestore.getInstance()

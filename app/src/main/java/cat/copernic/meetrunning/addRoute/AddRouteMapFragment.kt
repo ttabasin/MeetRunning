@@ -26,9 +26,6 @@ import com.google.android.gms.maps.model.PolylineOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.*
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.*
@@ -45,7 +42,7 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
     private val positions: ArrayList<LatLng> = arrayListOf()
     private lateinit var job: Job
     private var distance = 0.0
-    private lateinit var time: Date
+    private lateinit var startTime: Date
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +59,7 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
         binding.button.setOnClickListener {
             btnPressed = true
             job.cancel()
-            val t = Calendar.getInstance().time.time - time.time
+            val t = Calendar.getInstance().time.time - startTime.time
             //val tFinal = SimpleDateFormat("HH:mm:ss").format(t)
             val db = FirebaseFirestore.getInstance()
             val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
@@ -92,7 +89,7 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
     @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
         if(isPermissionGranted()){
-            time = Calendar.getInstance().time
+            startTime = Calendar.getInstance().time
             job = GlobalScope.launch(Dispatchers.IO) {
                 delay(10000)
                 distance = 0.0
