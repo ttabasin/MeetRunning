@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning.home
+package cat.copernic.meetrunning.profile
 
 import android.content.Intent
 import android.util.Log
@@ -9,15 +9,14 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
-import com.google.firebase.firestore.FirebaseFirestore
+import cat.copernic.meetrunning.home.PostHome
 import com.google.firebase.auth.FirebaseAuth
-import java.util.ArrayList
+import com.google.firebase.firestore.FirebaseFirestore
 
-class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
-    RecyclerView.Adapter<PostAdapterHome.MyViewHolder>(), Filterable  {
+class PostAdapterMyRoutes (private val postMyRouteList: ArrayList<PostHome>) :
+    RecyclerView.Adapter<PostAdapterMyRoutes.MyViewHolder>(), Filterable {
 
     private lateinit var db: FirebaseFirestore
     private var filteredPost = arrayListOf<PostHome>()
@@ -40,10 +39,10 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
         holder.title.text = currentPost.title
         holder.location.text = currentPost.city
 
-        holder.itemView.setOnClickListener { view ->
-            view.findNavController().navigate(HomeFragmentDirections.actionHomeToRoute(currentPost))
+        /*holder.itemView.setOnClickListener { view ->
+            view.findNavController().navigate(FavoritesFragmentDirections.actionFavoritesToRoute(currentPost))
             Log.i("PostAdapter", "$currentPost")
-        }
+        }*/
 
         holder.shareButton.setOnClickListener { view ->
             Log.i("PostAdapter", "clickShare")
@@ -76,6 +75,7 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
                     }
                 }
             }
+
     }
 
     override fun getItemCount(): Int {
@@ -96,10 +96,10 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
             override fun performFiltering(charSequence: CharSequence): FilterResults {
                 val txt = charSequence.toString()
                 if (txt.isBlank()){
-                    filteredPost = postHomeList
+                    filteredPost = postMyRouteList
                 }else{
                     val fpost = arrayListOf<PostHome>()
-                    for (p in postHomeList){
+                    for (p in postMyRouteList){
                         if (p.title?.lowercase()?.contains(txt.lowercase()) == true){
                             fpost.add(p)
                         }
@@ -112,10 +112,11 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                filteredPost = filterResults.values as ArrayList<PostHome>
+                filteredPost = filterResults.values as java.util.ArrayList<PostHome>
                 notifyDataSetChanged()
             }
         }
     }
+
 
 }

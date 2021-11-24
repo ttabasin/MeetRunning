@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/myRutesFragment"
-        android:name="cat.copernic.meetrunning.profile.MyRutesFragment"
+        android:name="cat.copernic.meetrunning.profile.MyRoutesFragment"
         android:label="fragment_my_rutes"
         tools:layout="@layout/fragment_my_rutes" />
 </navigation>

@@ -16,7 +16,6 @@ import cat.copernic.meetrunning.databinding.FragmentHomeBinding
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.FirebaseFirestore
 
-
 class HomeFragment : Fragment() {
 
     private lateinit var postRecyclerView: RecyclerView
@@ -59,22 +58,18 @@ class HomeFragment : Fragment() {
 
         postRecyclerView.adapter = postAdapterHome
 
-        EventChangeListener()
+        addRouteToList()
         val c: CharSequence = ""
         postAdapterHome.filter.filter(c)
         // Inflate the layout for this fragment
         return binding.root
     }
 
-    private fun EventChangeListener() {
+    private fun addRouteToList() {
 
         db = FirebaseFirestore.getInstance()
         db.collection("posts").addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                if (error != null) {
-                    Log.e("Firestore Error", error.message.toString())
-                    return
-                }
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         postHomeArrayList.add(dc.document.toObject(PostHome::class.java))

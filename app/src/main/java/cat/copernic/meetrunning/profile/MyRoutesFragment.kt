@@ -1,36 +1,35 @@
-package cat.copernic.meetrunning.favorites
+package cat.copernic.meetrunning.profile
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import cat.copernic.meetrunning.R
-import cat.copernic.meetrunning.databinding.FragmentFavoritesBinding
-import cat.copernic.meetrunning.databinding.FragmentHomeBinding
+import cat.copernic.meetrunning.databinding.FragmentMyRutesBinding
 import cat.copernic.meetrunning.home.PostHome
-import cat.copernic.meetrunning.home.PostAdapterHome
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.*
 
-class FavoritesFragment : Fragment() {
+class MyRoutesFragment : Fragment() {
 
     private lateinit var postRecyclerView: RecyclerView
     private lateinit var postArrayList: ArrayList<PostHome>
-    private lateinit var postAdapter: PostAdapterFav
+    private lateinit var postAdapter: PostAdapterMyRoutes
     private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentFavoritesBinding.inflate(layoutInflater)
+        val binding = FragmentMyRutesBinding.inflate(layoutInflater)
+
         binding.search.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -44,17 +43,19 @@ class FavoritesFragment : Fragment() {
 
             }
         })
-        postRecyclerView = binding.recycler
+
+        postRecyclerView = binding.recyclerMyRoutes
         postRecyclerView.layoutManager = LinearLayoutManager(context)
         postRecyclerView.setHasFixedSize(true)
 
         postArrayList = arrayListOf()
 
-        postAdapter = PostAdapterFav(postArrayList)
+        postAdapter = PostAdapterMyRoutes(postArrayList)
 
         postRecyclerView.adapter = postAdapter
 
         addRouteToList()
+
         val c: CharSequence = ""
         postAdapter.filter.filter(c)
 
@@ -66,7 +67,7 @@ class FavoritesFragment : Fragment() {
         db = FirebaseFirestore.getInstance()
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
 
-        db.collection("users").document(currentUser).collection("favorites")
+        db.collection("users").document(currentUser).collection("routes")
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     for (dc: DocumentChange in value?.documentChanges!!) {
@@ -78,4 +79,5 @@ class FavoritesFragment : Fragment() {
                 }
             })
     }
+
 }

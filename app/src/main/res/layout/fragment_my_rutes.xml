@@ -4,12 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bckground"
-    tools:context=".profile.MyRutesFragment">
+    tools:context=".profile.MyRoutesFragment">
+
+    <EditText
+        android:id="@+id/search"
+        style="@style/Widget.AppCompat.SearchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="?android:attr/actionModeWebSearchDrawable"
+        android:hint="@string/search" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMyRoutes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_row" />
+        android:layout_marginTop="50dp"
+        tools:listitem="@layout/item_row" >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
