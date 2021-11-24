@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning.ranking
+package cat.copernic.meetrunning.dataClass
 
 data class User(var username : String ?= null,
                 var distance : Int ?= null/*,

@@ -3,7 +3,6 @@ package cat.copernic.meetrunning.home
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
+import cat.copernic.meetrunning.adapters.PostAdapterHome
+import cat.copernic.meetrunning.dataClass.PostHome
 import cat.copernic.meetrunning.databinding.FragmentHomeBinding
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.FirebaseFirestore

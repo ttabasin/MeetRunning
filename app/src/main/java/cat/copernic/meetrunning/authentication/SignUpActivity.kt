@@ -1,6 +1,5 @@
 package cat.copernic.meetrunning.authentication
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,12 +10,9 @@ import androidx.databinding.DataBindingUtil
 import cat.copernic.meetrunning.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
-
 import cat.copernic.meetrunning.MainActivity
 import cat.copernic.meetrunning.ProviderType
 import cat.copernic.meetrunning.R
-
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -31,12 +27,10 @@ class SignUpActivity : AppCompatActivity() {
         binding =
             DataBindingUtil.setContentView<ActivitySignUpBinding>(this, R.layout.activity_sign_up)
 
-
         binding.signInBtn.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }
-
         setup()
     }
 
@@ -45,9 +39,7 @@ class SignUpActivity : AppCompatActivity() {
             && binding.SignUpEmail.text.isNotBlank() && binding.SignUpConfirmEmail.text.isNotBlank()
             && binding.checkBox.isChecked
         ) {
-            Log.d("signup", binding.editConfirmPassword.text.toString())
             if (binding.editPassword.text.toString() == binding.editConfirmPassword.text.toString()) {
-
                 return true
             }
             Toast.makeText(this, R.string.error_passwd, Toast.LENGTH_LONG).show()

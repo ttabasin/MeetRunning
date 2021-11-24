@@ -1,7 +1,6 @@
-package cat.copernic.meetrunning.home
+package cat.copernic.meetrunning.adapters
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,13 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
+import cat.copernic.meetrunning.favorites.FavoritesFragmentDirections
+import cat.copernic.meetrunning.dataClass.PostHome
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
-import java.util.ArrayList
 
-class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
-    RecyclerView.Adapter<PostAdapterHome.MyViewHolder>(), Filterable  {
+class PostAdapterFav(private val postFavList: ArrayList<PostHome>) :
+    RecyclerView.Adapter<PostAdapterFav.MyViewHolder>(), Filterable {
 
     private lateinit var db: FirebaseFirestore
     private var filteredPost = arrayListOf<PostHome>()
@@ -25,7 +25,7 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.item_row,
+            R.layout.item_row_fav,
             parent, false
         )
         return MyViewHolder(itemView)
@@ -33,21 +33,20 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val currentPost = filteredPost[position]
-        val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
-        db = FirebaseFirestore.getInstance()
+        val currentPost = postFavList[position]
 
         holder.title.text = currentPost.title
         holder.location.text = currentPost.city
 
         holder.itemView.setOnClickListener { view ->
-            view.findNavController().navigate(HomeFragmentDirections.actionHomeToRoute(currentPost))
-            Log.i("PostAdapter", "$currentPost")
+            view.findNavController().navigate(
+                FavoritesFragmentDirections.actionFavoritesToRoute(
+                    currentPost
+                )
+            )
         }
 
         holder.shareButton.setOnClickListener { view ->
-            Log.i("PostAdapter", "clickShare")
-
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, "Title: ${holder.title.text} \nLocation: ${holder.location.text}")
@@ -55,27 +54,15 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
             view.context.startActivity(shareIntent)
-
         }
 
-        db.collection("users").document(currentUser).collection("favorites")
-            .document(currentPost.title.toString()).get().addOnSuccessListener { document ->
-                if (document.exists()) {
-                    holder.favButton.setImageResource(R.drawable.ic_baseline_star_24check)
-
-                    holder.favButton.setOnClickListener {
-                        db.collection("users").document(currentUser).collection("favorites")
-                            .document(currentPost.title.toString()).delete()
-                        holder.favButton.setImageResource(R.drawable.ic_baseline_star_border_24)
-                    }
-                } else {
-                    holder.favButton.setOnClickListener {
-                        db.collection("users").document(currentUser).collection("favorites")
-                            .document(currentPost.title.toString()).set(currentPost)
-                        holder.favButton.setImageResource(R.drawable.ic_baseline_star_24check)
-                    }
-                }
-            }
+        holder.favButton.setOnClickListener {
+            db = FirebaseFirestore.getInstance()
+            val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
+            db.collection("users").document(currentUser).collection("favorites")
+                .document(currentPost.title.toString()).delete()
+            holder.favButton.setImageResource(R.drawable.ic_baseline_star_border_24)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -84,10 +71,12 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val title: TextView = itemView.findViewById(R.id.txt_title)
-        val location: TextView = itemView.findViewById(R.id.txt_location)
-        val shareButton: ImageButton = itemView.findViewById(R.id.shareButton)
-        val favButton: ImageButton = itemView.findViewById(R.id.favButton)
+        val title: TextView = itemView.findViewById(R.id.txt_title2)
+        val location: TextView = itemView.findViewById(R.id.txt_location2)
+        val shareButton: ImageButton = itemView.findViewById(R.id.shareButton2)
+        val favButton: ImageButton = itemView.findViewById(R.id.favButton2)
+
+        //val image : ImageView = itemView.findViewById(R.id.image_post)
 
     }
 
@@ -96,10 +85,10 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
             override fun performFiltering(charSequence: CharSequence): FilterResults {
                 val txt = charSequence.toString()
                 if (txt.isBlank()){
-                    filteredPost = postHomeList
+                    filteredPost = postFavList
                 }else{
                     val fpost = arrayListOf<PostHome>()
-                    for (p in postHomeList){
+                    for (p in postFavList){
                         if (p.title?.lowercase()?.contains(txt.lowercase()) == true){
                             fpost.add(p)
                         }
@@ -112,10 +101,11 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                filteredPost = filterResults.values as ArrayList<PostHome>
+                filteredPost = filterResults.values as java.util.ArrayList<PostHome>
                 notifyDataSetChanged()
             }
         }
     }
+
 
 }

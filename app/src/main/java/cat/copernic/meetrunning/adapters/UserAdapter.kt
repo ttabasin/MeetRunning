@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning.ranking
+package cat.copernic.meetrunning.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
+import cat.copernic.meetrunning.dataClass.User
 
 
 class UserAdapter(private val userList: ArrayList<User>) :

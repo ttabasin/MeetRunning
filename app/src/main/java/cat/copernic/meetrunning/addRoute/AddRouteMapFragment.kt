@@ -79,11 +79,9 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
-        //mMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style))
         enableMyLocation()
         getCurrentLocation()
-        //val sydney = LatLng(-34.0, 151.0)
     }
 
     @SuppressLint("MissingPermission")
@@ -99,14 +97,8 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
                         location = LatLng(it.latitude, it.longitude)
                         Log.d("location", "$location $c")
                         positions.add(location)
-                        /*mMap.addMarker(
-                            MarkerOptions()
-                                .position(location)
-                                .title(c.toString())
-                        )*/
                         if (c > 0){
                             Log.d("pos", positions[c-1].toString())
-                            //Log.d("d", calculateDistance(location, positions.get(c-1)).toString())
                             distance += calculateDistance(location, positions[c-1])
                             binding.textDistance.text = "${"%.3f".format(distance)}Km"
                             mMap.addPolyline(PolylineOptions().add(location, positions[c-1])
@@ -124,7 +116,6 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
                 arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_LOCATION_PERMISSION
             )
-            //getCurrentLocation()
         }
     }
 
@@ -145,7 +136,6 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
     private fun degreesToRadian(i: Double): Double {
         return i * Math.PI / 180
     }
-
 
     @SuppressLint("MissingPermission")
     private fun enableMyLocation() {

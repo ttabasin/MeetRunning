@@ -3,19 +3,15 @@ package cat.copernic.meetrunning.favorites
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import cat.copernic.meetrunning.R
+import cat.copernic.meetrunning.adapters.PostAdapterFav
 import cat.copernic.meetrunning.databinding.FragmentFavoritesBinding
-import cat.copernic.meetrunning.databinding.FragmentHomeBinding
-import cat.copernic.meetrunning.home.PostHome
-import cat.copernic.meetrunning.home.PostAdapterHome
+import cat.copernic.meetrunning.dataClass.PostHome
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
@@ -62,7 +58,6 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun addRouteToList() {
-
         db = FirebaseFirestore.getInstance()
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
 

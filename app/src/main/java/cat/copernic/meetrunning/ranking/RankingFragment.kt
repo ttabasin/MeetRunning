@@ -1,12 +1,13 @@
 package cat.copernic.meetrunning.ranking
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
+import cat.copernic.meetrunning.adapters.UserAdapter
+import cat.copernic.meetrunning.dataClass.User
 import cat.copernic.meetrunning.databinding.FragmentRankingBinding
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
@@ -62,11 +63,11 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
 
         recyclerRanking.adapter = userAdapter
 
-        EventChangeListener()
+        addRouteToList()
 
     }
 
-    private fun EventChangeListener() {
+    private fun addRouteToList() {
 
         db = FirebaseFirestore.getInstance()
         db.collection("users").addSnapshotListener(object : EventListener<QuerySnapshot> {
@@ -75,7 +76,7 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         userArrayList.add(dc.document.toObject(User::class.java))
                         userArrayList.sortByDescending { it.distance }
-                        if(userArrayList.size > 5){
+                        if (userArrayList.size > 5) {
                             userArrayList.removeAt(5)
                         }
                     }

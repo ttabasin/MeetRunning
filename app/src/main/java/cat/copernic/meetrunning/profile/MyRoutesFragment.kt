@@ -9,8 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cat.copernic.meetrunning.adapters.PostAdapterMyRoutes
 import cat.copernic.meetrunning.databinding.FragmentMyRutesBinding
-import cat.copernic.meetrunning.home.PostHome
+import cat.copernic.meetrunning.dataClass.PostHome
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException

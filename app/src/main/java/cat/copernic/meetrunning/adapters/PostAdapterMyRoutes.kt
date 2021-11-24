@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning.profile
+package cat.copernic.meetrunning.adapters
 
 import android.content.Intent
 import android.util.Log
@@ -11,7 +11,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
-import cat.copernic.meetrunning.home.PostHome
+import cat.copernic.meetrunning.dataClass.PostHome
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 

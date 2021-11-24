@@ -1,7 +1,8 @@
-package cat.copernic.meetrunning.home
+package cat.copernic.meetrunning.dataClass
 
 import android.os.Parcel
 import android.os.Parcelable
+import cat.copernic.meetrunning.home.LatLng
 
 data class PostHome(
     var title: String? = "",
@@ -20,8 +21,7 @@ data class PostHome(
         parcel.readString(),
         parcel.readDouble(),
         parcel.readInt()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(title)

@@ -55,7 +55,6 @@ class SignInActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     private fun showAlert() {
