@@ -11,17 +11,17 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
-import cat.copernic.meetrunning.home.HomeFragmentDirections
-import cat.copernic.meetrunning.dataClass.PostHome
+import cat.copernic.meetrunning.UI.home.HomeFragmentDirections
+import cat.copernic.meetrunning.dataClass.DataRoute
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
 import java.util.ArrayList
 
-class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
+class PostAdapterHome(private val dataRouteList: ArrayList<DataRoute>) :
     RecyclerView.Adapter<PostAdapterHome.MyViewHolder>(), Filterable  {
 
     private lateinit var db: FirebaseFirestore
-    private var filteredPost = arrayListOf<PostHome>()
+    private var filteredPost = arrayListOf<DataRoute>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -93,10 +93,10 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
             override fun performFiltering(charSequence: CharSequence): FilterResults {
                 val txt = charSequence.toString()
                 if (txt.isBlank()){
-                    filteredPost = postHomeList
+                    filteredPost = dataRouteList
                 }else{
-                    val fpost = arrayListOf<PostHome>()
-                    for (p in postHomeList){
+                    val fpost = arrayListOf<DataRoute>()
+                    for (p in dataRouteList){
                         if (p.title?.lowercase()?.contains(txt.lowercase()) == true){
                             fpost.add(p)
                         }
@@ -109,7 +109,7 @@ class PostAdapterHome(private val postHomeList: ArrayList<PostHome>) :
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                filteredPost = filterResults.values as ArrayList<PostHome>
+                filteredPost = filterResults.values as ArrayList<DataRoute>
                 notifyDataSetChanged()
             }
         }

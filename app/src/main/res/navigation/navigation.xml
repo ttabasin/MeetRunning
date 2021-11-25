@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/achivements"
-        android:name="cat.copernic.meetrunning.profile.AchivementsFragment"
+        android:name="cat.copernic.meetrunning.UI.profile.AchivementsFragment"
         android:label="fragment_achivements"
         tools:layout="@layout/fragment_achivements" />
     <fragment
         android:id="@+id/addRoute"
-        android:name="cat.copernic.meetrunning.addRoute.AddRouteFragment"
+        android:name="cat.copernic.meetrunning.UI.addRoute.AddRouteFragment"
         android:label="@string/add_route"
         tools:layout="@layout/fragment_add_route">
         <argument
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/addRouteMap"
-        android:name="cat.copernic.meetrunning.addRoute.AddRouteMapFragment"
+        android:name="cat.copernic.meetrunning.UI.addRoute.AddRouteMapFragment"
         android:label="@string/add_route"
         tools:layout="@layout/fragment_add_route_map">
         <action
@@ -40,12 +40,12 @@
     </fragment>
     <fragment
         android:id="@+id/editProfile"
-        android:name="cat.copernic.meetrunning.profile.EditProfileFragment"
+        android:name="cat.copernic.meetrunning.UI.profile.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/favorites"
-        android:name="cat.copernic.meetrunning.favorites.FavoritesFragment"
+        android:name="cat.copernic.meetrunning.UI.favorites.FavoritesFragment"
         android:label="@string/favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
@@ -54,12 +54,12 @@
     </fragment>
     <fragment
         android:id="@+id/meetMap"
-        android:name="cat.copernic.meetrunning.MeetMapFragment"
+        android:name="cat.copernic.meetrunning.UI.meetMap.MeetMapFragment"
         android:label="@string/map"
         tools:layout="@layout/fragment_meet_map" />
     <fragment
         android:id="@+id/home"
-        android:name="cat.copernic.meetrunning.home.HomeFragment"
+        android:name="cat.copernic.meetrunning.UI.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/myRutes"
-        android:name="cat.copernic.meetrunning.profile.MyRoutesFragment"
+        android:name="cat.copernic.meetrunning.UI.profile.MyRoutesFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_my_rutes" >
         <action
@@ -80,27 +80,27 @@
     </fragment>
     <fragment
         android:id="@+id/photos"
-        android:name="cat.copernic.meetrunning.profile.PhotosFragment"
+        android:name="cat.copernic.meetrunning.UI.profile.PhotosFragment"
         android:label="fragment_photos"
         tools:layout="@layout/fragment_photos" />
     <fragment
         android:id="@+id/profile"
-        android:name="cat.copernic.meetrunning.profile.ProfileFragment"
+        android:name="cat.copernic.meetrunning.UI.profile.MyRoutesFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/ranking"
-        android:name="cat.copernic.meetrunning.ranking.RankingFragment"
+        android:name="cat.copernic.meetrunning.UI.ranking.RankingFragment"
         android:label="@string/ranking"
         tools:layout="@layout/fragment_ranking" />
     <fragment
         android:id="@+id/route"
-        android:name="cat.copernic.meetrunning.route.RouteFragment"
+        android:name="cat.copernic.meetrunning.UI.route.RouteFragment"
         android:label="@string/route"
         tools:layout="@layout/fragment_route">
         <argument
             android:name="post"
-            app:argType="cat.copernic.meetrunning.dataClass.PostHome"
+            app:argType="cat.copernic.meetrunning.dataClass.DataRoute"
             app:nullable="true" />
         <action
             android:id="@+id/action_route_to_routeMap"
@@ -109,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/routeMap"
-        android:name="cat.copernic.meetrunning.route.RouteMapFragment"
+        android:name="cat.copernic.meetrunning.UI.route.RouteMapFragment"
         android:label="@string/route_map"
         tools:layout="@layout/fragment_route_map">
         <argument
@@ -121,12 +121,12 @@
     </fragment>
     <fragment
         android:id="@+id/settings"
-        android:name="cat.copernic.meetrunning.SettingsFragment"
+        android:name="cat.copernic.meetrunning.UI.settings.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/stats"
-        android:name="cat.copernic.meetrunning.profile.StatsFragment"
+        android:name="cat.copernic.meetrunning.UI.profile.StatsFragment"
         android:label="fragment_stats"
         tools:layout="@layout/fragment_stats" />
 </navigation>

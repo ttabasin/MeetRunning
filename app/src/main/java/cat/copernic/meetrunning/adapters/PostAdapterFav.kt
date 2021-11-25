@@ -11,16 +11,16 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
-import cat.copernic.meetrunning.favorites.FavoritesFragmentDirections
-import cat.copernic.meetrunning.dataClass.PostHome
+import cat.copernic.meetrunning.UI.favorites.FavoritesFragmentDirections
+import cat.copernic.meetrunning.dataClass.DataRoute
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
 
-class PostAdapterFav(private val postFavList: ArrayList<PostHome>) :
+class PostAdapterFav(private val postFavList: ArrayList<DataRoute>) :
     RecyclerView.Adapter<PostAdapterFav.MyViewHolder>(), Filterable {
 
     private lateinit var db: FirebaseFirestore
-    private var filteredPost = arrayListOf<PostHome>()
+    private var filteredPost = arrayListOf<DataRoute>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -39,17 +39,17 @@ class PostAdapterFav(private val postFavList: ArrayList<PostHome>) :
         holder.location.text = currentPost.city
 
         holder.itemView.setOnClickListener { view ->
-            view.findNavController().navigate(
-                FavoritesFragmentDirections.actionFavoritesToRoute(
-                    currentPost
-                )
+            view.findNavController().navigate(FavoritesFragmentDirections.actionFavoritesToRoute(currentPost)
             )
         }
 
         holder.shareButton.setOnClickListener { view ->
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "Title: ${holder.title.text} \nLocation: ${holder.location.text}")
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Title: ${holder.title.text} \nLocation: ${holder.location.text}"
+                )
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
@@ -84,12 +84,12 @@ class PostAdapterFav(private val postFavList: ArrayList<PostHome>) :
         return object : Filter() {
             override fun performFiltering(charSequence: CharSequence): FilterResults {
                 val txt = charSequence.toString()
-                if (txt.isBlank()){
+                if (txt.isBlank()) {
                     filteredPost = postFavList
-                }else{
-                    val fpost = arrayListOf<PostHome>()
-                    for (p in postFavList){
-                        if (p.title?.lowercase()?.contains(txt.lowercase()) == true){
+                } else {
+                    val fpost = arrayListOf<DataRoute>()
+                    for (p in postFavList) {
+                        if (p.title?.lowercase()?.contains(txt.lowercase()) == true) {
                             fpost.add(p)
                         }
                     }
@@ -101,7 +101,7 @@ class PostAdapterFav(private val postFavList: ArrayList<PostHome>) :
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                filteredPost = filterResults.values as java.util.ArrayList<PostHome>
+                filteredPost = filterResults.values as java.util.ArrayList<DataRoute>
                 notifyDataSetChanged()
             }
         }

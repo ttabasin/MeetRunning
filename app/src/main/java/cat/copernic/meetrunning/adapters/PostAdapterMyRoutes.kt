@@ -11,15 +11,15 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
-import cat.copernic.meetrunning.dataClass.PostHome
+import cat.copernic.meetrunning.dataClass.DataRoute
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class PostAdapterMyRoutes (private val postMyRouteList: ArrayList<PostHome>) :
+class PostAdapterMyRoutes (private val postMyListRoute: ArrayList<DataRoute>) :
     RecyclerView.Adapter<PostAdapterMyRoutes.MyViewHolder>(), Filterable {
 
     private lateinit var db: FirebaseFirestore
-    private var filteredPost = arrayListOf<PostHome>()
+    private var filteredPost = arrayListOf<DataRoute>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -96,10 +96,10 @@ class PostAdapterMyRoutes (private val postMyRouteList: ArrayList<PostHome>) :
             override fun performFiltering(charSequence: CharSequence): FilterResults {
                 val txt = charSequence.toString()
                 if (txt.isBlank()){
-                    filteredPost = postMyRouteList
+                    filteredPost = postMyListRoute
                 }else{
-                    val fpost = arrayListOf<PostHome>()
-                    for (p in postMyRouteList){
+                    val fpost = arrayListOf<DataRoute>()
+                    for (p in postMyListRoute){
                         if (p.title?.lowercase()?.contains(txt.lowercase()) == true){
                             fpost.add(p)
                         }
@@ -112,7 +112,7 @@ class PostAdapterMyRoutes (private val postMyRouteList: ArrayList<PostHome>) :
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                filteredPost = filterResults.values as java.util.ArrayList<PostHome>
+                filteredPost = filterResults.values as java.util.ArrayList<DataRoute>
                 notifyDataSetChanged()
             }
         }

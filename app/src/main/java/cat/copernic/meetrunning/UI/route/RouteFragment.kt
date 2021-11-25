@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning.route
+package cat.copernic.meetrunning.UI.route
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

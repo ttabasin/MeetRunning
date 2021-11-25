@@ -2,9 +2,8 @@ package cat.copernic.meetrunning.dataClass
 
 import android.os.Parcel
 import android.os.Parcelable
-import cat.copernic.meetrunning.home.LatLng
 
-data class PostHome(
+data class DataRoute(
     var title: String? = "",
     var description: String? = "",
     var route: MutableList<LatLng> = ArrayList(),
@@ -36,12 +35,12 @@ data class PostHome(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<PostHome> {
-        override fun createFromParcel(parcel: Parcel): PostHome {
-            return PostHome(parcel)
+    companion object CREATOR : Parcelable.Creator<DataRoute> {
+        override fun createFromParcel(parcel: Parcel): DataRoute {
+            return DataRoute(parcel)
         }
 
-        override fun newArray(size: Int): Array<PostHome?> {
+        override fun newArray(size: Int): Array<DataRoute?> {
             return arrayOfNulls(size)
         }
     }

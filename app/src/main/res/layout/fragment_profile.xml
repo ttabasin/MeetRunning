@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile.ProfileFragment">
+    tools:context=".UI.profile.MyRoutesFragment">
 
     <ImageView
         android:id="@+id/profilePhoto"
@@ -112,31 +112,27 @@
         app:layout_constraintStart_toEndOf="@+id/profilePhoto"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawerLayout"
-        android:layout_width="411dp"
-        android:layout_height="464dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
+    <EditText
+        android:id="@+id/search"
+        style="@style/Widget.AppCompat.SearchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="?android:attr/actionModeWebSearchDrawable"
+        android:hint="@string/search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMyRoutes"
+        android:layout_width="414dp"
+        android:layout_height="415dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2">
+        app:layout_constraintTop_toBottomOf="@+id/search"
+        tools:listitem="@layout/item_row">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <fragment
-                android:id="@+id/myNavHostFragment"
-                android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:defaultNavHost="true"
-                app:navGraph="@navigation/navigation_profile" />
-        </LinearLayout>
-    </androidx.drawerlayout.widget.DrawerLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

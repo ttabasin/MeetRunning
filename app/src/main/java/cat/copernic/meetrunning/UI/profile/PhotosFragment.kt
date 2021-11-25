@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning.profile
+package cat.copernic.meetrunning.UI.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,14 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import cat.copernic.meetrunning.R
 
-class ProfileFragment : Fragment() {
+class PhotosFragment : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        return inflater.inflate(R.layout.fragment_photos, container, false)
     }
 
 }

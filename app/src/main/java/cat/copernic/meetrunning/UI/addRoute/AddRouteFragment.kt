@@ -1,16 +1,12 @@
-package cat.copernic.meetrunning.addRoute
+package cat.copernic.meetrunning.UI.addRoute
 
-import android.R.attr
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.provider.MediaStore
 import android.content.Intent
-import android.graphics.Bitmap
 import android.location.Geocoder
 import android.net.Uri
 import android.util.Log
@@ -22,18 +18,10 @@ import cat.copernic.meetrunning.databinding.FragmentAddRouteBinding
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.squareup.okhttp.Route
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Locale
 import java.util.ArrayList
-import android.R.attr.data
-
-
-
-
-
-
 
 class AddRouteFragment : Fragment() {
 
@@ -50,35 +38,33 @@ class AddRouteFragment : Fragment() {
         val args = AddRouteFragmentArgs.fromBundle(requireArguments())
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
         binding.distanceTxt.text = "${"%.3f".format(args.distance)}Km"
-        binding.timeTxt.text = SimpleDateFormat("HH:mm:ss").format(args.time - TimeZone.getDefault().rawOffset)
+        binding.timeTxt.text =
+            SimpleDateFormat("HH:mm:ss").format(args.time - TimeZone.getDefault().rawOffset)
         binding.imageNext.setOnClickListener {
-            if (mArrayUri.size != 0){
-                if (pos  >= mArrayUri.size - 1){
-                    binding.imageView3.setImageURI(mArrayUri[0])
+            if (mArrayUri.size != 0) {
+                if (pos >= mArrayUri.size - 1) {
+                    binding.photoGallery.setImageURI(mArrayUri[0])
                     pos = 0
-                }else{
+                } else {
                     pos++
-                    binding.imageView3.setImageURI(mArrayUri[pos])
+                    binding.photoGallery.setImageURI(mArrayUri[pos])
                 }
             }
 
         }
         binding.imagePrev.setOnClickListener {
-            if (mArrayUri.size != 0){
-                if (pos == 0){
-                    pos = mArrayUri.size-1
-                    binding.imageView3.setImageURI(mArrayUri[pos])
-                }else{
+            if (mArrayUri.size != 0) {
+                if (pos == 0) {
+                    pos = mArrayUri.size - 1
+                    binding.photoGallery.setImageURI(mArrayUri[pos])
+                } else {
                     pos--
-                    binding.imageView3.setImageURI(mArrayUri[pos])
+                    binding.photoGallery.setImageURI(mArrayUri[pos])
                 }
             }
         }
 
-        /*if(binding.editTextDescription.text.isEmpty()){
-            binding.signUpContinue.setEnabled(false)
-        }else{*/
-        binding.signUpContinue.setOnClickListener {
+        binding.continueRoute.setOnClickListener {
             if (checkInput()) {
                 val db = FirebaseFirestore.getInstance()
                 val gcd = Geocoder(context, Locale.getDefault())
@@ -106,21 +92,27 @@ class AddRouteFragment : Fragment() {
                         )
                 }
 
-                //Afegir la ruta i anar al home
-                db.collection("posts").document(binding.editTextTitle.text.toString())
-                    .set(route).addOnCompleteListener {
-                        findNavController().navigate(AddRouteFragmentDirections.actionAddRouteToHome())
+                db.collection("users").document(currentUser).collection("routes")
+                    .document(binding.editTextTitle.text.toString()).get()
+                    .addOnSuccessListener { document ->
+                        if (document.exists()) {
+                            //Toast
+                        } else {
+                            //Afegir la ruta i anar al home
+                            db.collection("posts").document(binding.editTextTitle.text.toString())
+                                .set(route).addOnCompleteListener {
+                                    findNavController().navigate(AddRouteFragmentDirections.actionAddRouteToHome())
+                                }
+                            //Afegir la ruta a l'usuari
+                            db.collection("users").document(currentUser).collection("routes")
+                                .document(binding.editTextTitle.text.toString()).set(route)
+                        }
                     }
 
-                //Afegir la ruta a l'usuari
-                db.collection("users").document(currentUser).collection("routes")
-                    .document(binding.editTextTitle.text.toString()).set(route)
             }
         }
-        //}
 
-
-        binding.imageView3.setOnClickListener {
+        binding.photoGallery.setOnClickListener {
             mArrayUri.clear()
             openGallery()
         }
@@ -139,19 +131,20 @@ class AddRouteFragment : Fragment() {
     }
 
     private val startForActivityGallery = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()){ result ->
-        if (result.resultCode == Activity.RESULT_OK){
-            pos=0
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            pos = 0
             val data = result.data?.clipData
-            if (data != null){
+            if (data != null) {
                 for (i in 0 until data.itemCount) {
                     mArrayUri.add(data.getItemAt(i).uri)
                 }
                 Log.d("img", "$data")
-                binding.imageView3.setImageURI(mArrayUri[0])
-            }else if (result.data?.data != null){
+                binding.photoGallery.setImageURI(mArrayUri[0])
+            } else if (result.data?.data != null) {
                 mArrayUri.add(result.data?.data)
-                binding.imageView3.setImageURI(mArrayUri[0])
+                binding.photoGallery.setImageURI(mArrayUri[0])
             }
         }
     }

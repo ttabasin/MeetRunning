@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning.ranking
+package cat.copernic.meetrunning.UI.ranking
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning.addRoute
+package cat.copernic.meetrunning.UI.addRoute
 
 import android.Manifest
 import android.annotation.SuppressLint

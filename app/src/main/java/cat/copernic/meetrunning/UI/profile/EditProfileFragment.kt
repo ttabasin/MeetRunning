@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning.profile
+package cat.copernic.meetrunning.UI.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

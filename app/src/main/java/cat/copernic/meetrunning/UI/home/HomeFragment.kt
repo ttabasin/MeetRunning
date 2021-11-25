@@ -1,4 +1,4 @@
-package cat.copernic.meetrunning.home
+package cat.copernic.meetrunning.UI.home
 
 import android.os.Bundle
 import android.text.Editable
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.adapters.PostAdapterHome
-import cat.copernic.meetrunning.dataClass.PostHome
+import cat.copernic.meetrunning.dataClass.DataRoute
 import cat.copernic.meetrunning.databinding.FragmentHomeBinding
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class HomeFragment : Fragment() {
 
     private lateinit var postRecyclerView: RecyclerView
-    private lateinit var postHomeArrayList: ArrayList<PostHome>
+    private lateinit var dataRouteArrayList: ArrayList<DataRoute>
     private lateinit var postAdapterHome: PostAdapterHome
     private lateinit var db: FirebaseFirestore
 
@@ -52,9 +52,9 @@ class HomeFragment : Fragment() {
         postRecyclerView.layoutManager = LinearLayoutManager(context)
         postRecyclerView.setHasFixedSize(true)
 
-        postHomeArrayList = arrayListOf()
+        dataRouteArrayList = arrayListOf()
 
-        postAdapterHome = PostAdapterHome(postHomeArrayList)
+        postAdapterHome = PostAdapterHome(dataRouteArrayList)
 
 
         postRecyclerView.adapter = postAdapterHome
@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
-                        postHomeArrayList.add(dc.document.toObject(PostHome::class.java))
+                        dataRouteArrayList.add(dc.document.toObject(DataRoute::class.java))
                     }
                 }
                 postAdapterHome.notifyDataSetChanged()
