@@ -5,22 +5,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cat.copernic.meetrunning.R
+import androidx.navigation.findNavController
+import cat.copernic.meetrunning.databinding.FragmentAchivementsBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class AchivementsFragment : Fragment() {
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_achivements, container, false)
+
+        var binding = FragmentAchivementsBinding.inflate(layoutInflater)
+
+        binding.myRoutesBT.setOnClickListener{
+            it.findNavController().navigate(AchivementsFragmentDirections.actionAchivementsToMyRoutes())
+        }
+        binding.statsBT.setOnClickListener{
+            it.findNavController().navigate(AchivementsFragmentDirections.actionAchivementsToStats())
+        }
+
+        binding.photosBT.setOnClickListener{
+            it.findNavController().navigate(AchivementsFragmentDirections.actionAchivementsToPhotos())
+        }
+        binding.settingBT.setOnClickListener{
+            it.findNavController().navigate(AchivementsFragmentDirections.actionAchivementsToEditProfile())
+        }
+
+        binding.username.text = FirebaseAuth.getInstance().currentUser?.displayName.toString()
+
+        return binding.root
     }
 
 }

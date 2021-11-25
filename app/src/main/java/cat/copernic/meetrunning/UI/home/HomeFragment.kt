@@ -1,5 +1,6 @@
 package cat.copernic.meetrunning.UI.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -62,23 +63,22 @@ class HomeFragment : Fragment() {
         addRouteToList()
         val c: CharSequence = ""
         postAdapterHome.filter.filter(c)
-        // Inflate the layout for this fragment
+
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun addRouteToList() {
 
         db = FirebaseFirestore.getInstance()
-        db.collection("posts").addSnapshotListener(object : EventListener<QuerySnapshot> {
-            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        dataRouteArrayList.add(dc.document.toObject(DataRoute::class.java))
-                    }
+        db.collection("posts").addSnapshotListener { value, _ ->
+            for (dc: DocumentChange in value?.documentChanges!!) {
+                if (dc.type == DocumentChange.Type.ADDED) {
+                    dataRouteArrayList.add(dc.document.toObject(DataRoute::class.java))
                 }
-                postAdapterHome.notifyDataSetChanged()
             }
-        })
+            postAdapterHome.notifyDataSetChanged()
+        }
     }
 }
 

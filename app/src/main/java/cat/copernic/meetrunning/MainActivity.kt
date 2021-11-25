@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         //Pantalla perfil
         binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.photoProfile).setOnClickListener {
-            navController.navigate(R.id.profile)
+            navController.navigate(R.id.myRoutes)
             drawerLayout.closeDrawers()
         }
 

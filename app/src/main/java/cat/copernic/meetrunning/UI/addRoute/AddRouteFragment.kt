@@ -65,9 +65,11 @@ class AddRouteFragment : Fragment() {
         }
 
         binding.continueRoute.setOnClickListener {
+            //Mira si no te camps buits
             if (checkInput()) {
                 val db = FirebaseFirestore.getInstance()
                 val gcd = Geocoder(context, Locale.getDefault())
+                //Crea l'objecte ruta
                 val route = Route(
                     binding.editTextTitle.text.toString(),
                     binding.editTextDescription.text.toString(),
@@ -92,11 +94,12 @@ class AddRouteFragment : Fragment() {
                         )
                 }
 
-                db.collection("users").document(currentUser).collection("routes")
-                    .document(binding.editTextTitle.text.toString()).get()
+                //Mirar si el titol existeix
+                db.collection("posts").document(binding.editTextTitle.text.toString()).get()
                     .addOnSuccessListener { document ->
+                        //Si existeix no et deixa crear la ruta
                         if (document.exists()) {
-                            //Toast
+                            Toast.makeText(context, R.string.error_title, Toast.LENGTH_LONG).show()
                         } else {
                             //Afegir la ruta i anar al home
                             db.collection("posts").document(binding.editTextTitle.text.toString())
@@ -117,8 +120,6 @@ class AddRouteFragment : Fragment() {
             openGallery()
         }
 
-
-        // Inflate the layout for this fragment
         return binding.root
     }
 

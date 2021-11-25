@@ -1,5 +1,6 @@
 package cat.copernic.meetrunning.UI.favorites
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -57,20 +58,19 @@ class FavoritesFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun addRouteToList() {
         db = FirebaseFirestore.getInstance()
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         db.collection("users").document(currentUser).collection("favorites")
-            .addSnapshotListener(object : EventListener<QuerySnapshot> {
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    for (dc: DocumentChange in value?.documentChanges!!) {
-                        if (dc.type == DocumentChange.Type.ADDED) {
-                            postArrayList.add(dc.document.toObject(DataRoute::class.java))
-                        }
+            .addSnapshotListener { value, error ->
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        postArrayList.add(dc.document.toObject(DataRoute::class.java))
                     }
-                    postAdapter.notifyDataSetChanged()
                 }
-            })
+                postAdapter.notifyDataSetChanged()
+            }
     }
 }
