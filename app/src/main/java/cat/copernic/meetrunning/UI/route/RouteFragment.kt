@@ -5,38 +5,39 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import cat.copernic.meetrunning.databinding.FragmentRouteBinding
-import com.google.android.gms.maps.model.LatLng
+import cat.copernic.meetrunning.viewModel.RouteViewModel
+import cat.copernic.meetrunning.viewModel.RouteViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class RouteFragment : Fragment() {
 
-    lateinit var binding: FragmentRouteBinding
+    private lateinit var binding: FragmentRouteBinding
+    private lateinit var viewModel: RouteViewModel
+    private lateinit var viewModelFactory: RouteViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentRouteBinding.inflate(layoutInflater)
-        val args = RouteFragmentArgs.fromBundle(requireArguments())
-        val pos: ArrayList<LatLng> = ArrayList()
+        viewModelFactory = RouteViewModelFactory(RouteFragmentArgs.fromBundle(requireArguments()).post)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(RouteViewModel::class.java)
 
-        binding.descriptionRoute.text = args.post?.description
-        binding.titleRoute.text = args.post?.title
-        binding.distanceTxt.text = "${"%.3f".format(args.post?.distance)}Km"
+        binding.descriptionRoute.text = viewModel.description
+        binding.titleRoute.text = viewModel.title
+        binding.distanceTxt.text = "${"%.3f".format(viewModel.distance)}Km"
         binding.timeTxt.text =
-            SimpleDateFormat("HH:mm:ss").format(args.post?.time?.minus(TimeZone.getDefault().rawOffset))
-        for (p in args.post?.route!!) {
-            pos.add(LatLng(p.latitude, p.longitude))
-        }
+            SimpleDateFormat("HH:mm:ss").format(viewModel.time?.minus(TimeZone.getDefault().rawOffset))
+
 
         binding.signUpContinue.setOnClickListener {
             it.findNavController()
-                .navigate(RouteFragmentDirections.actionRouteToRouteMap(pos.toTypedArray()))
+                .navigate(RouteFragmentDirections.actionRouteToRouteMap(viewModel.pos.toTypedArray()))
         }
         return binding.root
     }
