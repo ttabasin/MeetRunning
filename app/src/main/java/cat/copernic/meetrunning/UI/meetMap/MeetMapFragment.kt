@@ -3,6 +3,9 @@ package cat.copernic.meetrunning.UI.meetMap
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.graphics.BitmapFactory
+import android.graphics.BitmapFactory.decodeResource
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -25,9 +28,15 @@ import java.util.*
 import com.google.android.gms.maps.model.CameraPosition
 
 import com.google.android.gms.maps.model.PolylineOptions
-
-
-
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
+import cat.copernic.meetrunning.dataClass.LatLng as CLatLng
+import java.util.Arrays
 
 
 class MeetMapFragment : Fragment(), OnMapReadyCallback {
@@ -67,6 +76,8 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
                     var location: LatLng
                     fusedLocationClient.lastLocation.addOnSuccessListener {
                         location = LatLng(it.latitude, it.longitude)
+                        saveLocation(location)
+                        getNearbyLocation(location)
                         mMap.addCircle(
                             CircleOptions()
                                 .center(location)
@@ -75,7 +86,7 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
                                 .fillColor(Color.parseColor("#99ff5945"))
                         )
                     }
-                    delay(1000)
+                    delay(10000)
                     activity?.runOnUiThread {
                         mMap.clear()
                     }
@@ -129,6 +140,59 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private fun saveLocation(l: LatLng) {
+        val db = FirebaseFirestore.getInstance()
+        val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
+        db.collection("users").document(currentUser).get().addOnSuccessListener {
+            db.collection("users").document(currentUser).update(
+                "location", l
+            )
+        }
+    }
+
+    private fun getNearbyLocation(l: LatLng) {
+        val db = FirebaseFirestore.getInstance()
+        val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
+        db.collection("users").get().addOnSuccessListener {
+            for (i in it) {
+                var str = i.get("location").toString()
+                str = str.replace("[^-?.0-9]+".toRegex(), " ")
+                val a = listOf(*str.trim { it <= ' ' }.split(" ").toTypedArray())
+                if (i.get("location") != null && calculateDistance(
+                        l,
+                        LatLng(a[0].toDouble(), a[1].toDouble())
+                    ) <= 0.300 && i.get("email").toString() != currentUser
+                ) {
+                    Log.d("aaa", "cosas")
+                    mMap.addMarker(
+                        MarkerOptions()
+                            .title(i.get("username").toString())
+                            .position(LatLng(a[0].toDouble(), a[1].toDouble()))
+                            //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.bosque))
+                    )
+                }
+            }
+        }
+    }
+
+    private fun calculateDistance(pos1: LatLng, pos2: LatLng): Double {
+        val earthRadius = 6371
+        val dLat = degreesToRadian(pos2.latitude - pos1.latitude)
+        val dLon = degreesToRadian(pos2.longitude - pos1.longitude)
+
+        val lat1 = degreesToRadian(pos1.latitude)
+        val lat2 = degreesToRadian(pos2.latitude)
+
+        val a = sin(dLat / 2) * sin(dLat / 2) +
+                sin(dLon / 2) * sin(dLon / 2) * cos(lat1) * cos(lat2)
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        return earthRadius * c
+    }
+
+    private fun degreesToRadian(i: Double): Double {
+        return i * Math.PI / 180
+    }
+
     override fun onResume() {
         super.onResume()
         binding.mapView.onResume()
@@ -142,7 +206,7 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
     override fun onDestroy() {
         super.onDestroy()
         binding.mapView.onDestroy()
-        if (job.isActive){
+        if (job.isActive) {
             btnPressed = true
             job.cancel()
         }
@@ -152,7 +216,6 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
         super.onLowMemory()
         binding.mapView.onLowMemory()
     }
-
 
 
 }
