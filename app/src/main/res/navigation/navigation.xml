@@ -25,7 +25,7 @@
         <action
             android:id="@+id/action_achivements_to_editProfile"
             app:destination="@id/editProfile"
-            app:popUpTo="@id/home" />
+            app:popUpTo="@id/myRoutes" />
     </fragment>
     <fragment
         android:id="@+id/addRoute"
@@ -106,7 +106,7 @@
         <action
             android:id="@+id/action_photos_to_editProfile"
             app:destination="@id/editProfile"
-            app:popUpTo="@id/home"/>
+            app:popUpTo="@id/myRoutes" />
     </fragment>
     <fragment
         android:id="@+id/myRoutes"
@@ -120,7 +120,7 @@
         <action
             android:id="@+id/action_myRoutes_to_editProfile"
             app:destination="@id/editProfile"
-            app:popUpTo="@id/home"/>
+            app:popUpTo="@id/myRoutes" />
         <action
             android:id="@+id/action_myRoutes_to_achivements"
             app:destination="@id/achivements"
@@ -189,6 +189,6 @@
         <action
             android:id="@+id/action_stats_to_editProfile"
             app:destination="@id/editProfile"
-            app:popUpTo="@id/home"/>
+            app:popUpTo="@id/myRoutes" />
     </fragment>
 </navigation>
