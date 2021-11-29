@@ -1,5 +1,6 @@
 package cat.copernic.meetrunning.UI.ranking
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -67,23 +68,22 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
 
     }
 
+    //Mostrar els usuaris ordenats per km fets
+    @SuppressLint("NotifyDataSetChanged")
     private fun addRouteToList() {
-
         db = FirebaseFirestore.getInstance()
-        db.collection("users").addSnapshotListener(object : EventListener<QuerySnapshot> {
-            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        userArrayList.add(dc.document.toObject(User::class.java))
-                        userArrayList.sortByDescending { it.distance }
-                        if (userArrayList.size > 5) {
-                            userArrayList.removeAt(5)
-                        }
+        db.collection("users").addSnapshotListener { value, _ ->
+            for (dc: DocumentChange in value?.documentChanges!!) {
+                if (dc.type == DocumentChange.Type.ADDED) {
+                    userArrayList.add(dc.document.toObject(User::class.java))
+                    userArrayList.sortByDescending { it.distance }
+                    if (userArrayList.size > 5) {
+                        userArrayList.removeAt(5)
                     }
                 }
-                userAdapter.notifyDataSetChanged()
             }
-        })
+            userAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun onDestroyView() {
@@ -91,6 +91,7 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
         _binding = null
     }
 
+    //Convertir el mes de numero a text
     private fun changeMonth(date: String): String {
         lateinit var month: String
         when (date) {

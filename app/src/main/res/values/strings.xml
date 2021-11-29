@@ -35,6 +35,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="route_map">Route Map</string>
     <string name="route">Route</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Profile</string>
 
     <!-- Botons -->
     <string name="checkBoxSignUp">I agree to the Terms of Service and Privacy Policiy</string>
@@ -51,10 +53,10 @@
     <string name="error_auth">An error occurred authenticating the user</string>
     <string name="error_empt">Empty Fields!</string>
     <string name="error_passwd">Passwords don\'t match</string>
-    <string name="profile">Profile</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="error_title">Title exists</string>
 
     <!-- Mesos -->
     <string name="january">January</string>

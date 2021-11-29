@@ -1,5 +1,6 @@
 package cat.copernic.meetrunning.UI.profile
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.adapters.PostAdapterMyRoutes
@@ -27,6 +29,21 @@ class MyRoutesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentProfileBinding.inflate(layoutInflater)
+
+        binding.statsBT.setOnClickListener{
+            it.findNavController().navigate(MyRoutesFragmentDirections.actionMyRoutesToStats())
+        }
+        binding.achivementsBT.setOnClickListener{
+            it.findNavController().navigate(MyRoutesFragmentDirections.actionMyRoutesToAchivements())
+        }
+        binding.photosBT.setOnClickListener{
+            it.findNavController().navigate(MyRoutesFragmentDirections.actionMyRoutesToPhotos())
+        }
+        binding.settingBT.setOnClickListener{
+            it.findNavController().navigate(MyRoutesFragmentDirections.actionMyRoutesToEditProfile())
+        }
+
+        binding.username.text = FirebaseAuth.getInstance().currentUser?.displayName.toString()
 
         binding.search.addTextChangedListener(object : TextWatcher {
 
@@ -60,22 +77,21 @@ class MyRoutesFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun addRouteToList() {
 
         db = FirebaseFirestore.getInstance()
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         db.collection("users").document(currentUser).collection("routes")
-            .addSnapshotListener(object : EventListener<QuerySnapshot> {
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    for (dc: DocumentChange in value?.documentChanges!!) {
-                        if (dc.type == DocumentChange.Type.ADDED) {
-                            postArrayList.add(dc.document.toObject(DataRoute::class.java))
-                        }
+            .addSnapshotListener { value, _ ->
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        postArrayList.add(dc.document.toObject(DataRoute::class.java))
                     }
-                    postAdapter.notifyDataSetChanged()
                 }
-            })
+                postAdapter.notifyDataSetChanged()
+            }
     }
 
 }
