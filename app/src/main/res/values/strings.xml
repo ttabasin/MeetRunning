@@ -5,6 +5,11 @@
     <string name="app_name">MeetRunning</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="search">Search</string>
+    <string name="lenguage">Lenguage</string>
+    <string name="about_us">About Us</string>
+    <string name="programmers">Programmers:</string>
+    <string name="santi">Santiago Alves</string>
+    <string name="pau">Pau Camacho</string>
 
     <!-- Registrar/Login -->
     <string name="username">Username</string>
