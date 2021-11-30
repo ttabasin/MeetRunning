@@ -13,12 +13,13 @@ class StatsViewModel: ViewModel() {
     var db = FirebaseFirestore.getInstance()
     var distance: String? = ""
     var time: String? = ""
+    var description: String? = ""
 
     init{
         db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
             distance = "${"%.2f".format(it.get("distance"))}km"
             time = SimpleDateFormat("HH:mm:ss").format(it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset))
-
+            description = it.getString("description")
         }
     }
 

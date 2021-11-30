@@ -29,6 +29,8 @@ class MyRoutesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentProfileBinding.inflate(layoutInflater)
+        val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
+        db = FirebaseFirestore.getInstance()
 
         binding.statsBT.setOnClickListener{
             it.findNavController().navigate(MyRoutesFragmentDirections.actionMyRoutesToStats())
@@ -44,6 +46,11 @@ class MyRoutesFragment : Fragment() {
         }
 
         binding.username.text = FirebaseAuth.getInstance().currentUser?.displayName.toString()
+
+        db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
+            binding.description.text = it.getString("description")
+        }
+
 
         binding.search.addTextChangedListener(object : TextWatcher {
 

@@ -13,7 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class StatsFragment : Fragment() {
 
-    private lateinit var db: FirebaseFirestore
     private lateinit var viewModel: StatsViewModel
 
     override fun onCreateView(
@@ -26,6 +25,9 @@ class StatsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(StatsViewModel::class.java)
 
         binding.username.text = viewModel.user
+        viewModel.db.collection("users").document(viewModel.currentUserEmail).get().addOnSuccessListener {
+            binding.description.text = viewModel.description
+        }
 
         viewModel.db.collection("users").document(viewModel.currentUserEmail).get().addOnSuccessListener {
             binding.distanceStat.text = viewModel.distance

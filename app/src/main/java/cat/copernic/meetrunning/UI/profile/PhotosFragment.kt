@@ -10,8 +10,11 @@ import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentAchivementsBinding
 import cat.copernic.meetrunning.databinding.FragmentPhotosBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class PhotosFragment : Fragment() {
+
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,7 +22,8 @@ class PhotosFragment : Fragment() {
     ): View? {
 
         var binding = FragmentPhotosBinding.inflate(layoutInflater)
-
+        val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
+        db = FirebaseFirestore.getInstance()
         binding.myRoutesBT.setOnClickListener{
             it.findNavController().navigate(PhotosFragmentDirections.actionPhotosToMyRoutes())
         }
@@ -35,7 +39,9 @@ class PhotosFragment : Fragment() {
         }
 
         binding.username.text = FirebaseAuth.getInstance().currentUser?.displayName.toString()
-
+        db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
+            binding.description.text = it.getString("description")
+        }
 
         return binding.root
     }

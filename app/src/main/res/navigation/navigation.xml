@@ -59,7 +59,12 @@
         android:id="@+id/editProfile"
         android:name="cat.copernic.meetrunning.UI.profile.EditProfileFragment"
         android:label="@string/edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfile_to_myRoutes"
+            app:destination="@id/myRoutes"
+            app:popUpTo="@id/myRoutes" />
+    </fragment>
     <fragment
         android:id="@+id/favorites"
         android:name="cat.copernic.meetrunning.UI.favorites.FavoritesFragment"

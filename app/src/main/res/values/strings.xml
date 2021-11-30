@@ -10,6 +10,7 @@
     <string name="programmers">Programmers:</string>
     <string name="santi">Santiago Alves</string>
     <string name="pau">Pau Camacho</string>
+    <string name="auto_bio">Hey! Insert bio here!</string>
 
     <!-- Registrar/Login -->
     <string name="username">Username</string>

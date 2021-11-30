@@ -24,18 +24,17 @@
         android:layout_marginStart="12dp"
         android:text="USERNAME"
         android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintBottom_toTopOf="@+id/description"
         app:layout_constraintStart_toEndOf="@+id/profilePhoto"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/description"
         android:layout_width="240dp"
         android:layout_height="0dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="64dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         app:layout_constraintStart_toEndOf="@+id/profilePhoto"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,7 +59,7 @@
         android:background="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/photosBT"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/description"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
@@ -70,7 +69,7 @@
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_baseline_map_24"
         app:layout_constraintEnd_toStartOf="@+id/statsBT"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <ImageButton
         android:id="@+id/statsBT"

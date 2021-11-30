@@ -7,12 +7,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
-import cat.copernic.meetrunning.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import cat.copernic.meetrunning.MainActivity
 import cat.copernic.meetrunning.ProviderType
 import cat.copernic.meetrunning.R
+import cat.copernic.meetrunning.databinding.ActivitySignUpBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -65,7 +65,8 @@ class SignUpActivity : AppCompatActivity() {
                             "username" to binding.SignUpEmail.text.toString(),
                             "email" to binding.SignUpConfirmEmail.text.toString(),
                             "distance" to 0.0,
-                            "time" to 0
+                            "time" to 0,
+                            "description" to R.string.auto_bio
                         )
 
                         db.collection("users").document(binding.SignUpConfirmEmail.text.toString())
