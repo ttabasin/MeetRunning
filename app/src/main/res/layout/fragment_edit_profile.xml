@@ -8,6 +8,17 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <TextView
+        android:id="@+id/textView4"
+        style="@style/txtViewInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username"
+        app:layout_constraintBottom_toTopOf="@+id/changeUsername"
+        app:layout_constraintEnd_toEndOf="@+id/changeUsername"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/changeUsername" />
+
     <EditText
         android:id="@+id/changeUsername"
         android:layout_width="wrap_content"
@@ -21,57 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/changeEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintEnd_toEndOf="@+id/changeUsername"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/changeUsername"
-        app:layout_constraintTop_toBottomOf="@+id/changeUsername" />
-
-    <EditText
-        android:id="@+id/changeConfirmPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:hint="@string/confirmPassword"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/changePassword"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/changePassword"
-        app:layout_constraintTop_toBottomOf="@+id/changePassword" />
-
-    <EditText
-        android:id="@+id/changePassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="@string/prompt_password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/changeEmail"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/changeEmail"
-        app:layout_constraintTop_toBottomOf="@+id/changeEmail" />
-
-    <TextView
-        android:id="@+id/textView4"
-        style="@style/txtViewInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/username"
-        app:layout_constraintBottom_toTopOf="@+id/changeUsername"
-        app:layout_constraintEnd_toEndOf="@+id/changeUsername"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/changeUsername" />
-
     <TextView
         android:id="@+id/textView5"
         style="@style/txtViewInfo"
@@ -82,6 +42,44 @@
         app:layout_constraintEnd_toEndOf="@+id/changeEmail"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/changeEmail" />
+
+    <EditText
+        android:id="@+id/changeEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintEnd_toEndOf="@+id/changeUsername"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/changeUsername"
+        app:layout_constraintTop_toBottomOf="@+id/changeUsername" />
+
+    <TextView
+        android:id="@+id/textView9"
+        style="@style/txtViewInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        app:layout_constraintBottom_toTopOf="@+id/changeDescription"
+        app:layout_constraintEnd_toEndOf="@+id/changeDescription"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/changeDescription" />
+
+    <EditText
+        android:id="@+id/changeDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/description"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/changeEmail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/changeEmail"
+        app:layout_constraintTop_toBottomOf="@+id/changeEmail" />
 
     <TextView
         android:id="@+id/textView7"
@@ -94,6 +92,19 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/changePassword" />
 
+    <EditText
+        android:id="@+id/changePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/prompt_password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/changeDescription"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/changeDescription"
+        app:layout_constraintTop_toBottomOf="@+id/changeDescription" />
+
     <TextView
         android:id="@+id/textView8"
         style="@style/txtViewInfo"
@@ -104,6 +115,19 @@
         app:layout_constraintEnd_toEndOf="@+id/changeConfirmPassword"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/changeConfirmPassword" />
+
+    <EditText
+        android:id="@+id/changeConfirmPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/confirmPassword"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/changePassword"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/changePassword"
+        app:layout_constraintTop_toBottomOf="@+id/changePassword" />
 
     <Button
         android:id="@+id/confirmBtn"
@@ -120,12 +144,12 @@
         android:id="@+id/changePhoto"
         android:layout_width="108dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_baseline_star_24check"
+        android:src="@drawable/ic_baseline_account_circle_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintEnd_toStartOf="@+id/changeUsername"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.107" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
