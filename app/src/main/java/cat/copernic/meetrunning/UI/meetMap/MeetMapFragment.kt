@@ -3,18 +3,14 @@ package cat.copernic.meetrunning.UI.meetMap
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.content.res.Resources
-import android.graphics.BitmapFactory
-import android.graphics.BitmapFactory.decodeResource
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentMeetMapBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -22,21 +18,17 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.*
-import kotlinx.coroutines.*
-import java.util.*
-import com.google.android.gms.maps.model.CameraPosition
-
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.CircleOptions
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
+import kotlinx.coroutines.*
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
-import cat.copernic.meetrunning.dataClass.LatLng as CLatLng
-import java.util.Arrays
 
 
 class MeetMapFragment : Fragment(), OnMapReadyCallback {
@@ -51,10 +43,9 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMeetMapBinding.inflate(layoutInflater)
-        var mapViewBundle: Bundle? = null
-        mapViewBundle = savedInstanceState?.getBundle("MapViewBundleKey")
+        val mapViewBundle: Bundle? = savedInstanceState?.getBundle("MapViewBundleKey")
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         binding.mapView.onCreate(mapViewBundle)
         binding.mapView.getMapAsync(this)
@@ -96,7 +87,7 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_LOCATION_PERMISSION
             )
         }
@@ -113,7 +104,7 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_LOCATION_PERMISSION
             )
         }
@@ -163,12 +154,11 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
                         LatLng(a[0].toDouble(), a[1].toDouble())
                     ) <= 0.300 && i.get("email").toString() != currentUser
                 ) {
-                    Log.d("aaa", "cosas")
                     mMap.addMarker(
                         MarkerOptions()
                             .title(i.get("username").toString())
                             .position(LatLng(a[0].toDouble(), a[1].toDouble()))
-                            //.icon(BitmapDescriptorFactory.fromResource(R.mipmap.bosque))
+                            //.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_run))
                     )
                 }
             }
