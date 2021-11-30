@@ -20,6 +20,7 @@ class EditProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentEditProfileBinding
     private val mArrayUri: ArrayList<Uri?> = arrayListOf()
+    private var pos = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +37,7 @@ class EditProfileFragment : Fragment() {
         binding.changePhoto.setOnClickListener {
             mArrayUri.clear()
             openGallery()
+
         }
 
         return binding.root
