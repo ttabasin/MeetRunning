@@ -68,15 +68,16 @@
             app:layout_constraintTop_toBottomOf="@+id/titleRoute" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/photoGallery"
             android:layout_width="0dp"
             android:layout_height="142dp"
-            android:layout_marginTop="44dp"
+            android:background="@drawable/customborder"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/descriptionRoute"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/descriptionRoute"
             app:layout_constraintTop_toBottomOf="@+id/timeTxt"
-            app:srcCompat="@color/ic_launcher_background"
+            app:layout_constraintVertical_bias="0.17"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <Button
@@ -88,7 +89,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/photoGallery"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
@@ -156,6 +157,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/imagePrev"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/photoGallery"
+            app:layout_constraintEnd_toStartOf="@+id/photoGallery"
+            app:layout_constraintTop_toTopOf="@+id/photoGallery"
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_left_24" />
+
+        <ImageView
+            android:id="@+id/imageNext"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/photoGallery"
+            app:layout_constraintStart_toEndOf="@+id/photoGallery"
+            app:layout_constraintTop_toTopOf="@+id/photoGallery"
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,19 @@
 package cat.copernic.meetrunning.UI.addRoute
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.location.Geocoder
 import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,6 +23,9 @@ import cat.copernic.meetrunning.databinding.FragmentAddRouteBinding
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Locale
@@ -112,6 +120,21 @@ class AddRouteFragment : Fragment() {
                         }
                     }
 
+            }
+            val storage = FirebaseStorage.getInstance().reference
+            for ((c, i) in mArrayUri.withIndex()){
+                val path = storage.child("users/$currentUser/${binding.editTextTitle.text}/$c.jpg")
+                //val bitmap = BitmapFactory.decodeStream(java.net.URL(i?.path.toString()).openStream())
+                //val bitmap = i. as Bitmap
+                val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, i)
+                val baos = ByteArrayOutputStream()
+
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
+                val uploadTask = path.putBytes(data)
+                uploadTask.addOnSuccessListener {
+                    Toast.makeText(requireContext(), "bien", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

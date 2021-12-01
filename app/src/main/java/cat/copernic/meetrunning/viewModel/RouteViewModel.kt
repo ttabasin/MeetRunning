@@ -13,6 +13,7 @@ class RouteViewModel(route: DataRoute?): ViewModel() {
     val time = route?.time
     val r = route?.route
     val pos: ArrayList<GLatLng> = arrayListOf()
+    val user = route?.user
     init {
         convertPos()
     }

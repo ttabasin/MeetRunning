@@ -1,6 +1,7 @@
 package cat.copernic.meetrunning.UI.profile
 
 import android.os.Bundle
+import android.os.Environment
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.adapters.PhotoAdapter
-import cat.copernic.meetrunning.databinding.FragmentAchivementsBinding
 import cat.copernic.meetrunning.databinding.FragmentPhotosBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 
 class PhotosFragment : Fragment() {
 
@@ -46,7 +47,8 @@ class PhotosFragment : Fragment() {
         db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
             binding.description.text = it.getString("description")
         }
-        val test = arrayListOf<String>("", "", "", "")
+        val test = arrayListOf<String>("", "", "", "", "" , "", "https://firebasestorage.googleapis.com/v0/b/meetrunning-project.appspot.com/o/bosc.jpg?alt=media&token=da118938-e337-4d11-9698-6dff5f936a5c")
+
         photoAdapter = PhotoAdapter(test)
         binding.rvPhotos.adapter = photoAdapter
         binding.rvPhotos.layoutManager = GridLayoutManager(requireContext(), 3)
