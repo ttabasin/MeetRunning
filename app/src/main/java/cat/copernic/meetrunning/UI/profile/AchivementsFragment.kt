@@ -38,6 +38,7 @@ class AchivementsFragment : Fragment() {
         }
 
         binding.username.text = FirebaseAuth.getInstance().currentUser?.displayName.toString()
+
         db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
             binding.description.text = it.getString("description")
         }

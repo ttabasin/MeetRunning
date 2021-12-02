@@ -10,18 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="5dp"
-        android:background="@drawable/customborder"
         android:orientation="vertical"
-        app:cardBackgroundColor="@color/bckground">
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:cardPreventCornerOverlap="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bg1">
 
             <TextView
                 android:id="@+id/txt_title2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:text="TITLE"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -36,6 +39,7 @@
                 android:id="@+id/txt_location2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
                 android:layout_marginBottom="1dp"
                 android:text="CITY"
                 app:layout_constraintBottom_toTopOf="@+id/image_post2"

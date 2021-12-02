@@ -32,6 +32,7 @@ class MyRoutesFragment : Fragment() {
         val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
         db = FirebaseFirestore.getInstance()
 
+        //Navegar entre botons
         binding.statsBT.setOnClickListener{
             it.findNavController().navigate(MyRoutesFragmentDirections.actionMyRoutesToStats())
         }
@@ -45,8 +46,10 @@ class MyRoutesFragment : Fragment() {
             it.findNavController().navigate(MyRoutesFragmentDirections.actionMyRoutesToEditProfile())
         }
 
+        //Mostrar el nom d'usuari al perfil
         binding.username.text = FirebaseAuth.getInstance().currentUser?.displayName.toString()
 
+        //Mostrar la descripció de l'usuari al perfil
         db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
             binding.description.text = it.getString("description")
         }
@@ -100,5 +103,7 @@ class MyRoutesFragment : Fragment() {
                 postAdapter.notifyDataSetChanged()
             }
     }
+
+
 
 }

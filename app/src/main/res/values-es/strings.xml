@@ -1,0 +1,81 @@
+<resources>
+
+    <!-- Altres -->
+    <string name="welcome">"Bienvenido !"</string>
+    <string name="app_name">MeetRunning</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="search">Buscar</string>
+    <string name="lenguage">Idioma</string>
+    <string name="about_us">Sobre nosotros: </string>
+    <string name="programmers">Programadores:</string>
+    <string name="santi">Santiago Alves</string>
+    <string name="pau">Pau Camacho</string>
+    <string name="auto_bio">Hey! Pon una bio aquí!</string>
+
+    <!-- Registrar/Login -->
+    <string name="username">Username</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="confirmPassword">Confirmar contraseña</string>
+
+    <!-- Ruta -->
+    <string name="time">Tiempo</string>
+    <string name="distance">Distancia</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
+    <string name="title">Titulo</string>
+    <string name="description">Descripción</string>
+
+    <!-- Titol fragments -->
+    <string name="settings">Ajustes</string>
+    <string name="favorites">Favoritos</string>
+    <string name="ranking">Ranking</string>
+    <string name="map">Mapa</string>
+    <string name="home">Inicio</string>
+    <string name="add_route">Añadir ruta</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_test">test</string>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="route_map">Mapa de ruta</string>
+    <string name="route">Ruta</string>
+    <string name="profile">Perfil</string>
+    <string name="edit_profile">Perfil</string>
+
+    <!-- Botons -->
+    <string name="checkBoxSignUp">I agree to the Terms of Service and Privacy Policiy</string>
+    <string name="accept">Aceptar</string>
+    <string name="logOut">Salir</string>
+    <string name="continuebtn">Continuar</string>
+    <string name="action_sign_in">Iniciar sesión</string>
+    <string name="action_sign_in_short">Iniciar sesión</string>
+    <string name="action_sign_up">Registrar</string>
+    <string name="start">Iniciar</string>
+    <string name="finish">Acabar</string>
+
+    <!-- Errors -->
+    <string name="error_auth">Ha ocurrido un error autenticando el usuario</string>
+    <string name="error_empt">Campos vacios!</string>
+    <string name="error_passwd">Las contraseñas no coinciden</string>
+    <string name="invalid_username">Nombre de usuario no válido</string>
+    <string name="invalid_password">La contrasenya debe tener >5 carácteres</string>
+    <string name="login_failed">Incio fallido</string>
+    <string name="error_title">Titulo existe</string>
+
+    <!-- Mesos -->
+    <string name="january">Enero</string>
+    <string name="february">Febrero</string>
+    <string name="march">Marzo</string>
+    <string name="april">Abril</string>
+    <string name="may">Mayo</string>
+    <string name="june">Junio</string>
+    <string name="july">Julio</string>
+    <string name="august">Agosto</string>
+    <string name="september">Septiembre</string>
+    <string name="october">Octubre</string>
+    <string name="november">Noviembre</string>
+    <string name="december">Diciembre</string>
+
+</resources>

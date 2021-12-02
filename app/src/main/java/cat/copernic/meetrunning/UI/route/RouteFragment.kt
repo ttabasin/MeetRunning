@@ -13,11 +13,11 @@ import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentRouteBinding
 import cat.copernic.meetrunning.viewModel.RouteViewModel
 import cat.copernic.meetrunning.viewModel.RouteViewModelFactory
-import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import java.text.SimpleDateFormat
 import java.util.*
+import com.bumptech.glide.Glide
 
 class RouteFragment : Fragment() {
 
