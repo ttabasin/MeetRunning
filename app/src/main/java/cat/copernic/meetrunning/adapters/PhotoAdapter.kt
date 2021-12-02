@@ -1,5 +1,6 @@
 package cat.copernic.meetrunning.adapters
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
 import com.bumptech.glide.Glide
 
-class PhotoAdapter(private val photos: ArrayList<String>) :
+class PhotoAdapter(private val photos: ArrayList<Uri>) :
     RecyclerView.Adapter<PhotoAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoAdapter.MyViewHolder {
@@ -25,8 +26,8 @@ class PhotoAdapter(private val photos: ArrayList<String>) :
         Glide.with(holder.itemView)
             .load(photos[position]) //3
             .centerCrop() //4
-            .placeholder(R.drawable.ic_baseline_star_24) //5
-            .error(R.drawable.ic_baseline_home_24) //6
+            .placeholder(R.drawable.ic_baseline_photo_24) //5
+            .error(R.drawable.ic_baseline_photo_24) //6
             .into(holder.photo) //8
     }
 

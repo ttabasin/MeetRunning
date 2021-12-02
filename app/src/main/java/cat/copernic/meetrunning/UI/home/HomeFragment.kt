@@ -62,6 +62,7 @@ class HomeFragment : Fragment() {
 
         addRouteToList()
         val c: CharSequence = ""
+        binding.search.setText(c)
         postAdapterHome.filter.filter(c)
 
         return binding.root

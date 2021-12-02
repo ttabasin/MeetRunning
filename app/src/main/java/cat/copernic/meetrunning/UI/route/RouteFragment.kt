@@ -93,6 +93,7 @@ class RouteFragment : Fragment() {
             .error(R.drawable.ic_baseline_photo_library_24)
             .centerInside()
             .fitCenter()
+            .placeholder(R.drawable.ic_baseline_photo_24)
             .into(binding.photoGallery)
     }
 
