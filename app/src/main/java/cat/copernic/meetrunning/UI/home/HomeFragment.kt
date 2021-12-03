@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,13 +25,15 @@ class HomeFragment : Fragment() {
     private lateinit var dataRouteArrayList: ArrayList<DataRoute>
     private lateinit var postAdapterHome: PostAdapterHome
     private lateinit var db: FirebaseFirestore
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val binding = FragmentHomeBinding.inflate(layoutInflater)
+        binding = FragmentHomeBinding.inflate(layoutInflater)
+        binding.search.setText("")
         binding.search.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -62,7 +65,6 @@ class HomeFragment : Fragment() {
 
         addRouteToList()
         val c: CharSequence = ""
-        binding.search.setText(c)
         postAdapterHome.filter.filter(c)
 
         return binding.root
@@ -80,6 +82,13 @@ class HomeFragment : Fragment() {
             }
             postAdapterHome.notifyDataSetChanged()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("ka", "boom")
+        binding.search.setText("")
+        Log.d("text", "${binding.search.text}")
     }
 }
 
