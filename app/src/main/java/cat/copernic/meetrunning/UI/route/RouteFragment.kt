@@ -2,7 +2,6 @@ package cat.copernic.meetrunning.UI.route
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentRouteBinding
 import cat.copernic.meetrunning.viewModel.RouteViewModel
 import cat.copernic.meetrunning.viewModel.RouteViewModelFactory
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import java.text.SimpleDateFormat
 import java.util.*

@@ -1,7 +1,6 @@
 package cat.copernic.meetrunning.UI.addRoute
 
 import android.app.Activity
-import android.content.ContentResolver
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.location.Geocoder
 import android.net.Uri
 import android.provider.MediaStore
@@ -25,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
-import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Locale
