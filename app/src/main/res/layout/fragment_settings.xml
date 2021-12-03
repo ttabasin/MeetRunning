@@ -51,21 +51,18 @@
                 android:id="@+id/rbEnglish"
                 android:layout_width="100dp"
                 android:layout_height="55dp"
-                android:checked="true"
                 android:text="English" />
 
             <RadioButton
                 android:id="@+id/rbSpanish"
                 android:layout_width="wrap_content"
                 android:layout_height="55dp"
-                android:checked="false"
                 android:text="Español" />
 
             <RadioButton
                 android:id="@+id/rbCat"
                 android:layout_width="wrap_content"
                 android:layout_height="55dp"
-                android:checked="false"
                 android:text="Català" />
         </RadioGroup>
 
