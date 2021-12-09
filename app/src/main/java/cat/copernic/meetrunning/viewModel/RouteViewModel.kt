@@ -52,6 +52,7 @@ class RouteViewModel(route: DataRoute?) : ViewModel() {
         _distance.value = route?.distance
         _r.value = route?.route
         _user.value = route?.user
+        _time.value = route?.time
         _readyPhotos.value = false
         _photos.value = arrayListOf()
         _pos.value = arrayListOf()
