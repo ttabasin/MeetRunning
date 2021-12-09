@@ -2,21 +2,28 @@ package cat.copernic.meetrunning.UI.profile
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import cat.copernic.meetrunning.MainActivity
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentEditProfileBinding
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
 
 class EditProfileFragment : Fragment() {
 
@@ -88,8 +95,16 @@ class EditProfileFragment : Fragment() {
                 )
 
 
-        }
+            val storage = FirebaseStorage.getInstance().reference
+            val path = storage.child("users/$currentUserEmail/profile.jpg")
+            val bitmap = binding.changePhoto.drawable.toBitmap()
+            val baos = ByteArrayOutputStream()
 
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
+            val uploadTask = path.putBytes(data)
+            uploadTask.addOnSuccessListener {  }
+        }
         return binding.root
     }
 
