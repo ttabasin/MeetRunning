@@ -15,6 +15,9 @@ import cat.copernic.meetrunning.databinding.ActivityMainBinding
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 enum class ProviderType {
     BASIC
@@ -52,7 +55,10 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.closeDrawers()
         }
 
-        setProfileImage()
+        GlobalScope.launch {
+            delay(1000)
+            setProfileImage()
+        }
         //Usuario al header
         binding.navView.getHeaderView(0).findViewById<TextView>(R.id.usernameMenu).text =
             FirebaseAuth.getInstance().currentUser?.displayName.toString()

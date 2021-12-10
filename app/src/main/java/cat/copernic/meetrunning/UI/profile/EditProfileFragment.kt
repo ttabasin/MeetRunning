@@ -87,12 +87,11 @@ class EditProfileFragment : Fragment() {
                     )
             }
 
-
-            it.findNavController()
+            /*it.findNavController()
                 .navigate(
                     EditProfileFragmentDirections
                         .actionEditProfileToMyRoutes()
-                )
+                )*/
 
 
             val storage = FirebaseStorage.getInstance().reference
@@ -104,7 +103,12 @@ class EditProfileFragment : Fragment() {
             val data = baos.toByteArray()
             val uploadTask = path.putBytes(data)
             uploadTask.addOnSuccessListener {  }
+
+            val intent = Intent(context, MainActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
         }
+        setProfileImage()
         return binding.root
     }
 
@@ -135,6 +139,16 @@ class EditProfileFragment : Fragment() {
         }
         return false
 
+    }
+
+    private fun setProfileImage() {
+        FirebaseStorage.getInstance().reference.child("users/${FirebaseAuth.getInstance().currentUser?.email}/profile.jpg").downloadUrl.addOnSuccessListener {
+            Glide.with(this)
+                .load(it)
+                .centerInside()
+                .circleCrop()
+                .into(binding.changePhoto)
+        }
     }
 
 }
