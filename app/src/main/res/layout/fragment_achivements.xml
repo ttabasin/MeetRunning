@@ -11,15 +11,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="/3"
-        app:layout_constraintBottom_toBottomOf="@+id/textView15"
+        app:layout_constraintBottom_toBottomOf="@+id/achCompleteNumT"
         app:layout_constraintEnd_toEndOf="@+id/achTime"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toTopOf="@+id/textView15"
+        app:layout_constraintStart_toEndOf="@+id/achCompleteNumT"
+        app:layout_constraintTop_toTopOf="@+id/achCompleteNumT"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/achCompleteNumT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -141,20 +141,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
+    <ImageButton
+        android:id="@+id/achTime"
+        style="@style/buttonNoPressed"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ic_baseline_timer_24"
+        app:layout_constraintBottom_toTopOf="@+id/achDist1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.123"
+        app:layout_constraintStart_toEndOf="@+id/achDistance"
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        app:layout_constraintVertical_bias="0.022" />
+
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="/3"
-        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+        app:layout_constraintBottom_toBottomOf="@+id/achCompleteNumD"
         app:layout_constraintEnd_toEndOf="@+id/achDistance"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toTopOf="@+id/textView6"
+        app:layout_constraintStart_toEndOf="@+id/achCompleteNumD"
+        app:layout_constraintTop_toTopOf="@+id/achCompleteNumD"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/achCompleteNumD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -164,7 +176,6 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/achDist1"
-        style="@style/buttonPressed"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -174,7 +185,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6">
+        app:layout_constraintTop_toBottomOf="@+id/achCompleteNumD">
 
         <TextView
             android:id="@+id/achivement1"
@@ -200,7 +211,6 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/achDist2"
-        style="@style/buttonPressed"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -231,12 +241,11 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="15dp"
-            android:text="25km" />
+            android:text="50km" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/achDist3"
-        style="@style/buttonPressed"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -267,12 +276,11 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="15dp"
-            android:text="25km" />
+            android:text="100km" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/achDistT1"
-        style="@style/buttonPressed"
+        android:id="@+id/achTime1"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -282,7 +290,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6">
+        app:layout_constraintTop_toBottomOf="@+id/achCompleteNumD">
 
         <TextView
             android:id="@+id/achivementT1"
@@ -303,12 +311,11 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="15dp"
-            android:text="25km" />
+            android:text="01:00:00" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/achDistT2"
-        style="@style/buttonPressed"
+        android:id="@+id/achTime2"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -318,7 +325,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/achDistT1">
+        app:layout_constraintTop_toBottomOf="@+id/achTime1">
 
         <TextView
             android:id="@+id/achivementT2"
@@ -339,12 +346,11 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="15dp"
-            android:text="25km" />
+            android:text="05:00:00" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/achDistT3"
-        style="@style/buttonPressed"
+        android:id="@+id/achTime3"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -354,7 +360,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/achDistT2">
+        app:layout_constraintTop_toBottomOf="@+id/achTime2">
 
         <TextView
             android:id="@+id/achivementT3"
@@ -375,21 +381,8 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="15dp"
-            android:text="25km" />
+            android:text="10:00:00" />
     </androidx.cardview.widget.CardView>
 
-
-
-    <ImageButton
-        android:id="@+id/achTime"
-        style="@style/buttonNoPressed"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/ic_baseline_timer_24"
-        app:layout_constraintBottom_toTopOf="@+id/achDist1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.123"
-        app:layout_constraintStart_toEndOf="@+id/achDistance"
-        app:layout_constraintTop_toBottomOf="@+id/divider2"
-        app:layout_constraintVertical_bias="0.022" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
