@@ -12,7 +12,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import cat.copernic.meetrunning.UI.authentication.SignInActivity
 import cat.copernic.meetrunning.databinding.ActivityMainBinding
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 
 enum class ProviderType {
     BASIC
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         val navController = this.findNavController(R.id.myNavHostFragment)
 
-        NavigationUI.setupActionBarWithNavController(this,navController, appBarConfiguration)
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(binding.navView, navController)
 
         //Añade el email al nav header
@@ -50,9 +52,10 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.closeDrawers()
         }
 
+        setProfileImage()
         //Usuario al header
         binding.navView.getHeaderView(0).findViewById<TextView>(R.id.usernameMenu).text =
-                FirebaseAuth.getInstance().currentUser?.displayName.toString()
+            FirebaseAuth.getInstance().currentUser?.displayName.toString()
 
         //logOut
         binding.navView.menu.getItem(9).setOnMenuItemClickListener {
@@ -63,7 +66,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-   override fun onSupportNavigateUp(): Boolean {
+     private fun setProfileImage() {
+        FirebaseStorage.getInstance().reference.child("users/${FirebaseAuth.getInstance().currentUser?.email}/profile.jpg").downloadUrl.addOnSuccessListener {
+            Glide.with(this)
+                .load(it)
+                .centerInside()
+                .circleCrop()
+                .into(binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.photoProfile))
+        }
+    }
+
+
+    override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
         return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp()
     }

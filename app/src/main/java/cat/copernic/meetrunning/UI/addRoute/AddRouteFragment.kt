@@ -128,9 +128,7 @@ class AddRouteFragment : Fragment() {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
                 val data = baos.toByteArray()
                 val uploadTask = path.putBytes(data)
-                uploadTask.addOnSuccessListener {
-                    Toast.makeText(requireContext(), "bien", Toast.LENGTH_SHORT).show()
-                }
+                uploadTask.addOnSuccessListener {  }
             }
         }
 
