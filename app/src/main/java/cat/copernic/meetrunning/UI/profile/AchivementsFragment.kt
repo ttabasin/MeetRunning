@@ -10,12 +10,15 @@ import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentAchivementsBinding
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 
 open class AchivementsFragment : Fragment() {
 
     private lateinit var db: FirebaseFirestore
+    private lateinit var binding: FragmentAchivementsBinding
 
     @SuppressLint("ResourceAsColor")
     override fun onCreateView(
@@ -23,7 +26,7 @@ open class AchivementsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        var binding = FragmentAchivementsBinding.inflate(layoutInflater)
+        binding = FragmentAchivementsBinding.inflate(layoutInflater)
         val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
         db = FirebaseFirestore.getInstance()
 
@@ -82,8 +85,18 @@ open class AchivementsFragment : Fragment() {
 
 
 
-
+        setProfileImage()
         return binding.root
+    }
+
+    private fun setProfileImage() {
+        FirebaseStorage.getInstance().reference.child("users/${FirebaseAuth.getInstance().currentUser?.email}/profile.jpg").downloadUrl.addOnSuccessListener {
+            Glide.with(this)
+                .load(it)
+                .centerInside()
+                .circleCrop()
+                .into(binding.profilePhoto)
+        }
     }
 
 }

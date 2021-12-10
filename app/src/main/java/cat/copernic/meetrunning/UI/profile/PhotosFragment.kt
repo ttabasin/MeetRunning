@@ -27,13 +27,14 @@ class PhotosFragment : Fragment() {
     private lateinit var db: FirebaseFirestore
     private lateinit var photoAdapter: PhotoAdapter
     private val photos = arrayListOf<Uri>()
+    private lateinit var binding: FragmentPhotosBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         getImages()
-        val binding = FragmentPhotosBinding.inflate(layoutInflater)
+        binding = FragmentPhotosBinding.inflate(layoutInflater)
         val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
         db = FirebaseFirestore.getInstance()
         binding.myRoutesBT.setOnClickListener {
@@ -59,6 +60,7 @@ class PhotosFragment : Fragment() {
         binding.rvPhotos.adapter = photoAdapter
         binding.rvPhotos.layoutManager = GridLayoutManager(requireContext(), 3)
 
+        setProfileImage()
         return binding.root
     }
 
@@ -80,5 +82,15 @@ class PhotosFragment : Fragment() {
                         }
                 }
             }
+    }
+
+    private fun setProfileImage() {
+        FirebaseStorage.getInstance().reference.child("users/${FirebaseAuth.getInstance().currentUser?.email}/profile.jpg").downloadUrl.addOnSuccessListener {
+            Glide.with(this)
+                .load(it)
+                .centerInside()
+                .circleCrop()
+                .into(binding.profilePhoto)
+        }
     }
 }

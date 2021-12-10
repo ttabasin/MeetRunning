@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.adapters.PostAdapterMyRoutes
 import cat.copernic.meetrunning.dataClass.DataRoute
 import cat.copernic.meetrunning.databinding.FragmentProfileBinding
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import com.google.firebase.storage.FirebaseStorage
 
 class MyRoutesFragment : Fragment() {
 
@@ -23,12 +25,13 @@ class MyRoutesFragment : Fragment() {
     private lateinit var postArrayList: ArrayList<DataRoute>
     private lateinit var postAdapter: PostAdapterMyRoutes
     private lateinit var db: FirebaseFirestore
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val binding = FragmentProfileBinding.inflate(layoutInflater)
+    ): View {
+        binding = FragmentProfileBinding.inflate(layoutInflater)
         val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
         db = FirebaseFirestore.getInstance()
 
@@ -84,6 +87,7 @@ class MyRoutesFragment : Fragment() {
         val c: CharSequence = ""
         postAdapter.filter.filter(c)
 
+        setProfileImage()
         return binding.root
     }
 
@@ -102,6 +106,16 @@ class MyRoutesFragment : Fragment() {
                 }
                 postAdapter.notifyDataSetChanged()
             }
+    }
+
+    private fun setProfileImage() {
+        FirebaseStorage.getInstance().reference.child("users/${FirebaseAuth.getInstance().currentUser?.email}/profile.jpg").downloadUrl.addOnSuccessListener {
+            Glide.with(this)
+                .load(it)
+                .centerInside()
+                .circleCrop()
+                .into(binding.profilePhoto)
+        }
     }
 
 

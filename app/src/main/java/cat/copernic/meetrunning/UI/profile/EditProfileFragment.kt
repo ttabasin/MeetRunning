@@ -108,6 +108,7 @@ class EditProfileFragment : Fragment() {
             startActivity(intent)
             activity?.finish()
         }
+        setProfileImage()
         return binding.root
     }
 
@@ -138,6 +139,16 @@ class EditProfileFragment : Fragment() {
         }
         return false
 
+    }
+
+    private fun setProfileImage() {
+        FirebaseStorage.getInstance().reference.child("users/${FirebaseAuth.getInstance().currentUser?.email}/profile.jpg").downloadUrl.addOnSuccessListener {
+            Glide.with(this)
+                .load(it)
+                .centerInside()
+                .circleCrop()
+                .into(binding.changePhoto)
+        }
     }
 
 }
