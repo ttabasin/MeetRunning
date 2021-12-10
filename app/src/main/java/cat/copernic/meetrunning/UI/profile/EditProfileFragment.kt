@@ -87,12 +87,11 @@ class EditProfileFragment : Fragment() {
                     )
             }
 
-
-            it.findNavController()
+            /*it.findNavController()
                 .navigate(
                     EditProfileFragmentDirections
                         .actionEditProfileToMyRoutes()
-                )
+                )*/
 
 
             val storage = FirebaseStorage.getInstance().reference
@@ -104,6 +103,10 @@ class EditProfileFragment : Fragment() {
             val data = baos.toByteArray()
             val uploadTask = path.putBytes(data)
             uploadTask.addOnSuccessListener {  }
+
+            val intent = Intent(context, MainActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
         }
         return binding.root
     }
