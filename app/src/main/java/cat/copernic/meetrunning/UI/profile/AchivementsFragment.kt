@@ -81,6 +81,8 @@ open class AchivementsFragment : Fragment() {
         }
 
 
+
+
         return binding.root
     }
 
