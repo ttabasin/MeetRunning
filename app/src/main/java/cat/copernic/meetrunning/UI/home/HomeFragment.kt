@@ -86,9 +86,7 @@ class HomeFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        Log.d("ka", "boom")
         binding.search.setText("")
-        Log.d("text", "${binding.search.text}")
     }
 }
 
