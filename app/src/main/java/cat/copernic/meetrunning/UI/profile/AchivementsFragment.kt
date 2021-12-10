@@ -14,6 +14,9 @@ import cat.copernic.meetrunning.databinding.FragmentAchivementsBinding
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import java.text.SimpleDateFormat
+import java.util.*
 
 open class AchivementsFragment : Fragment() {
 
@@ -134,12 +137,10 @@ open class AchivementsFragment : Fragment() {
         }
 
 
+
         setProfileImage()
         return binding.root
     }
-
-
-}
 
     private fun setProfileImage() {
         FirebaseStorage.getInstance().reference.child("users/${FirebaseAuth.getInstance().currentUser?.email}/profile.jpg").downloadUrl.addOnSuccessListener {
@@ -152,4 +153,3 @@ open class AchivementsFragment : Fragment() {
     }
 
 }
-
