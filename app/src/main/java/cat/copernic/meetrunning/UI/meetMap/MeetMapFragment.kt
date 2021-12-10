@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import cat.copernic.meetrunning.R
@@ -36,7 +36,7 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentMeetMapBinding
     private lateinit var mMap: GoogleMap
     private val REQUEST_LOCATION_PERMISSION = 1
-    private lateinit var job: Job
+    private var job: Job = Job()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var btnPressed = false
 
@@ -50,6 +50,15 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
         binding.mapView.onCreate(mapViewBundle)
         binding.mapView.getMapAsync(this)
         return binding.root
+    }
+
+    private val requestPermission = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) {
+        if (it) {
+            enableMyLocation()
+            getCurrentLocation()
+        }
     }
 
     override fun onMapReady(p0: GoogleMap) {
@@ -85,11 +94,7 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
 
             }
         } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_LOCATION_PERMISSION
-            )
+            requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 
@@ -102,11 +107,7 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
                 mMap.moveCamera(CameraUpdateFactory.zoomTo(15.0F))
             }
         } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_LOCATION_PERMISSION
-            )
+            requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 
@@ -117,19 +118,6 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        // Check if location permissions are granted and if so enable the
-        // location data layer.
-        if (requestCode == REQUEST_LOCATION_PERMISSION) {
-            if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
-                enableMyLocation()
-            }
-        }
-    }
 
     private fun saveLocation(l: LatLng) {
         val db = FirebaseFirestore.getInstance()
@@ -158,7 +146,7 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
                         MarkerOptions()
                             .title(i.get("username").toString())
                             .position(LatLng(a[0].toDouble(), a[1].toDouble()))
-                            //.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_run))
+                        //.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_run))
                     )
                 }
             }

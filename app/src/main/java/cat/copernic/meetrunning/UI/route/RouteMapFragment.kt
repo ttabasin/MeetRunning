@@ -9,10 +9,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentRouteMapBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -80,6 +82,15 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
         return binding.root
     }
 
+    private val requestPermission = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) {
+        if (it) {
+            enableMyLocation()
+            getCurrentLocation()
+        }
+    }
+
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
         //mMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
@@ -119,12 +130,7 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         }else{
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_LOCATION_PERMISSION
-            )
-            //getCurrentLocation()
+            requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 
@@ -152,11 +158,7 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
         if (isPermissionGranted()) {
             mMap.isMyLocationEnabled = true
         } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_LOCATION_PERMISSION
-            )
+            requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 
@@ -167,19 +169,6 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        // Check if location permissions are granted and if so enable the
-        // location data layer.
-        if (requestCode == REQUEST_LOCATION_PERMISSION) {
-            if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
-                enableMyLocation()
-            }
-        }
-    }
 
     override fun onResume() {
         super.onResume()
