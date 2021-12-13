@@ -26,10 +26,10 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        setContentView(cat.copernic.meetrunning.R.layout.activity_sign_up)
 
         binding =
-            DataBindingUtil.setContentView<ActivitySignUpBinding>(this, R.layout.activity_sign_up)
+            DataBindingUtil.setContentView<ActivitySignUpBinding>(this, cat.copernic.meetrunning.R.layout.activity_sign_up)
 
         binding.signInBtn.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
@@ -70,8 +70,7 @@ class SignUpActivity : AppCompatActivity() {
                             "email" to binding.SignUpConfirmEmail.text.toString(),
                             "distance" to 0.0,
                             "time" to 0,
-                            "description" to getString(R.string.auto_bio),
-                            "language" to "EN_en"
+                            "description" to getString(R.string.auto_bio)
                         )
 
                         db.collection("users").document(binding.SignUpConfirmEmail.text.toString())
