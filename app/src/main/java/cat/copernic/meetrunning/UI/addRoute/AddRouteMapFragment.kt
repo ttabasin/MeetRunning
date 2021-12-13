@@ -37,7 +37,6 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var binding: FragmentAddRouteMapBinding
     private lateinit var mMap: GoogleMap
-    private val REQUEST_LOCATION_PERMISSION = 1
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var location: LatLng
     private var btnPressed = false

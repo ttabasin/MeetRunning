@@ -38,7 +38,6 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var binding: FragmentRouteMapBinding
     private lateinit var mMap: GoogleMap
-    private val REQUEST_LOCATION_PERMISSION = 1
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var route: List<com.google.android.gms.maps.model.LatLng>
     private lateinit var job: Job

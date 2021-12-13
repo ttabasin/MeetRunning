@@ -35,7 +35,6 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var binding: FragmentMeetMapBinding
     private lateinit var mMap: GoogleMap
-    private val REQUEST_LOCATION_PERMISSION = 1
     private var job: Job = Job()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var btnPressed = false
