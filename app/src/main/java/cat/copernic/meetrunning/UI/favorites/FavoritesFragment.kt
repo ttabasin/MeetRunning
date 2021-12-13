@@ -64,7 +64,7 @@ class FavoritesFragment : Fragment() {
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         db.collection("users").document(currentUser).collection("favorites")
-            .addSnapshotListener { value, error ->
+            .addSnapshotListener { value, _ ->
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         postArrayList.add(dc.document.toObject(DataRoute::class.java))

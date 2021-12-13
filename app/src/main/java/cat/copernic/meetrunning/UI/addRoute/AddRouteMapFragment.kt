@@ -51,7 +51,7 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View {
 
-        var mapViewBundle: Bundle? = null
+        var mapViewBundle: Bundle?
         mapViewBundle = savedInstanceState?.getBundle("MapViewBundleKey")
 
         binding = FragmentAddRouteMapBinding.inflate(layoutInflater)

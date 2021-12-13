@@ -106,7 +106,7 @@ class SignUpActivity : AppCompatActivity() {
                                     Log.d("User", "User profile updated.")
                                 }
                             }
-                        showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
+                        showHome()
                     } else {
                         showAlert()
                     }
@@ -124,7 +124,7 @@ class SignUpActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showHome(email: String, provider: ProviderType) {
+    private fun showHome() {
         val homeIntent = Intent(this, MainActivity::class.java)
         startActivity(homeIntent)
     }

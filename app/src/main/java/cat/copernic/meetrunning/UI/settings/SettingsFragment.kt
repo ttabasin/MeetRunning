@@ -35,7 +35,7 @@ class SettingsFragment : Fragment() {
             binding.rbCat.isChecked = true
         }
 
-        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+        binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
 
             if (checkedId == binding.rbEnglish.id) {
                 Toast.makeText(context, binding.rbEnglish.text.toString(), Toast.LENGTH_SHORT)
