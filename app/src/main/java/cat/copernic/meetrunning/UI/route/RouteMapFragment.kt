@@ -82,6 +82,32 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
         return binding.root
     }
 
+    private val requestPermission = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) {
+        if (it) {
+            gps = true
+            checkPermission()
+        }
+    }
+    private var gps = false
+    private fun checkPermission() {
+        if (isPermissionGranted() && gps) {
+            enableMyLocation()
+            getCurrentLocation()
+        } else if (isPermissionGranted()) {
+            createLocationRequest()
+        } else {
+            requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
+
+    private fun isPermissionGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
@@ -167,8 +193,8 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
             // All location settings are satisfied. The client can initialize
             // location requests here.
             // ...
-            getCurrentLocation()
-            enableMyLocation()
+            gps = true
+            checkPermission()
         }
 
         task.addOnFailureListener { exception ->
@@ -191,7 +217,7 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == -1){
-            createLocationRequest()
+            checkPermission()
         }
     }
 
