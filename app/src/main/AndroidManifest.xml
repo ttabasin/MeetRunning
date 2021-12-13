@@ -20,7 +20,8 @@
         android:theme="@style/Theme.MeetRunning">
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="false"/>
         <activity
             android:name="cat.copernic.meetrunning.UI.authentication.SignUpActivity"
             android:exported="false"

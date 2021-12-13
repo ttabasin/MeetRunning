@@ -2,6 +2,8 @@ package cat.copernic.meetrunning.UI.route
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
@@ -15,13 +17,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentRouteMapBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.*
@@ -79,32 +82,23 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
         return binding.root
     }
 
-    private val requestPermission = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) {
-        if (it) {
-            enableMyLocation()
-            getCurrentLocation()
-        }
-    }
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
         //mMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style))
-        enableMyLocation()
-        getCurrentLocation()
+        createLocationRequest()
         mMap.moveCamera(CameraUpdateFactory.newLatLng(route[0]))
-        for (i in 1 until route.size){
+        for (i in 1 until route.size) {
             mMap.addPolyline(
-                PolylineOptions().add(route[i], route[i-1])
-                    .color(Color.GREEN).width(25F))
+                PolylineOptions().add(route[i], route[i - 1])
+                    .color(Color.GREEN).width(25F)
+            )
         }
     }
 
     @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
-        if(isPermissionGranted()){
             time = Calendar.getInstance().time
             job = GlobalScope.launch(Dispatchers.IO) {
                 var location: GLatLng
@@ -126,12 +120,12 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
                     delay(5000)
                 }
             }
-        }else{
-            requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-        }
     }
 
-    private fun calculateDistance(pos1: com.google.android.gms.maps.model.LatLng, pos2 : com.google.android.gms.maps.model.LatLng): Double{
+    private fun calculateDistance(
+        pos1: com.google.android.gms.maps.model.LatLng,
+        pos2: com.google.android.gms.maps.model.LatLng
+    ): Double {
         val earthRadius = 6371
         val dLat = degreesToRadian(pos2.latitude - pos1.latitude)
         val dLon = degreesToRadian(pos2.longitude - pos1.longitude)
@@ -139,9 +133,9 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
         val lat1 = degreesToRadian(pos1.latitude)
         val lat2 = degreesToRadian(pos2.latitude)
 
-        val a = sin(dLat/2) * sin(dLat/2) +
-                sin(dLon/2) * sin(dLon/2) * cos(lat1) * cos(lat2)
-        val c = 2 * atan2(sqrt(a), sqrt(1-a))
+        val a = sin(dLat / 2) * sin(dLat / 2) +
+                sin(dLon / 2) * sin(dLon / 2) * cos(lat1) * cos(lat2)
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
         return earthRadius * c
     }
 
@@ -152,18 +146,53 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
 
     @SuppressLint("MissingPermission")
     private fun enableMyLocation() {
-        if (isPermissionGranted()) {
             mMap.isMyLocationEnabled = true
-        } else {
-            requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-        }
     }
 
-    private fun isPermissionGranted(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
+    private fun createLocationRequest() {
+        val locationRequest = LocationRequest.create()?.apply {
+            interval = 10000
+            fastestInterval = 5000
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        val REQUEST_CHECK_SETTINGS = 0
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+        val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
+        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+
+        task.addOnSuccessListener {
+
+            // All location settings are satisfied. The client can initialize
+            // location requests here.
+            // ...
+            getCurrentLocation()
+            enableMyLocation()
+        }
+
+        task.addOnFailureListener { exception ->
+            if (exception is ResolvableApiException) {
+                // Location settings are not satisfied, but this can be fixed
+                // by showing the user a dialog.
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    startIntentSenderForResult(exception.resolution.intentSender, REQUEST_CHECK_SETTINGS,
+                        null ,0 , 0,0,null)
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    // Ignore the error.
+                }
+            }
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == -1){
+            createLocationRequest()
+        }
     }
 
 
@@ -179,7 +208,7 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (job.isActive){
+        if (job.isActive) {
             binding.mapView.onDestroy()
             btnPressed = true
             job.cancel()
