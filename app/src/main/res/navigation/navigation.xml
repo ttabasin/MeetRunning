@@ -6,6 +6,28 @@
     app:startDestination="@id/home">
 
     <fragment
+        android:id="@+id/achivements"
+        android:name="cat.copernic.meetrunning.UI.profile.AchivementsFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_achivements">
+        <action
+            android:id="@+id/action_achivements_to_myRoutes"
+            app:destination="@id/myRoutes"
+            app:popUpTo="@id/home" />
+        <action
+            android:id="@+id/action_achivements_to_stats"
+            app:destination="@id/stats"
+            app:popUpTo="@id/home" />
+        <action
+            android:id="@+id/action_achivements_to_photos"
+            app:destination="@id/photos"
+            app:popUpTo="@id/home" />
+        <action
+            android:id="@+id/action_achivements_to_editProfile"
+            app:destination="@id/editProfile"
+            app:popUpTo="@id/myRoutes" />
+    </fragment>
+    <fragment
         android:id="@+id/addRoute"
         android:name="cat.copernic.meetrunning.UI.addRoute.AddRouteFragment"
         android:label="@string/add_route"
@@ -70,8 +92,30 @@
             app:destination="@id/addRouteMap" />
     </fragment>
     <fragment
+        android:id="@+id/photos"
+        android:name="cat.copernic.meetrunning.UI.profile.PhotosFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_photos">
+        <action
+            android:id="@+id/action_photos_to_myRoutes"
+            app:destination="@id/myRoutes"
+            app:popUpTo="@id/home"/>
+        <action
+            android:id="@+id/action_photos_to_achivements"
+            app:destination="@id/achivements"
+            app:popUpTo="@id/home"/>
+        <action
+            android:id="@+id/action_photos_to_stats"
+            app:destination="@id/stats"
+            app:popUpTo="@id/home" />
+        <action
+            android:id="@+id/action_photos_to_editProfile"
+            app:destination="@id/editProfile"
+            app:popUpTo="@id/myRoutes" />
+    </fragment>
+    <fragment
         android:id="@+id/myRoutes"
-        android:name="cat.copernic.meetrunning.UI.profile.ProfileFragment"
+        android:name="cat.copernic.meetrunning.UI.profile.MyRoutesFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -82,6 +126,18 @@
             android:id="@+id/action_myRoutes_to_editProfile"
             app:destination="@id/editProfile"
             app:popUpTo="@id/myRoutes" />
+        <action
+            android:id="@+id/action_myRoutes_to_achivements"
+            app:destination="@id/achivements"
+            app:popUpTo="@id/home"/>
+        <action
+            android:id="@+id/action_myRoutes_to_stats"
+            app:destination="@id/stats"
+            app:popUpTo="@id/home" />
+        <action
+            android:id="@+id/action_myRoutes_to_photos"
+            app:destination="@id/photos"
+            app:popUpTo="@id/home"/>
     </fragment>
     <fragment
         android:id="@+id/ranking"
@@ -118,4 +174,26 @@
         android:name="cat.copernic.meetrunning.UI.settings.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/stats"
+        android:name="cat.copernic.meetrunning.UI.profile.StatsFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_stats">
+        <action
+            android:id="@+id/action_stats_to_myRoutes"
+            app:destination="@id/myRoutes"
+            app:popUpTo="@id/home"/>
+        <action
+            android:id="@+id/action_stats_to_achivements"
+            app:destination="@id/achivements"
+            app:popUpTo="@id/home"/>
+        <action
+            android:id="@+id/action_stats_to_photos"
+            app:destination="@id/photos"
+            app:popUpTo="@id/home" />
+        <action
+            android:id="@+id/action_stats_to_editProfile"
+            app:destination="@id/editProfile"
+            app:popUpTo="@id/myRoutes" />
+    </fragment>
 </navigation>

@@ -31,7 +31,7 @@ import com.google.firebase.storage.FirebaseStorage
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ProfileFragment : Fragment() {
+class MyRoutesFragment : Fragment() {
 
     private lateinit var viewModel: StatsViewModel
     private lateinit var postRecyclerView: RecyclerView
@@ -71,7 +71,7 @@ class ProfileFragment : Fragment() {
 
         binding.settingBT.setOnClickListener {
             it.findNavController()
-                .navigate(ProfileFragmentDirections.actionMyRoutesToEditProfile())
+                .navigate(MyRoutesFragmentDirections.actionMyRoutesToEditProfile())
         }
 
         //Mostrar el nom d'usuari al perfil
@@ -82,14 +82,16 @@ class ProfileFragment : Fragment() {
             binding.description.text = it.getString("description")
         }
 
-        //MY ROUTES FRAGMENTS
         myRoutesF()
 
         //STATS FRAGMENT
+
         statsF()
 
+
         //ACHIEVEMENTS FRAGMENT
-        achievementsF()
+
+       achievementsF()
 
         //FRAGMENT PHOTOS
         photosF()
@@ -143,7 +145,7 @@ class ProfileFragment : Fragment() {
             }
     }
 
-    //NAVIGATION
+    //Botons
     private fun myRoutesBT() {
         binding.myRoutesBT.setOnClickListener {
             binding.search.isVisible = true
@@ -168,18 +170,18 @@ class ProfileFragment : Fragment() {
             binding.rvPhotos.isVisible = false
 
             binding.achTime.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
             binding.achDistance.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
 
             binding.myRoutesBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.appBar))
+                ColorStateList.valueOf(resources.getColor(R.color.appBar))
             binding.statsBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
             binding.achivementsBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
             binding.photosBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
         }
     }
 
@@ -201,13 +203,13 @@ class ProfileFragment : Fragment() {
             binding.rvPhotos.isVisible = false
 
             binding.myRoutesBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
             binding.statsBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.appBar))
+                ColorStateList.valueOf(resources.getColor(R.color.appBar))
             binding.achivementsBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
             binding.photosBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
 
         }
     }
@@ -236,18 +238,18 @@ class ProfileFragment : Fragment() {
             binding.rvPhotos.isVisible = false
 
             binding.achTime.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
             binding.achDistance.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
 
             binding.myRoutesBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
             binding.statsBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
             binding.achivementsBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.appBar))
+                ColorStateList.valueOf(resources.getColor(R.color.appBar))
             binding.photosBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
 
         }
     }
@@ -277,13 +279,13 @@ class ProfileFragment : Fragment() {
             binding.rvPhotos.isVisible = true
 
             binding.myRoutesBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
             binding.statsBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
             binding.achivementsBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                ColorStateList.valueOf(resources.getColor(R.color.grey))
             binding.photosBT.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.appBar))
+                ColorStateList.valueOf(resources.getColor(R.color.appBar))
         }
     }
 
@@ -367,15 +369,15 @@ class ProfileFragment : Fragment() {
         binding.achTime.setOnClickListener {
             if (binding.achTime1.isVisible) {
                 binding.achTime.backgroundTintList =
-                    ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                    ColorStateList.valueOf(resources.getColor(R.color.grey))
                 binding.achTime1.isVisible = false
                 binding.achTime2.isVisible = false
                 binding.achTime3.isVisible = false
             } else {
                 binding.achTime.backgroundTintList =
-                    ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.appBar))
+                    ColorStateList.valueOf(resources.getColor(R.color.appBar))
                 binding.achDistance.backgroundTintList =
-                    ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
+                    ColorStateList.valueOf(resources.getColor(R.color.grey))
                 binding.achTime1.isVisible = true
                 binding.achTime2.isVisible = true
                 binding.achTime3.isVisible = true

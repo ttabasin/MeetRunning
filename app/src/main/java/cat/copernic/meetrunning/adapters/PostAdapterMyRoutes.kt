@@ -12,7 +12,8 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
-import cat.copernic.meetrunning.UI.profile.ProfileFragmentDirections
+import cat.copernic.meetrunning.UI.favorites.FavoritesFragmentDirections
+import cat.copernic.meetrunning.UI.profile.MyRoutesFragmentDirections
 import cat.copernic.meetrunning.dataClass.DataRoute
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -42,7 +43,7 @@ class PostAdapterMyRoutes (private val postMyListRoute: ArrayList<DataRoute>) :
         holder.location.text = currentPost.city
 
         holder.itemView.setOnClickListener { view ->
-            view.findNavController().navigate(ProfileFragmentDirections.actionMyRoutesToRoute(currentPost))
+            view.findNavController().navigate(MyRoutesFragmentDirections.actionMyRoutesToRoute(currentPost))
         }
 
         holder.shareButton.setOnClickListener { view ->
