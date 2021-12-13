@@ -287,7 +287,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun myRoutesF(){
+    private fun myRoutesF() {
 
         binding.search.addTextChangedListener(object : TextWatcher {
 
@@ -321,9 +321,9 @@ class ProfileFragment : Fragment() {
         setProfileImage()
     }
 
-    private fun statsF(){
+    private fun statsF() {
 
-        viewModel = ViewModelProvider(this).get(StatsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[StatsViewModel::class.java]
 
         binding.username.text = viewModel.user
         viewModel.db.collection("users").document(viewModel.currentUserEmail).get()
@@ -338,22 +338,22 @@ class ProfileFragment : Fragment() {
             }
     }
 
-    private fun achievementsF(){
+    private fun achievementsF() {
         var countDist = 0
         var countTime = 0
 
         binding.achDistance.setOnClickListener {
             if (binding.achDist1.isVisible) {
                 binding.achDistance.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.grey))
+                    ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
                 binding.achDist1.isVisible = false
                 binding.achDist2.isVisible = false
                 binding.achDist3.isVisible = false
             } else {
                 binding.achDistance.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.appBar))
+                    ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.appBar))
                 binding.achTime.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.grey))
+                    ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.grey))
                 binding.achDist1.isVisible = true
                 binding.achDist2.isVisible = true
                 binding.achDist3.isVisible = true
@@ -392,52 +392,34 @@ class ProfileFragment : Fragment() {
             //Distance
             if (it.getDouble("distance")!! >= 25) {
                 binding.achDist1.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        R.color.appBar
-                    )
+                    ContextCompat.getColor(context!!, R.color.appBar)
                 )
                 countDist++
             } else {
                 binding.achDist1.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        R.color.grey
-                    )
+                    ContextCompat.getColor(context!!, R.color.grey)
                 )
             }
 
             if (it.getDouble("distance")!! >= 50) {
                 binding.achDist2.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        R.color.appBar
-                    )
+                    ContextCompat.getColor(context!!, R.color.appBar)
                 )
                 countDist++
             } else {
                 binding.achDist2.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        R.color.grey
-                    )
+                    ContextCompat.getColor(context!!, R.color.grey)
                 )
             }
 
             if (it.getDouble("distance")!! >= 100) {
                 countDist++
                 binding.achDist3.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        R.color.appBar
-                    )
+                    ContextCompat.getColor(context!!, R.color.appBar)
                 )
             } else {
                 binding.achDist3.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        R.color.grey
-                    )
+                    ContextCompat.getColor(context!!, R.color.grey)
                 )
             }
 
@@ -449,18 +431,11 @@ class ProfileFragment : Fragment() {
                 )!! >= "01:00:00"
             ) {
                 binding.achTime1.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        R.color.appBar
-                    )
+                    ContextCompat.getColor(context!!, R.color.appBar)
                 )
                 countTime++
             } else {
-                binding.achTime1.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        R.color.grey
-                    )
+                binding.achTime1.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.grey)
                 )
             }
 
@@ -468,47 +443,27 @@ class ProfileFragment : Fragment() {
                     it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset)
                 )!! >= "05:00:00"
             ) {
-                binding.achTime2.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        R.color.appBar
-                    )
-                )
+                binding.achTime2.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.appBar))
                 countTime++
             } else {
-                binding.achTime2.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        R.color.grey
-                    )
-                )
+                binding.achTime2.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.grey))
             }
 
             if (SimpleDateFormat("HH:mm:ss").format(
                     it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset)
                 )!! >= "10:00:00"
             ) {
-                binding.achTime3.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        R.color.appBar
-                    )
-                )
+                binding.achTime3.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.appBar))
                 countTime++
             } else {
-                binding.achTime3.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        R.color.grey
-                    )
-                )
+                binding.achTime3.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.grey))
             }
             binding.achCompleteNumT.text = countTime.toString()
 
         }
     }
 
-    private fun photosF(){
+    private fun photosF() {
         getImages()
         photoAdapter = PhotoAdapter(photos)
         binding.rvPhotos.adapter = photoAdapter
