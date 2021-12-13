@@ -2,12 +2,9 @@ package cat.copernic.meetrunning.UI.meetMap
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentMeetMapBinding
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -25,7 +22,6 @@ import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.*
@@ -59,61 +55,59 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
         ActivityResultContracts.RequestPermission()
     ) {
         if (it) {
-            checkPermission()
-        }
-    }
-    private var gps = false
-    private fun checkPermission() {
-        if (isPermissionGranted() && gps) {
             enableMyLocation()
             getCurrentLocation()
-        } else if (isPermissionGranted()) {
-            createLocationRequest()
-        } else {
-            requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style))
-        checkPermission()
+        getCurrentLocation()
+        enableMyLocation()
     }
 
     @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
-        Log.e("current", "location")
-        job = GlobalScope.launch(Dispatchers.IO) {
-            delay(2000)
-            fusedLocationClient.lastLocation.addOnSuccessListener {
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(it.latitude, it.longitude)))
-                mMap.moveCamera(CameraUpdateFactory.zoomTo(15.0F))
-            }
-            while (!btnPressed) {
-                var location: LatLng
-                fusedLocationClient.lastLocation.addOnSuccessListener {
-                    location = LatLng(it.latitude, it.longitude)
-                    saveLocation(location)
-                    getNearbyLocation(location)
-                    mMap.addCircle(
-                        CircleOptions()
-                            .center(location)
-                            .radius(350.0)
-                            .strokeColor(Color.BLACK)
-                            .fillColor(Color.parseColor("#99ff5945"))
-                    )
+        if (isPermissionGranted()) {
+            job = GlobalScope.launch(Dispatchers.IO) {
+                while (!btnPressed) {
+                    var location: LatLng
+                    fusedLocationClient.lastLocation.addOnSuccessListener {
+                        location = LatLng(it.latitude, it.longitude)
+                        saveLocation(location)
+                        getNearbyLocation(location)
+                        mMap.addCircle(
+                            CircleOptions()
+                                .center(location)
+                                .radius(350.0)
+                                .strokeColor(Color.BLACK)
+                                .fillColor(Color.parseColor("#99ff5945"))
+                        )
+                    }
+                    delay(10000)
+                    activity?.runOnUiThread {
+                        mMap.clear()
+                    }
                 }
-                delay(10000)
-                activity?.runOnUiThread {
-                    mMap.clear()
-                }
+
             }
+        } else {
+            requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 
     @SuppressLint("MissingPermission")
     private fun enableMyLocation() {
-        mMap.isMyLocationEnabled = true
+        if (isPermissionGranted()) {
+            mMap.isMyLocationEnabled = true
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(it.latitude, it.longitude)))
+                mMap.moveCamera(CameraUpdateFactory.zoomTo(15.0F))
+            }
+        } else {
+            requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
     }
 
     private fun isPermissionGranted(): Boolean {
@@ -174,55 +168,6 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
 
     private fun degreesToRadian(i: Double): Double {
         return i * Math.PI / 180
-    }
-
-    private fun createLocationRequest() {
-        val locationRequest = LocationRequest.create()?.apply {
-            interval = 10000
-            fastestInterval = 5000
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        }
-
-        val REQUEST_CHECK_SETTINGS = 0
-        val builder = LocationSettingsRequest.Builder()
-            .addLocationRequest(locationRequest)
-        val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
-        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
-
-        task.addOnSuccessListener {
-
-            // All location settings are satisfied. The client can initialize
-            // location requests here.
-            // ...
-            gps = true
-            checkPermission()
-        }
-
-        task.addOnFailureListener { exception ->
-            if (exception is ResolvableApiException) {
-                // Location settings are not satisfied, but this can be fixed
-                // by showing the user a dialog.
-                try {
-                    // Show the dialog by calling startResolutionForResult(),
-                    // and check the result in onActivityResult().
-                    startIntentSenderForResult(
-                        exception.resolution.intentSender, REQUEST_CHECK_SETTINGS,
-                        null, 0, 0, 0, null
-                    )
-                } catch (sendEx: IntentSender.SendIntentException) {
-                    // Ignore the error.
-                }
-            }
-        }
-
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == -1) {
-            gps = true
-            checkPermission()
-        }
     }
 
     override fun onResume() {
