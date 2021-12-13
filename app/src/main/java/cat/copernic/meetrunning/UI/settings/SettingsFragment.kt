@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import cat.copernic.meetrunning.MainActivity
 import cat.copernic.meetrunning.databinding.FragmentSettingsBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 class SettingsFragment : Fragment() {
@@ -24,6 +26,8 @@ class SettingsFragment : Fragment() {
     ): View? {
 
         var binding = FragmentSettingsBinding.inflate(layoutInflater)
+        val db = FirebaseFirestore.getInstance()
+        val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
 
         Log.i("settings", "${context!!.resources.configuration.locales}")
 
@@ -49,6 +53,14 @@ class SettingsFragment : Fragment() {
                     config,
                     context!!.resources.displayMetrics
                 )
+
+                db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
+                    db.collection("users").document(currentUserEmail).update(
+                        mapOf(
+                            "language" to "[en_US]"
+                        )
+                    )
+                }
 
             }
             if (checkedId == binding.rbSpanish.id) {

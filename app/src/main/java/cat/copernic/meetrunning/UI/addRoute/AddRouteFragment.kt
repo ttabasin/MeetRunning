@@ -40,6 +40,7 @@ class AddRouteFragment : Fragment() {
 
         binding = FragmentAddRouteBinding.inflate(layoutInflater)
         val args = AddRouteFragmentArgs.fromBundle(requireArguments())
+
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
         binding.distanceTxt.text = "${"%.3f".format(args.distance)}Km"
         binding.timeTxt.text =
