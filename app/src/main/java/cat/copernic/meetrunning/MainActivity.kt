@@ -60,8 +60,11 @@ class MainActivity : AppCompatActivity() {
             setProfileImage()
         }
         //Usuario al header
-        binding.navView.getHeaderView(0).findViewById<TextView>(R.id.usernameMenu).text =
-            FirebaseAuth.getInstance().currentUser?.displayName.toString()
+        GlobalScope.launch {
+            delay(1000)
+            binding.navView.getHeaderView(0).findViewById<TextView>(R.id.usernameMenu).text =
+                FirebaseAuth.getInstance().currentUser?.displayName.toString()
+        }
 
         //logOut
         binding.navView.menu.getItem(9).setOnMenuItemClickListener {
