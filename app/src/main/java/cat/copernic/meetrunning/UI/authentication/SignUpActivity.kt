@@ -2,32 +2,22 @@ package cat.copernic.meetrunning.UI.authentication
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.graphics.drawable.toBitmap
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import cat.copernic.meetrunning.MainActivity
-import cat.copernic.meetrunning.ProviderType
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.ActivitySignUpBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
-import android.graphics.drawable.BitmapDrawable
-
-
-
-
-
-
 
 
 class SignUpActivity : AppCompatActivity() {

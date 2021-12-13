@@ -6,12 +6,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,15 +22,14 @@ import cat.copernic.meetrunning.adapters.PhotoAdapter
 import cat.copernic.meetrunning.adapters.PostAdapterMyRoutes
 import cat.copernic.meetrunning.dataClass.DataRoute
 import cat.copernic.meetrunning.databinding.FragmentProfileBinding
-import cat.copernic.meetrunning.viewModel.RouteViewModel
 import cat.copernic.meetrunning.viewModel.StatsViewModel
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.*
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ProfileFragment : Fragment() {
 

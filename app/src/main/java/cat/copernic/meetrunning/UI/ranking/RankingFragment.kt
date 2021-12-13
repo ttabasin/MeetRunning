@@ -2,16 +2,16 @@ package cat.copernic.meetrunning.UI.ranking
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.adapters.UserAdapter
 import cat.copernic.meetrunning.dataClass.User
 import cat.copernic.meetrunning.databinding.FragmentRankingBinding
-import com.google.firebase.firestore.*
-import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 class RankingFragment : Fragment(R.layout.fragment_ranking) {

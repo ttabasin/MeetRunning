@@ -1,6 +1,5 @@
 package cat.copernic.meetrunning.viewModel
 
-import androidx.annotation.Nullable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import cat.copernic.meetrunning.dataClass.DataRoute

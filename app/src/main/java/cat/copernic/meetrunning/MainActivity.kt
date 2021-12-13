@@ -19,10 +19,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-enum class ProviderType {
-    BASIC
-}
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
@@ -36,7 +32,12 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.home, R.id.meetMap, R.id.ranking, R.id.favorites, R.id.settings, R.id.signInActivity
+                R.id.home,
+                R.id.meetMap,
+                R.id.ranking,
+                R.id.favorites,
+                R.id.settings,
+                R.id.signInActivity
             ), drawerLayout
         )
 
@@ -50,10 +51,11 @@ class MainActivity : AppCompatActivity() {
             FirebaseAuth.getInstance().currentUser?.email.toString()
 
         //Pantalla perfil
-        binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.photoProfile).setOnClickListener {
-            navController.navigate(R.id.myRoutes)
-            drawerLayout.closeDrawers()
-        }
+        binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.photoProfile)
+            .setOnClickListener {
+                navController.navigate(R.id.myRoutes)
+                drawerLayout.closeDrawers()
+            }
 
         GlobalScope.launch {
             delay(1000)
@@ -75,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-     private fun setProfileImage() {
+    private fun setProfileImage() {
         FirebaseStorage.getInstance().reference.child("users/${FirebaseAuth.getInstance().currentUser?.email}/profile.jpg").downloadUrl.addOnSuccessListener {
             Glide.with(this)
                 .load(it)
@@ -88,7 +90,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
-        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp()
+        return NavigationUI.navigateUp(
+            navController,
+            appBarConfiguration
+        ) || super.onSupportNavigateUp()
     }
 
 }

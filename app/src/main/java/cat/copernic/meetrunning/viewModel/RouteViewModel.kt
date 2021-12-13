@@ -1,20 +1,12 @@
 package cat.copernic.meetrunning.viewModel
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import cat.copernic.meetrunning.R
-import cat.copernic.meetrunning.UI.route.RouteFragment
 import cat.copernic.meetrunning.dataClass.DataRoute
 import cat.copernic.meetrunning.dataClass.LatLng
-import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
-import com.squareup.okhttp.Dispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 import com.google.android.gms.maps.model.LatLng as GLatLng
 
 class RouteViewModel(route: DataRoute?) : ViewModel() {
