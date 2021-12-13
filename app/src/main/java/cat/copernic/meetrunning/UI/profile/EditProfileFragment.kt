@@ -50,7 +50,6 @@ class EditProfileFragment : Fragment() {
         }
 
         binding.changePhoto.setOnClickListener {
-
             openGallery()
         }
 
@@ -75,7 +74,7 @@ class EditProfileFragment : Fragment() {
                     photoUri = Uri.parse(dataF.toString())
                 }
                 FirebaseAuth.getInstance().currentUser?.updateProfile(profileUpdates)
-                println("${dataF.toString()}")
+                println(dataF.toString())
             }
 
             db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
@@ -86,13 +85,6 @@ class EditProfileFragment : Fragment() {
                         )
                     )
             }
-
-            /*it.findNavController()
-                .navigate(
-                    EditProfileFragmentDirections
-                        .actionEditProfileToMyRoutes()
-                )*/
-
 
             val storage = FirebaseStorage.getInstance().reference
             val path = storage.child("users/$currentUserEmail/profile.jpg")
@@ -117,7 +109,11 @@ class EditProfileFragment : Fragment() {
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             dataF = result.data?.data
-            binding.changePhoto.setImageURI(dataF)
+            Glide.with(this)
+                .load(dataF)
+                .centerInside()
+                .circleCrop()
+                .into(binding.changePhoto)
         }
     }
 
