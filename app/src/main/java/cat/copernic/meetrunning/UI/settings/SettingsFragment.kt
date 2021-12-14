@@ -45,15 +45,6 @@ class SettingsFragment : Fragment() {
                 Toast.makeText(context, binding.rbEnglish.text.toString(), Toast.LENGTH_SHORT)
                     .show()
 
-                val locale = Locale("en", "EN")
-                val config: Configuration = context!!.resources.configuration
-                config.setLocale(locale)
-
-                context!!.resources.updateConfiguration(
-                    config,
-                    context!!.resources.displayMetrics
-                )
-
                 db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
                     db.collection("users").document(currentUserEmail).update(
                         mapOf(
@@ -65,33 +56,31 @@ class SettingsFragment : Fragment() {
             }
             if (checkedId == binding.rbSpanish.id) {
                 Toast.makeText(context, binding.rbSpanish.text.toString(), Toast.LENGTH_SHORT).show()
-                val locale = Locale("es", "ES")
-                val config: Configuration = context!!.resources.configuration
-                config.setLocale(locale)
 
-                context!!.resources.updateConfiguration(
-                    config,
-                    context!!.resources.displayMetrics
-                )
-
+                db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
+                    db.collection("users").document(currentUserEmail).update(
+                        mapOf(
+                            "language" to "[es_ES]"
+                        )
+                    )
+                }
             }
 
             if (checkedId == binding.rbCat.id) {
                 Toast.makeText(context, binding.rbCat.text.toString(), Toast.LENGTH_SHORT).show()
-                val locale = Locale("ca", "ES")
-                val config: Configuration = context!!.resources.configuration
-                config.setLocale(locale)
 
-                context!!.resources.updateConfiguration(
-                    config,
-                    context!!.resources.displayMetrics
-                )
-
+                db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
+                    db.collection("users").document(currentUserEmail).update(
+                        mapOf(
+                            "language" to "[ca_ES]"
+                        )
+                    )
+                }
             }
 
-            val intent = Intent(context, MainActivity::class.java)
+            /*val intent = Intent(context, MainActivity::class.java)
             startActivity(intent)
-            activity?.finish()
+            activity?.finish()*/
 
         }
 

@@ -1,9 +1,12 @@
 package cat.copernic.meetrunning.UI.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,19 +14,25 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cat.copernic.meetrunning.MainActivity
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.adapters.PostAdapterHome
 import cat.copernic.meetrunning.dataClass.DataRoute
 import cat.copernic.meetrunning.databinding.FragmentHomeBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
     private lateinit var postRecyclerView: RecyclerView
     private lateinit var dataRouteArrayList: ArrayList<DataRoute>
     private lateinit var postAdapterHome: PostAdapterHome
+    private var language: String = "[en_EN]"
     private lateinit var db: FirebaseFirestore
+    private val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
     private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
@@ -66,6 +75,93 @@ class HomeFragment : Fragment() {
         val c: CharSequence = ""
         postAdapterHome.filter.filter(c)
 
+
+
+
+
+
+
+
+        /*db = FirebaseFirestore.getInstance()
+        db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
+            language = it.getString("language").toString()
+            Log.i("Home", "HOMEEEEEEEEEEEE: $language")
+            var count = 0
+            if (language == "[en_US]" || language == "[en_EN]") {
+
+                val locale = Locale("en", "EN")
+                val config: Configuration = context!!.resources.configuration
+                config.setLocale(locale)
+
+                context!!.resources.updateConfiguration(
+                    config,
+                    context!!.resources.displayMetrics
+                )
+
+                if (count < 2) {
+                    for (i in 1..2) {
+                        count++
+                        val intent = Intent(context, MainActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
+                    }
+                }
+
+            } else if (language == "[es_ES]") {
+                Log.i("Home", "HOMEEEEEEEEEEEE: $language")
+
+                val locale = Locale("es", "ES")
+                val config: Configuration = context!!.resources.configuration
+                config.setLocale(locale)
+
+                context!!.resources.updateConfiguration(
+                    config,
+                    context!!.resources.displayMetrics
+                )
+
+                if (count < 2) {
+                    for (i in 1..2) {
+                        count++
+                        val intent = Intent(context, MainActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
+                    }
+                }
+
+            } else if (language == "[ca_ES]") {
+                Log.i("Home", "HOMEEEEEEEEEEEE: $language")
+
+                val locale = Locale("ca", "ES")
+                val config: Configuration = context!!.resources.configuration
+                config.setLocale(locale)
+
+                context!!.resources.updateConfiguration(
+                    config,
+                    context!!.resources.displayMetrics
+                )
+
+                if (count < 2) {
+                    for (i in 1..2) {
+                        count++
+                        val intent = Intent(context, MainActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
+                    }
+                }
+
+
+            }
+
+
+        }*/
+
+
+
+
+
+
+
+
         return binding.root
     }
 
@@ -87,5 +183,7 @@ class HomeFragment : Fragment() {
         super.onPause()
         binding.search.setText("")
     }
+
+
 }
 
