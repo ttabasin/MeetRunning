@@ -23,6 +23,7 @@ class SignInActivity : AppCompatActivity() {
         binding =
             DataBindingUtil.setContentView<ActivitySignInBinding>(this, R.layout.activity_sign_in)
 
+        //Iniciar la pantalla de registre
         binding.signUpBt.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
@@ -33,13 +34,19 @@ class SignInActivity : AppCompatActivity() {
     private fun setup() {
         val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
+        //Mirar si l'usuari existeix per iniciar directament al home
         if(auth.currentUser != null){
             val homeIntent = Intent(this, MainActivity::class.java)
             startActivity(homeIntent)
         }else{
+
+            //Botó iniciar la sessió
             binding.signInBt.setOnClickListener {
 
+                //Comprovar els camps
                 if (checkInput()) {
+
+                    //Crear la sessió amb els camps escrits
                     auth.signInWithEmailAndPassword(
                         binding.email.text.toString(),
                         binding.password.text.toString()

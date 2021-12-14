@@ -31,6 +31,7 @@ class SignUpActivity : AppCompatActivity() {
         binding =
             DataBindingUtil.setContentView<ActivitySignUpBinding>(this, R.layout.activity_sign_up)
 
+        //Iniciar la pantalla de logIn
         binding.signInBtn.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
@@ -38,6 +39,7 @@ class SignUpActivity : AppCompatActivity() {
         setup(this)
     }
 
+    //Comprobar que els camps siguin vàlids
     private fun checkInput(): Boolean {
         if (binding.editPassword.text.isNotBlank() && binding.editConfirmPassword.text.isNotBlank()
             && binding.SignUpEmail.text.isNotBlank() && binding.SignUpConfirmEmail.text.isNotBlank()
@@ -55,16 +57,21 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun setup(context: Context) {
         val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+        //Botó de registrar-se
         binding.signUpContinue.setOnClickListener {
 
             if (checkInput()) {
+
+                //Crear l'usuari a la base de dades
                 auth.createUserWithEmailAndPassword(
                     binding.SignUpConfirmEmail.text.toString(),
                     binding.editPassword.text.toString()
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
-
                         db = FirebaseFirestore.getInstance()
+
+                        //Afegir dades a l'usuari
                         val user = hashMapOf(
                             "username" to binding.SignUpEmail.text.toString(),
                             "email" to binding.SignUpConfirmEmail.text.toString(),
@@ -81,6 +88,7 @@ class SignUpActivity : AppCompatActivity() {
                         val profileUpdates = UserProfileChangeRequest.Builder()
                             .setDisplayName(binding.SignUpEmail.text.toString()).build()
 
+                        //Posar foto d'usuari per defecte
                         val storage = FirebaseStorage.getInstance().reference
                         val path = storage.child("users/${auth.currentUser?.email.toString()}/profile.jpg")
                         val bitmap = BitmapFactory.decodeResource(context.resources, R.mipmap.profile)

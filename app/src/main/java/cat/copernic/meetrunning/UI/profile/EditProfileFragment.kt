@@ -39,25 +39,32 @@ class EditProfileFragment : Fragment() {
         val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
         db = FirebaseFirestore.getInstance()
 
+        //Posar el nom d'usuari al camp de text
         binding.changeUsername.setText(currentUser)
+        //Posar l'email al camp de text
         binding.changeEmail.setText(currentUserEmail)
+        //Posar la descripció al camp de text
         db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
             binding.changeDescription.setText(it.getString("description"))
             description = it.getString("description")
         }
 
+        //Canviar la foto de perfil de l'usuari
         binding.changePhoto.setOnClickListener {
             openGallery()
         }
 
+        //Botó per confirmar els canvis de l'usuari
         binding.confirmBtn.setOnClickListener {
 
+            //Mirar si s'ha actualitzat la contrasenya per fer el canvi a la base de dades
             if (checkInput()) {
                 FirebaseAuth.getInstance().currentUser?.updatePassword(
                     binding.changePassword.text.toString().trim()
                 )
             }
 
+            //Mirar si s'ha canviat el nom d'usuari per fer el canvi a la base de dades
             if (currentUser != binding.changeUsername.toString().trim()) {
                 val profileUpdates = userProfileChangeRequest {
                     displayName = binding.changeUsername.text.toString().trim()
@@ -66,6 +73,7 @@ class EditProfileFragment : Fragment() {
                 FirebaseAuth.getInstance().currentUser?.updateProfile(profileUpdates)
             }
 
+            //Mirar si s'ha canviat la foto de perfil
             if (dataF != null) {
                 val profileUpdates = userProfileChangeRequest {
                     photoUri = Uri.parse(dataF.toString())
@@ -74,6 +82,7 @@ class EditProfileFragment : Fragment() {
                 println(dataF.toString())
             }
 
+            //Canviar la descripció a la base de dades
             db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
                 db.collection("users").document(currentUserEmail)
                     .update(
@@ -93,6 +102,7 @@ class EditProfileFragment : Fragment() {
             val uploadTask = path.putBytes(data)
             uploadTask.addOnSuccessListener {  }
 
+            //Reiniciar l'activity per fer efectius els canvis
             val intent = Intent(context, MainActivity::class.java)
             startActivity(intent)
             activity?.finish()

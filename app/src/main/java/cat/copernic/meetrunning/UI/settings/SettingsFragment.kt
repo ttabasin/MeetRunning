@@ -31,7 +31,8 @@ class SettingsFragment : Fragment() {
 
         Log.i("settings", "${context!!.resources.configuration.locales}")
 
-        if (context!!.resources.configuration.locales.toString() == "[en_US]") {
+        //Mirar en quin idioma està l'app per posar el botó en qüestió checked
+        if (context!!.resources.configuration.locales.toString() == "[en_US]" || context!!.resources.configuration.locales.toString() == "[en_EN]") {
             binding.rbEnglish.isChecked = true
         } else if (context!!.resources.configuration.locales.toString() == "[es_ES]") {
             binding.rbSpanish.isChecked = true
@@ -39,12 +40,15 @@ class SettingsFragment : Fragment() {
             binding.rbCat.isChecked = true
         }
 
+        //Funció dels radio buttons
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
 
+            //Si el que està checked es l'anglès fer el canvi d'idioma
             if (checkedId == binding.rbEnglish.id) {
                 Toast.makeText(context, binding.rbEnglish.text.toString(), Toast.LENGTH_SHORT)
                     .show()
 
+                //Actualitzar l'idioma de l'usuari a la base de dades
                 db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
                     db.collection("users").document(currentUserEmail).update(
                         mapOf(
@@ -54,9 +58,12 @@ class SettingsFragment : Fragment() {
                 }
 
             }
+
+            //Si el que està checked es l'espanyol fer el canvi d'idioma
             if (checkedId == binding.rbSpanish.id) {
                 Toast.makeText(context, binding.rbSpanish.text.toString(), Toast.LENGTH_SHORT).show()
 
+                //Actualitzar l'idioma de l'usuari a la base de dades
                 db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
                     db.collection("users").document(currentUserEmail).update(
                         mapOf(
@@ -66,9 +73,11 @@ class SettingsFragment : Fragment() {
                 }
             }
 
+            //Si el que està checked es el català fer el canvi d'idioma
             if (checkedId == binding.rbCat.id) {
                 Toast.makeText(context, binding.rbCat.text.toString(), Toast.LENGTH_SHORT).show()
 
+                //Actualitzar l'idioma de l'usuari a la base de dades
                 db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
                     db.collection("users").document(currentUserEmail).update(
                         mapOf(
@@ -78,6 +87,7 @@ class SettingsFragment : Fragment() {
                 }
             }
 
+            //Reiniciar l'activity per fer el canvi d'idioma efectiu
             /*val intent = Intent(context, MainActivity::class.java)
             startActivity(intent)
             activity?.finish()*/

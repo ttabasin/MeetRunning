@@ -41,7 +41,10 @@ class HomeFragment : Fragment() {
     ): View {
 
         binding = FragmentHomeBinding.inflate(layoutInflater)
+
+        //Posar text per defecte al cercador
         binding.search.setText("")
+        //Donar-li funcionalitat al filtre
         binding.search.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -74,11 +77,6 @@ class HomeFragment : Fragment() {
         addRouteToList()
         val c: CharSequence = ""
         postAdapterHome.filter.filter(c)
-
-
-
-
-
 
 
 
@@ -157,14 +155,10 @@ class HomeFragment : Fragment() {
 
 
 
-
-
-
-
-
         return binding.root
     }
 
+    //Afegir els documents de la base de dades a un array per mostrar-los al recyclerView
     @SuppressLint("NotifyDataSetChanged")
     private fun addRouteToList() {
 

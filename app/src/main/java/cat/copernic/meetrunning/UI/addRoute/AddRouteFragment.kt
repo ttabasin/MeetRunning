@@ -42,9 +42,13 @@ class AddRouteFragment : Fragment() {
         val args = AddRouteFragmentArgs.fromBundle(requireArguments())
 
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
+
+        //Assignar la distància i el temps portat del mapa
         binding.distanceTxt.text = "${"%.3f".format(args.distance)}Km"
         binding.timeTxt.text =
             SimpleDateFormat("HH:mm:ss").format(args.time - TimeZone.getDefault().rawOffset)
+
+        //Veure les fotos posades a la ruta
         binding.imageNext.setOnClickListener {
             if (mArrayUri.size != 0) {
                 if (pos >= mArrayUri.size - 1) {
@@ -69,6 +73,7 @@ class AddRouteFragment : Fragment() {
             }
         }
 
+        //Botó per afegir la ruta
         binding.continueRoute.setOnClickListener {
             //Mira si no te camps buits
             if (checkInput()) {
@@ -118,6 +123,8 @@ class AddRouteFragment : Fragment() {
                     }
 
             }
+
+            //Afegir les fotos a la base de dades
             val storage = FirebaseStorage.getInstance().reference
             for ((c, i) in mArrayUri.withIndex()){
                 val path = storage.child("users/$currentUser/${binding.editTextTitle.text}/$c.jpg")
@@ -133,6 +140,7 @@ class AddRouteFragment : Fragment() {
             }
         }
 
+        //Fer que es puguin seleccionar fotos de la galeria
         binding.photoGallery.setOnClickListener {
             mArrayUri.clear()
             openGallery()
@@ -141,6 +149,7 @@ class AddRouteFragment : Fragment() {
         return binding.root
     }
 
+    //Comprovar els camps
     private fun checkInput(): Boolean {
         if (binding.editTextDescription.text.isNotBlank() && binding.editTextDescription.text.isNotBlank()) {
             return true

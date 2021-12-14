@@ -28,6 +28,8 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentFavoritesBinding.inflate(layoutInflater)
+
+        //Crear el filtre
         binding.search.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -41,6 +43,7 @@ class FavoritesFragment : Fragment() {
 
             }
         })
+
         postRecyclerView = binding.recycler
         postRecyclerView.layoutManager = LinearLayoutManager(context)
         postRecyclerView.setHasFixedSize(true)
@@ -58,6 +61,7 @@ class FavoritesFragment : Fragment() {
         return binding.root
     }
 
+    //Afegir els documents de la base de dades a un array per mostrar-los al recyclerView
     @SuppressLint("NotifyDataSetChanged")
     private fun addRouteToList() {
         db = FirebaseFirestore.getInstance()

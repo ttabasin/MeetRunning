@@ -51,6 +51,7 @@ class ProfileFragment : Fragment() {
 
         db = FirebaseFirestore.getInstance()
 
+        //Posar tots els elements que no siguin els de myRoutes en no visibles
         binding.cViewDist.isVisible = false
         binding.cViewTime.isVisible = false
         binding.achDistance.isVisible = false
@@ -63,12 +64,12 @@ class ProfileFragment : Fragment() {
 
 
         //Navegar entre botons
-
         myRoutesBT()
         statsBT()
         achievementsBT()
         photosBT()
 
+        //Obrir la pantalla d'editar perfil
         binding.settingBT.setOnClickListener {
             it.findNavController()
                 .navigate(ProfileFragmentDirections.actionMyRoutesToEditProfile())
