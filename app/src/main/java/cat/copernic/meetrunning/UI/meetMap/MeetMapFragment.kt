@@ -85,10 +85,6 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
         Log.e("current", "location")
         job = GlobalScope.launch(Dispatchers.IO) {
             delay(2000)
-            fusedLocationClient.lastLocation.addOnSuccessListener {
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(it.latitude, it.longitude)))
-                mMap.moveCamera(CameraUpdateFactory.zoomTo(15.0F))
-            }
             while (!btnPressed) {
                 var location: LatLng
                 fusedLocationClient.lastLocation.addOnSuccessListener {
