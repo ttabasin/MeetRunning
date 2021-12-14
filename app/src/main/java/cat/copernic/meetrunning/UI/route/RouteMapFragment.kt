@@ -112,8 +112,8 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
         //mMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
+        checkPermission()
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style))
-        createLocationRequest()
         mMap.moveCamera(CameraUpdateFactory.newLatLng(route[0]))
         for (i in 1 until route.size) {
             mMap.addPolyline(
@@ -204,8 +204,10 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
                 try {
                     // Show the dialog by calling startResolutionForResult(),
                     // and check the result in onActivityResult().
-                    startIntentSenderForResult(exception.resolution.intentSender, REQUEST_CHECK_SETTINGS,
-                        null ,0 , 0,0,null)
+                    startIntentSenderForResult(
+                        exception.resolution.intentSender, REQUEST_CHECK_SETTINGS,
+                        null, 0, 0, 0, null
+                    )
                 } catch (sendEx: IntentSender.SendIntentException) {
                     // Ignore the error.
                 }
@@ -217,6 +219,7 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == -1){
+            gps = true
             checkPermission()
         }
     }

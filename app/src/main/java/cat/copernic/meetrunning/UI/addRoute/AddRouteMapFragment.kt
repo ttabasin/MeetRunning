@@ -116,7 +116,7 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style))
-        createLocationRequest()
+        checkPermission()
     }
 
     @SuppressLint("MissingPermission")
@@ -198,13 +198,10 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
                 try {
                     // Show the dialog by calling startResolutionForResult(),
                     // and check the result in onActivityResult().
-                    startIntentSenderForResult(exception.resolution.intentSender, REQUEST_CHECK_SETTINGS,
-                    null ,0 , 0,0,null)
-                    /*exception.startResolutionForResult(
-                        requireActivity(),
-                        REQUEST_CHECK_SETTINGS
-                    )*/
-
+                    startIntentSenderForResult(
+                        exception.resolution.intentSender, REQUEST_CHECK_SETTINGS,
+                        null, 0, 0, 0, null
+                    )
                 } catch (sendEx: IntentSender.SendIntentException) {
                     // Ignore the error.
                 }
