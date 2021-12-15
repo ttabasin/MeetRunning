@@ -48,6 +48,15 @@ class SettingsFragment : Fragment() {
                 Toast.makeText(context, binding.rbEnglish.text.toString(), Toast.LENGTH_SHORT)
                     .show()
 
+                val locale = Locale("en", "EN")
+                val config: Configuration = this.resources.configuration
+                config.setLocale(locale)
+
+                this.resources.updateConfiguration(
+                    config,
+                    this.resources.displayMetrics
+                )
+
                 //Actualitzar l'idioma de l'usuari a la base de dades
                 db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
                     db.collection("users").document(currentUserEmail).update(
@@ -63,6 +72,15 @@ class SettingsFragment : Fragment() {
             if (checkedId == binding.rbSpanish.id) {
                 Toast.makeText(context, binding.rbSpanish.text.toString(), Toast.LENGTH_SHORT).show()
 
+                val locale = Locale("es", "ES")
+                val config: Configuration = this.resources.configuration
+                config.setLocale(locale)
+
+                this.resources.updateConfiguration(
+                    config,
+                    this.resources.displayMetrics
+                )
+
                 //Actualitzar l'idioma de l'usuari a la base de dades
                 db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
                     db.collection("users").document(currentUserEmail).update(
@@ -77,6 +95,15 @@ class SettingsFragment : Fragment() {
             if (checkedId == binding.rbCat.id) {
                 Toast.makeText(context, binding.rbCat.text.toString(), Toast.LENGTH_SHORT).show()
 
+                val locale = Locale("ca", "ES")
+                val config: Configuration = this.resources.configuration
+                config.setLocale(locale)
+
+                this.resources.updateConfiguration(
+                    config,
+                    this.resources.displayMetrics
+                )
+
                 //Actualitzar l'idioma de l'usuari a la base de dades
                 db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
                     db.collection("users").document(currentUserEmail).update(
@@ -88,9 +115,9 @@ class SettingsFragment : Fragment() {
             }
 
             //Reiniciar l'activity per fer el canvi d'idioma efectiu
-            /*val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java)
             startActivity(intent)
-            activity?.finish()*/
+            activity?.finish()
 
         }
 

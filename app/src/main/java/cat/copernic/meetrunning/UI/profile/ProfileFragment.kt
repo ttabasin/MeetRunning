@@ -23,6 +23,7 @@ import cat.copernic.meetrunning.adapters.PhotoAdapter
 import cat.copernic.meetrunning.adapters.PostAdapterMyRoutes
 import cat.copernic.meetrunning.dataClass.DataRoute
 import cat.copernic.meetrunning.databinding.FragmentProfileBinding
+import cat.copernic.meetrunning.viewModel.RouteViewModel
 import cat.copernic.meetrunning.viewModel.StatsViewModel
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -70,9 +71,7 @@ class ProfileFragment : Fragment() {
         achievementsBT()
         photosBT()
 
-
         val args = ProfileFragmentArgs.fromBundle(requireArguments())
-        Log.i("Profile", "${args.email}")
 
         if(args.email != currentUserEmail){
             //Mostrar el nom d'usuari al perfil
@@ -85,6 +84,10 @@ class ProfileFragment : Fragment() {
                 binding.description.text = it.getString("description")
             }
             binding.settingBT.isVisible = false
+            binding.notificationBT.isVisible = true
+
+
+
         }else{
             //Mostrar el nom d'usuari al perfil
             binding.username.text = FirebaseAuth.getInstance().currentUser?.displayName.toString()
@@ -108,7 +111,7 @@ class ProfileFragment : Fragment() {
         myRoutesF(args.email)
 
         //STATS FRAGMENT
-        statsF(args.email)
+        statsF()
 
         //ACHIEVEMENTS FRAGMENT
         achievementsF(args.email)
@@ -343,20 +346,28 @@ class ProfileFragment : Fragment() {
         setProfileImage(email)
     }
 
-    private fun statsF(email: String) {
+    private fun statsF() {
+
+        viewModel = ViewModelProvider(this)[StatsViewModel::class.java]
 
 
-        db.collection("users").document(email).get()
-            .addOnSuccessListener {
-                binding.description.text = it.getString("description")
-                binding.username.text = it.getString("username")
-            }
+                viewModel.description.observe(viewLifecycleOwner, {
+                    binding.description.text = it.toString()
+                })
 
-        db.collection("users").document(email).get()
-            .addOnSuccessListener {
-                binding.distanceStat.text = "${"%.2f".format(it.get("distance"))}km"
-                binding.timeStat.text = SimpleDateFormat("HH:mm:ss").format(it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset))
-            }
+                viewModel.currentUsername.observe(viewLifecycleOwner, {
+                    binding.username.text = it.toString()
+                })
+
+                viewModel.distance.observe(viewLifecycleOwner, {
+                    binding.distanceStat.text = it.toString()
+                })
+
+                viewModel.time.observe(viewLifecycleOwner, {
+                    binding.timeStat.text = it.toString()
+                })
+
+
     }
 
     private fun achievementsF(email: String) {

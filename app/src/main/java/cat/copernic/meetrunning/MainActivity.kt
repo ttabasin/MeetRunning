@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        db = FirebaseFirestore.getInstance()
+        /*db = FirebaseFirestore.getInstance()
 
         db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
             language = it.getString("language").toString()
@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
             }
 
 
-        }
+        }*/
 
         createNotificationChannel()
         GlobalScope.launch {
