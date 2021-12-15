@@ -146,26 +146,25 @@ class MainActivity : AppCompatActivity() {
         //}
     }
 
-}
 
-private fun setProfileImage() {
-    FirebaseStorage.getInstance().reference.child("users/${FirebaseAuth.getInstance().currentUser?.email}/profile.jpg").downloadUrl.addOnSuccessListener {
-        Glide.with(this)
-            .load(it)
-            .centerInside()
-            .circleCrop()
-            .into(binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.photoProfile))
+    private fun setProfileImage() {
+        FirebaseStorage.getInstance().reference.child("users/${FirebaseAuth.getInstance().currentUser?.email}/profile.jpg").downloadUrl.addOnSuccessListener {
+            Glide.with(this)
+                .load(it)
+                .centerInside()
+                .circleCrop()
+                .into(binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.photoProfile))
+        }
     }
-}
 
 
-override fun onSupportNavigateUp(): Boolean {
-    val navController = this.findNavController(R.id.myNavHostFragment)
-    return NavigationUI.navigateUp(
-        navController,
-        appBarConfiguration
-    ) || super.onSupportNavigateUp()
-}
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.myNavHostFragment)
+        return NavigationUI.navigateUp(
+            navController,
+            appBarConfiguration
+        ) || super.onSupportNavigateUp()
+    }
 
 /*override fun onSaveInstanceState(guardarEstado: Bundle) {
     super.onSaveInstanceState(guardarEstado)
@@ -204,49 +203,48 @@ override fun onRestoreInstanceState(recEstado: Bundle) {
 
 }*/
 
-private val CHANNEL_ID = "meetrunning"
-private val notificacioId = 1
+    private val CHANNEL_ID = "meetrunning"
+    private val notificacioId = 1
 
-private fun createNotificationChannel() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //>=26 version Oreo i superiors
-        val nom = "Titol de la notificació"
-        val descripcio = "Descripció notificació."
-        val importancia = NotificationManager.IMPORTANCE_DEFAULT
-        val canal = NotificationChannel(CHANNEL_ID, nom, importancia)
-        canal.description = descripcio
-        val notificationManager: NotificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(canal)
-    }
-}
-
-private fun sendNotification(m: String) {
-
-    val resultIntent: Intent = Intent(this, MainActivity::class.java).apply {
-        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //>=26 version Oreo i superiors
+            val nom = "Titol de la notificació"
+            val descripcio = "Descripció notificació."
+            val importancia = NotificationManager.IMPORTANCE_DEFAULT
+            val canal = NotificationChannel(CHANNEL_ID, nom, importancia)
+            canal.description = descripcio
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(canal)
+        }
     }
 
-    val resultPendingIntent = PendingIntent.getActivity(
-        this, 0, resultIntent, 0
-    )
+    private fun sendNotification(m: String) {
 
-    val mBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-        .setSmallIcon(android.R.drawable.ic_notification_overlay)
-        .setContentTitle("MeetRunning")
-        .setContentText(m)
-        //.setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
-        .setContentIntent(resultPendingIntent)
-        .setDefaults(NotificationCompat.DEFAULT_ALL) // Notification.DEFAULT_SOUND, Notification.DEFAULT_VIBRATE, Notification.DEFAULT_LIGHTS.
-        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        val resultIntent: Intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
 
-    val notificationManager = NotificationManagerCompat.from(this)
-    notificationManager.notify(notificacioId, mBuilder.build())
-}
-}
+        val resultPendingIntent = PendingIntent.getActivity(
+            this, 0, resultIntent, 0
+        )
 
-override fun onDestroy() {
-    super.onDestroy()
+        val mBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(android.R.drawable.ic_notification_overlay)
+            .setContentTitle("MeetRunning")
+            .setContentText(m)
+            //.setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+            .setContentIntent(resultPendingIntent)
+            .setDefaults(NotificationCompat.DEFAULT_ALL) // Notification.DEFAULT_SOUND, Notification.DEFAULT_VIBRATE, Notification.DEFAULT_LIGHTS.
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-}
+        val notificationManager = NotificationManagerCompat.from(this)
+        notificationManager.notify(notificacioId, mBuilder.build())
+    }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+    }
 }
