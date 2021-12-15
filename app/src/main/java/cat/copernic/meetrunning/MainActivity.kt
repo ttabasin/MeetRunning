@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -60,7 +61,9 @@ class MainActivity : AppCompatActivity() {
         //Pantalla perfil
         binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.photoProfile)
             .setOnClickListener {
-                navController.navigate(R.id.myRoutes)
+                val bundle = Bundle()
+                bundle.putString("email", currentUserEmail)
+                navController.navigate(R.id.myRoutes, bundle)
                 drawerLayout.closeDrawers()
             }
 
