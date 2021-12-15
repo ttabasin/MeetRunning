@@ -241,10 +241,4 @@ override fun onRestoreInstanceState(recEstado: Bundle) {
         val notificationManager = NotificationManagerCompat.from(this)
         notificationManager.notify(notificacioId, mBuilder.build())
     }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-    }
 }
