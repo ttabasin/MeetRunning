@@ -58,6 +58,8 @@ class HomeFragment : Fragment() {
 
             }
         })
+
+        //Botó per anar a crear una ruta
         binding.floatingActionButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_home_to_addRouteMap)
         }

@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentMeetMapBinding
 import com.google.android.gms.common.api.ResolvableApiException
@@ -149,6 +150,13 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
                             .position(LatLng(a[0].toDouble(), a[1].toDouble()))
                         //.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_run))
                     )
+
+                    var email = i.get("email").toString()
+                    mMap.setOnMarkerClickListener {
+                        findNavController().navigate(MeetMapFragmentDirections.actionMeetMapToMyRoutes(email))
+                        false
+                    }
+
                 }
             }
         }

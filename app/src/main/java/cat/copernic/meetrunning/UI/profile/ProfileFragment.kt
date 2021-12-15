@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,41 +70,61 @@ class ProfileFragment : Fragment() {
         achievementsBT()
         photosBT()
 
+
+        val args = ProfileFragmentArgs.fromBundle(requireArguments())
+        Log.i("Profile", "${args.email}")
+
+        if(args.email != currentUserEmail){
+            //Mostrar el nom d'usuari al perfil
+            db.collection("users").document(args.email!!.trim()).get().addOnSuccessListener {
+                binding.username.text = it.getString("username")
+            }
+
+            //Mostrar la descripció de l'usuari al perfil
+            db.collection("users").document(args.email!!.trim()).get().addOnSuccessListener {
+                binding.description.text = it.getString("description")
+            }
+            binding.settingBT.isVisible = false
+        }else{
+            //Mostrar el nom d'usuari al perfil
+            binding.username.text = FirebaseAuth.getInstance().currentUser?.displayName.toString()
+
+            //Mostrar la descripció de l'usuari al perfil
+            db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
+                binding.description.text = it.getString("description")
+            }
+        }
+
+
         //Obrir la pantalla d'editar perfil
         binding.settingBT.setOnClickListener {
             it.findNavController()
                 .navigate(ProfileFragmentDirections.actionMyRoutesToEditProfile())
         }
 
-        //Mostrar el nom d'usuari al perfil
-        binding.username.text = FirebaseAuth.getInstance().currentUser?.displayName.toString()
 
-        //Mostrar la descripció de l'usuari al perfil
-        db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
-            binding.description.text = it.getString("description")
-        }
 
         //MY ROUTES FRAGMENTS
-        myRoutesF()
+        myRoutesF(args.email)
 
         //STATS FRAGMENT
-        statsF()
+        statsF(args.email)
 
         //ACHIEVEMENTS FRAGMENT
-        achievementsF()
+        achievementsF(args.email)
 
         //FRAGMENT PHOTOS
-        photosF()
+        photosF(args.email)
 
         return binding.root
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun addRouteToList() {
+    private fun addRouteToList(email: String) {
         db = FirebaseFirestore.getInstance()
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
 
-        db.collection("users").document(currentUser).collection("routes")
+        db.collection("users").document(email).collection("routes")
             .addSnapshotListener { value, _ ->
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
@@ -114,8 +135,8 @@ class ProfileFragment : Fragment() {
             }
     }
 
-    private fun setProfileImage() {
-        FirebaseStorage.getInstance().reference.child("users/${FirebaseAuth.getInstance().currentUser?.email}/profile.jpg").downloadUrl.addOnSuccessListener {
+    private fun setProfileImage(email: String) {
+        FirebaseStorage.getInstance().reference.child("users/${email}/profile.jpg").downloadUrl.addOnSuccessListener {
             Glide.with(this)
                 .load(it)
                 .centerInside()
@@ -124,14 +145,14 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun getImages() {
+    private fun getImages(email: String) {
         val user = FirebaseAuth.getInstance().currentUser?.email.toString()
         val db = FirebaseFirestore.getInstance()
-        db.collection("users").document(user)
+        db.collection("users").document(email)
             .collection("routes").get().addOnSuccessListener {
                 for (i in it.documents) {
                     FirebaseStorage.getInstance()
-                        .reference.child("users/$user/${i.get("title").toString()}")
+                        .reference.child("users/$email/${i.get("title").toString()}")
                         .listAll().addOnSuccessListener { uri ->
                             for (u in uri.items) {
                                 u.downloadUrl.addOnSuccessListener { r ->
@@ -288,7 +309,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun myRoutesF() {
+    private fun myRoutesF(email: String) {
 
         binding.search.addTextChangedListener(object : TextWatcher {
 
@@ -314,32 +335,31 @@ class ProfileFragment : Fragment() {
 
         postRecyclerView.adapter = postAdapter
 
-        addRouteToList()
+        addRouteToList(email)
 
         val c: CharSequence = ""
         postAdapter.filter.filter(c)
 
-        setProfileImage()
+        setProfileImage(email)
     }
 
-    private fun statsF() {
+    private fun statsF(email: String) {
 
-        viewModel = ViewModelProvider(this)[StatsViewModel::class.java]
 
-        binding.username.text = viewModel.user
-        viewModel.db.collection("users").document(viewModel.currentUserEmail).get()
+        db.collection("users").document(email).get()
             .addOnSuccessListener {
-                binding.description.text = viewModel.description
+                binding.description.text = it.getString("description")
+                binding.username.text = it.getString("username")
             }
 
-        viewModel.db.collection("users").document(viewModel.currentUserEmail).get()
+        db.collection("users").document(email).get()
             .addOnSuccessListener {
-                binding.distanceStat.text = viewModel.distance
-                binding.timeStat.text = viewModel.time
+                binding.distanceStat.text = "${"%.2f".format(it.get("distance"))}km"
+                binding.timeStat.text = SimpleDateFormat("HH:mm:ss").format(it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset))
             }
     }
 
-    private fun achievementsF() {
+    private fun achievementsF(email: String) {
         var countDist = 0
         var countTime = 0
 
@@ -387,7 +407,7 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
+        db.collection("users").document(email).get().addOnSuccessListener {
             binding.description.text = it.getString("description")
 
             //Distance
@@ -464,8 +484,8 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun photosF() {
-        getImages()
+    private fun photosF(email: String) {
+        getImages(email)
         photoAdapter = PhotoAdapter(photos)
         binding.rvPhotos.adapter = photoAdapter
         binding.rvPhotos.layoutManager = GridLayoutManager(requireContext(), 3)

@@ -28,6 +28,7 @@ class SignInActivity : AppCompatActivity() {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
+        //Funció per inciar sessió
         setup()
     }
 
