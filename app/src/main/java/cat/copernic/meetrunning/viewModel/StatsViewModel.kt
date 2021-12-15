@@ -8,7 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
-class StatsViewModel: ViewModel() {
+class StatsViewModel(): ViewModel() {
 
     private val _currentUsername = MutableLiveData<String?>()
     val currentUsername: LiveData<String?>
@@ -36,15 +36,21 @@ class StatsViewModel: ViewModel() {
 
         _currentUsername.value = FirebaseAuth.getInstance().currentUser?.displayName.toString()
         _currentUserEmail.value = FirebaseAuth.getInstance().currentUser?.email.toString()
+        var email = ""
+
+        db.collection("profile").document(currentUserEmail.value!!).get().addOnSuccessListener {
+            email = it.getString("email")!!
+
+            db.collection("users").document(email).get().addOnSuccessListener {
+                _distance.value = "${"%.2f".format(it.get("distance"))}km"
+                _time.value = SimpleDateFormat("HH:mm:ss").format(it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset))
+                _description.value = it.getString("description")
+            }
 
 
-        db.collection("users").document(_currentUserEmail.value!!).get().addOnSuccessListener {
-            _distance.value = "${"%.2f".format(it.get("distance"))}km"
-            _time.value = SimpleDateFormat("HH:mm:ss").format(it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset))
-            _description.value = it.getString("description")
         }
-    }
 
-    val user = currentUsername
+
+    }
 
 }
