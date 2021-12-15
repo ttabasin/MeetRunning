@@ -19,7 +19,6 @@ import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentMeetMapBinding
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.CircleOptions
@@ -146,17 +145,15 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
                 ) {
                     mMap.addMarker(
                         MarkerOptions()
-                            .title(i.get("username").toString())
+                            .title(i.get("email").toString())
                             .position(LatLng(a[0].toDouble(), a[1].toDouble()))
                         //.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_run))
                     )
 
-                    var email = i.get("email").toString()
-                    mMap.setOnMarkerClickListener {
-                        findNavController().navigate(MeetMapFragmentDirections.actionMeetMapToMyRoutes(email))
+                    mMap.setOnMarkerClickListener { marker ->
+                        findNavController().navigate(MeetMapFragmentDirections.actionMeetMapToMyRoutes(marker.title!!))
                         false
                     }
-
                 }
             }
         }
