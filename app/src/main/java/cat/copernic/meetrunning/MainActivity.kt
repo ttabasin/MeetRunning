@@ -1,11 +1,13 @@
 package cat.copernic.meetrunning
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +25,10 @@ import androidx.navigation.ui.NavigationUI
 import cat.copernic.meetrunning.UI.authentication.SignInActivity
 import cat.copernic.meetrunning.databinding.ActivityMainBinding
 import com.bumptech.glide.Glide
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.CircleOptions
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -37,13 +43,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private var language: String = "[en_EN]"
-    private lateinit var db: FirebaseFirestore
+    private var db = FirebaseFirestore.getInstance()
     private val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         drawerLayout = binding.drawerLayout
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -241,4 +249,38 @@ override fun onRestoreInstanceState(recEstado: Bundle) {
         val notificationManager = NotificationManagerCompat.from(this)
         notificationManager.notify(notificacioId, mBuilder.build())
     }
+
+    override fun onPause() {
+        super.onPause()
+        val map = mapOf(
+            "latitude" to 0.00000,
+            "longitude" to 0.00000
+        )
+        db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
+            db.collection("users").document(currentUserEmail).update(
+                mapOf(
+                    "location" to map
+                )
+            )
+        }
+    }
+    @SuppressLint("MissingPermission")
+    override fun onResume() {
+        super.onResume()
+        fusedLocationClient.lastLocation.addOnSuccessListener {
+            var location = LatLng(it.latitude, it.longitude)
+            saveLocation(location)
+        }
+    }
+
+    private fun saveLocation(l: LatLng) {
+        val db = FirebaseFirestore.getInstance()
+        val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
+        db.collection("users").document(currentUser).get().addOnSuccessListener {
+            db.collection("users").document(currentUser).update(
+                "location", l
+            )
+        }
+    }
+
 }

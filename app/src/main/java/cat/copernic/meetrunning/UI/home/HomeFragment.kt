@@ -178,6 +178,7 @@ class HomeFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         binding.search.setText("")
+
     }
 
 
