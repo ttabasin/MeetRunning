@@ -92,13 +92,38 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/changePassword" />
 
+
     <EditText
         android:id="@+id/changePassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/prompt_password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/currentPassword"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/currentPassword"
+        app:layout_constraintTop_toBottomOf="@+id/currentPassword" />
+
+    <TextView
+        android:id="@+id/textView15"
+        style="@style/txtViewInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Password"
+        app:layout_constraintBottom_toTopOf="@+id/currentPassword"
+        app:layout_constraintEnd_toEndOf="@+id/currentPassword"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/currentPassword" />
+
+    <EditText
+        android:id="@+id/currentPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Current Password "
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/changeDescription"
         app:layout_constraintHorizontal_bias="0.0"
