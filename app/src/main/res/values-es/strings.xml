@@ -77,5 +77,6 @@
     <string name="october">Octubre</string>
     <string name="november">Noviembre</string>
     <string name="december">Diciembre</string>
+    <string name="achievement">Felicidades. Has completado</string>
 
 </resources>

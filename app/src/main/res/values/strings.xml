@@ -11,6 +11,7 @@
     <string name="santi">Santiago Alves</string>
     <string name="pau">Pau Camacho</string>
     <string name="auto_bio">Hey! Insert bio here!</string>
+    <string name="achievement">Congratulations. You completed</string>
 
     <!-- Registrar/Login -->
     <string name="username">Username</string>

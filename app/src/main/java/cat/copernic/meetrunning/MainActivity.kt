@@ -152,21 +152,21 @@ class MainActivity : AppCompatActivity() {
                     if (it.get("distance").toString()
                             .toDouble() > 25 && achievements["25"] == false
                     ) {
-                        sendNotification("Cosa de logro 25Km")
+                        sendNotification("${getString(R.string.achievement)} 25Km")
                         achievements["25"] = true
                         db.collection("users").document(user).update("achievements", achievements)
                     }
                     if (it.get("distance").toString()
                             .toDouble() > 50 && achievements["50"] == false
                     ) {
-                        sendNotification("Cosa de logro 50Km")
+                        sendNotification("${getString(R.string.achievement)} 50Km")
                         achievements["50"] = true
                         db.collection("users").document(user).update("achievements", achievements)
                     }
                     if (it.get("distance").toString()
                             .toDouble() > 100 && achievements["100"] == false
                     ) {
-                        sendNotification("Cosa de logro 100Km")
+                        sendNotification("${getString(R.string.achievement)} 100Km")
                         achievements["100"] = true
                         db.collection("users").document(user).update("achievements", achievements)
                     }
