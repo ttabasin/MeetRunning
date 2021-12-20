@@ -73,7 +73,7 @@ class ProfileFragment : Fragment() {
 
         val args = ProfileFragmentArgs.fromBundle(requireArguments())
 
-        if(args.email != currentUserEmail){
+        if (args.email != currentUserEmail) {
             //Mostrar el nom d'usuari al perfil
             db.collection("users").document(args.email!!.trim()).get().addOnSuccessListener {
                 binding.username.text = it.getString("username")
@@ -84,11 +84,11 @@ class ProfileFragment : Fragment() {
                 binding.description.text = it.getString("description")
             }
             binding.settingBT.isVisible = false
-            binding.notificationBT.isVisible = true
+
+            statsF()
 
 
-
-        }else{
+        } else {
             //Mostrar el nom d'usuari al perfil
             binding.username.text = FirebaseAuth.getInstance().currentUser?.displayName.toString()
 
@@ -96,6 +96,8 @@ class ProfileFragment : Fragment() {
             db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
                 binding.description.text = it.getString("description")
             }
+
+            statsF2()
         }
 
 
@@ -104,7 +106,6 @@ class ProfileFragment : Fragment() {
             it.findNavController()
                 .navigate(ProfileFragmentDirections.actionMyRoutesToEditProfile())
         }
-
 
 
         //MY ROUTES FRAGMENTS
@@ -347,25 +348,28 @@ class ProfileFragment : Fragment() {
     }
 
     private fun statsF() {
+        val args = ProfileFragmentArgs.fromBundle(requireArguments())
+
+        db.collection("users").document(args.email).get().addOnSuccessListener {
+            binding.distanceStat.text = "${"%.2f".format(it.get("distance"))}km"
+            binding.timeStat.text = SimpleDateFormat("HH:mm:ss").format(it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset))
+        }
+
+
+    }
+
+    private fun statsF2() {
 
         viewModel = ViewModelProvider(this)[StatsViewModel::class.java]
 
 
-                viewModel.description.observe(viewLifecycleOwner, {
-                    binding.description.text = it.toString()
-                })
+        viewModel.distance.observe(viewLifecycleOwner, {
+            binding.distanceStat.text = it.toString()
+        })
 
-                viewModel.currentUsername.observe(viewLifecycleOwner, {
-                    binding.username.text = it.toString()
-                })
-
-                viewModel.distance.observe(viewLifecycleOwner, {
-                    binding.distanceStat.text = it.toString()
-                })
-
-                viewModel.time.observe(viewLifecycleOwner, {
-                    binding.timeStat.text = it.toString()
-                })
+        viewModel.time.observe(viewLifecycleOwner, {
+            binding.timeStat.text = it.toString()
+        })
 
 
     }
@@ -467,7 +471,8 @@ class ProfileFragment : Fragment() {
                 )
                 countTime++
             } else {
-                binding.achTime1.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.grey)
+                binding.achTime1.setCardBackgroundColor(
+                    ContextCompat.getColor(context!!, R.color.grey)
                 )
             }
 
@@ -475,20 +480,40 @@ class ProfileFragment : Fragment() {
                     it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset)
                 )!! >= "05:00:00"
             ) {
-                binding.achTime2.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.appBar))
+                binding.achTime2.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        context!!,
+                        R.color.appBar
+                    )
+                )
                 countTime++
             } else {
-                binding.achTime2.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.grey))
+                binding.achTime2.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        context!!,
+                        R.color.grey
+                    )
+                )
             }
 
             if (SimpleDateFormat("HH:mm:ss").format(
                     it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset)
                 )!! >= "10:00:00"
             ) {
-                binding.achTime3.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.appBar))
+                binding.achTime3.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        context!!,
+                        R.color.appBar
+                    )
+                )
                 countTime++
             } else {
-                binding.achTime3.setCardBackgroundColor(ContextCompat.getColor(context!!,R.color.grey))
+                binding.achTime3.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        context!!,
+                        R.color.grey
+                    )
+                )
             }
             binding.achCompleteNumT.text = countTime.toString()
 

@@ -10,15 +10,9 @@ import java.util.*
 
 class StatsViewModel: ViewModel() {
 
-    private val _currentUsername = MutableLiveData<String?>()
-    val currentUsername: LiveData<String?>
-        get() = _currentUsername
+    private var db = FirebaseFirestore.getInstance()
 
     private val _currentUserEmail = MutableLiveData<String?>()
-    val currentUserEmail: LiveData<String?>
-        get() = _currentUserEmail
-
-    private var db = FirebaseFirestore.getInstance()
 
     private val _distance = MutableLiveData<String?>()
     val distance: LiveData<String?>
@@ -28,23 +22,13 @@ class StatsViewModel: ViewModel() {
     val time: LiveData<String?>
         get() = _time
 
-    private val _description = MutableLiveData<String?>()
-    val description: LiveData<String?>
-        get() = _description
-
     init{
 
-        _currentUsername.value = FirebaseAuth.getInstance().currentUser?.displayName.toString()
         _currentUserEmail.value = FirebaseAuth.getInstance().currentUser?.email.toString()
-
 
         db.collection("users").document(_currentUserEmail.value!!).get().addOnSuccessListener {
             _distance.value = "${"%.2f".format(it.get("distance"))}km"
             _time.value = SimpleDateFormat("HH:mm:ss").format(it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset))
-            _description.value = it.getString("description")
         }
     }
-
-    val user = currentUsername
-
 }

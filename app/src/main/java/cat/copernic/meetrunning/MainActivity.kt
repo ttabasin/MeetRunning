@@ -264,6 +264,7 @@ override fun onRestoreInstanceState(recEstado: Bundle) {
             )
         }
     }
+
     @SuppressLint("MissingPermission")
     override fun onResume() {
         super.onResume()
@@ -282,5 +283,4 @@ override fun onRestoreInstanceState(recEstado: Bundle) {
             )
         }
     }
-
 }
