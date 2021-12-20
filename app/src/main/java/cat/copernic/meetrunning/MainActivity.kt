@@ -141,17 +141,39 @@ class MainActivity : AppCompatActivity() {
 
         createNotificationChannel()
         GlobalScope.launch {
-            //while (true){
-            FirebaseFirestore.getInstance().collection("users")
-                .document(FirebaseAuth.getInstance().currentUser?.email.toString()).get()
-                .addOnSuccessListener {
-                    val distance = it.get("distance").toString().toDouble()
-                    if (distance >= 25.00) {
-                        sendNotification("")
+            val user = FirebaseAuth.getInstance().currentUser?.email.toString()
+            while (true) {
+
+                db.collection("users").document(user).get().addOnSuccessListener {
+                    val achievements = it.get("achievements") as MutableMap<String, Boolean>
+                    if (achievements["25"] == false) {
+                        println("la cosa ba")
+                    }
+                    if (it.get("distance").toString()
+                            .toDouble() > 25 && achievements["25"] == false
+                    ) {
+                        sendNotification("Cosa de logro 25Km")
+                        achievements["25"] = true
+                        db.collection("users").document(user).update("achievements", achievements)
+                    }
+                    if (it.get("distance").toString()
+                            .toDouble() > 50 && achievements["50"] == false
+                    ) {
+                        sendNotification("Cosa de logro 50Km")
+                        achievements["50"] = true
+                        db.collection("users").document(user).update("achievements", achievements)
+                    }
+                    if (it.get("distance").toString()
+                            .toDouble() > 100 && achievements["100"] == false
+                    ) {
+                        sendNotification("Cosa de logro 100Km")
+                        achievements["100"] = true
+                        db.collection("users").document(user).update("achievements", achievements)
                     }
                 }
+                delay(15000)
+            }
         }
-        //}
     }
 
 

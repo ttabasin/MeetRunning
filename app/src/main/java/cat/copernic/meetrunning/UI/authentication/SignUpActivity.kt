@@ -70,7 +70,7 @@ class SignUpActivity : AppCompatActivity() {
                 ).addOnCompleteListener {
                     if (it.isSuccessful) {
                         db = FirebaseFirestore.getInstance()
-
+                        val achivements = mapOf<String, Boolean>("25" to false, "50" to false, "100" to false)
                         //Afegir dades a l'usuari
                         val user = hashMapOf(
                             "username" to binding.SignUpEmail.text.toString(),
@@ -78,7 +78,8 @@ class SignUpActivity : AppCompatActivity() {
                             "distance" to 0.0,
                             "time" to 0,
                             "description" to getString(R.string.auto_bio),
-                            "language" to "EN_en"
+                            "language" to "EN_en",
+                            "achievements" to achivements
                         )
 
                         db.collection("users").document(binding.SignUpConfirmEmail.text.toString())
