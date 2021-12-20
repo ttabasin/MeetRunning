@@ -1,10 +1,12 @@
 package cat.copernic.meetrunning.UI.profile
 
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 
@@ -28,6 +31,7 @@ class EditProfileFragment : Fragment() {
     private lateinit var db: FirebaseFirestore
     private var dataF: Uri? = null
     private var description: String? = ""
+    private var continueBT = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,15 +58,26 @@ class EditProfileFragment : Fragment() {
             openGallery()
         }
 
+
+
         //Botó per confirmar els canvis de l'usuari
         binding.confirmBtn.setOnClickListener {
 
+
+
             //Mirar si s'ha actualitzat la contrasenya per fer el canvi a la base de dades
-            if (checkInput()) {
-                FirebaseAuth.getInstance().currentUser?.updatePassword(
-                    binding.changePassword.text.toString().trim()
-                )
+            val user = FirebaseAuth.getInstance().currentUser
+            val newPassword = binding.changePassword.text.toString().trim()
+
+            if(checkInput()){
+                user!!.updatePassword(newPassword)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Log.d(TAG, "User password updated.")
+                        }
+                    }
             }
+
 
             //Mirar si s'ha canviat el nom d'usuari per fer el canvi a la base de dades
             if (currentUser != binding.changeUsername.toString().trim()) {
@@ -103,9 +118,13 @@ class EditProfileFragment : Fragment() {
             uploadTask.addOnSuccessListener {  }
 
             //Reiniciar l'activity per fer efectius els canvis
-            val intent = Intent(context, MainActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+
+            if(continueBT){
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }
+
         }
         setProfileImage()
         return binding.root
@@ -133,8 +152,8 @@ class EditProfileFragment : Fragment() {
 
     private fun checkInput(): Boolean {
 
-        if (binding.changePassword.text.toString().isNotBlank()) {
-            if (binding.changePassword.text.toString() == binding.changeConfirmPassword.text.toString()) {
+        if (binding.changePassword.text.toString().trim().isNotBlank()) {
+            if (binding.changePassword.text.toString().trim() == binding.changeConfirmPassword.text.toString().trim()) {
                 return true
             } else {
                 Toast.makeText(context, R.string.error_passwd, Toast.LENGTH_LONG).show()
