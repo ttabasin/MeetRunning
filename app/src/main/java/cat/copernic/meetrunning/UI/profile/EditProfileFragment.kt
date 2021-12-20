@@ -18,7 +18,9 @@ import cat.copernic.meetrunning.MainActivity
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.databinding.FragmentEditProfileBinding
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -66,16 +68,16 @@ class EditProfileFragment : Fragment() {
 
 
             //Mirar si s'ha actualitzat la contrasenya per fer el canvi a la base de dades
-            val user = FirebaseAuth.getInstance().currentUser
-            val newPassword = binding.changePassword.text.toString().trim()
-
             if(checkInput()){
+                val user1 = Firebase.auth.currentUser!!
+                val credential = EmailAuthProvider
+                    .getCredential(currentUserEmail, binding.currentPassword.text.toString())
+
+                user1.reauthenticate(credential)
+
+                val user = FirebaseAuth.getInstance().currentUser
+                val newPassword = binding.changePassword.text.toString().trim()
                 user!!.updatePassword(newPassword)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Log.d(TAG, "User password updated.")
-                        }
-                    }
             }
 
 
