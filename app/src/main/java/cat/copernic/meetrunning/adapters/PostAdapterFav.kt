@@ -1,5 +1,6 @@
 package cat.copernic.meetrunning.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -54,6 +55,8 @@ class PostAdapterFav(private val postFavList: ArrayList<DataRoute>) :
                     d.items[0].downloadUrl.addOnSuccessListener { u ->
                         holder.image.background = getDrawable(u)
                     }
+                }else{
+                    holder.image.background = context.getDrawable(R.mipmap.bosque)
                 }
             }
 
@@ -83,7 +86,9 @@ class PostAdapterFav(private val postFavList: ArrayList<DataRoute>) :
             val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
             db.collection("users").document(currentUser).collection("favorites")
                 .document(currentPost.title.toString()).delete()
-            holder.favButton.setImageResource(R.drawable.ic_baseline_star_border_24)
+            //holder.favButton.setImageResource(R.drawable.ic_baseline_star_border_24)
+            filteredPost.removeAt(position)
+            notifyItemRemoved(position)
         }
     }
 

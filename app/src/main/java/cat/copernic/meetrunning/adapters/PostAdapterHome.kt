@@ -1,5 +1,6 @@
 package cat.copernic.meetrunning.adapters
 
+import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.content.Context
 import android.content.Intent
@@ -48,6 +49,7 @@ class PostAdapterHome(private val dataRouteList: ArrayList<DataRoute>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        holder.favButton.setImageResource(R.drawable.ic_baseline_star_border_24)
         val currentPost = filteredPost[position]
         val currentUser = FirebaseAuth.getInstance().currentUser?.email.toString()
         db = FirebaseFirestore.getInstance()
@@ -58,16 +60,18 @@ class PostAdapterHome(private val dataRouteList: ArrayList<DataRoute>) :
                     d.items[0].downloadUrl.addOnSuccessListener { u ->
                         holder.imageView.background = getDrawable(u)
                     }
+                } else {
+                    holder.imageView.background = context.getDrawable(R.mipmap.bosque)
                 }
             }
 
         holder.title.text = currentPost.title
         holder.location.text = currentPost.city
 
-        holder.itemView.setOnClickListener{ view ->
+        holder.itemView.setOnClickListener { view ->
             view.findNavController().navigate(HomeFragmentDirections.actionHomeToRoute(currentPost))
         }
-        holder.shareButton.setOnClickListener{ view ->
+        holder.shareButton.setOnClickListener { view ->
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(
@@ -81,23 +85,25 @@ class PostAdapterHome(private val dataRouteList: ArrayList<DataRoute>) :
         }
 
         db.collection("users").document(currentUser).collection("favorites")
-            .document(currentPost.title.toString()).get().addOnSuccessListener{ document ->
-            if (document.exists()) {
-                holder.favButton.setImageResource(R.drawable.ic_baseline_star_24check)
-
-                holder.favButton.setOnClickListener {
-                    db.collection("users").document(currentUser).collection("favorites")
-                        .document(currentPost.title.toString()).delete()
-                    holder.favButton.setImageResource(R.drawable.ic_baseline_star_border_24)
-                }
-            } else {
-                holder.favButton.setOnClickListener {
-                    db.collection("users").document(currentUser).collection("favorites")
-                        .document(currentPost.title.toString()).set(currentPost)
+            .document(currentPost.title.toString()).get().addOnSuccessListener { document ->
+                if (document.exists()) {
                     holder.favButton.setImageResource(R.drawable.ic_baseline_star_24check)
+
+                    holder.favButton.setOnClickListener {
+                        db.collection("users").document(currentUser).collection("favorites")
+                            .document(currentPost.title.toString()).delete()
+                        holder.favButton.setImageResource(R.drawable.ic_baseline_star_border_24)
+                        notifyItemChanged(position)
+                    }
+                } else {
+                    holder.favButton.setOnClickListener {
+                        db.collection("users").document(currentUser).collection("favorites")
+                            .document(currentPost.title.toString()).set(currentPost)
+                        holder.favButton.setImageResource(R.drawable.ic_baseline_star_24check)
+                        notifyItemChanged(position)
+                    }
                 }
             }
-        }
     }
 
     override fun getItemCount(): Int {
@@ -134,9 +140,9 @@ class PostAdapterHome(private val dataRouteList: ArrayList<DataRoute>) :
                 return filterResults
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 filteredPost = filterResults.values as ArrayList<DataRoute>
-                println("cosa de filtro")
                 notifyDataSetChanged()
             }
         }
