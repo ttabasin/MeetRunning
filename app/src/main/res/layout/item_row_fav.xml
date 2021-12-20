@@ -51,7 +51,7 @@
 
             <ImageView
                 android:id="@+id/image_post2"
-                android:layout_width="385dp"
+                android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:background="@mipmap/bosque"
                 android:padding="50dp"
