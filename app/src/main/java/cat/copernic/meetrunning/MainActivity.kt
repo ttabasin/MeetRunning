@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
@@ -25,10 +26,11 @@ import androidx.navigation.ui.NavigationUI
 import cat.copernic.meetrunning.UI.authentication.SignInActivity
 import cat.copernic.meetrunning.databinding.ActivityMainBinding
 import com.bumptech.glide.Glide
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -290,9 +292,30 @@ override fun onRestoreInstanceState(recEstado: Bundle) {
     @SuppressLint("MissingPermission")
     override fun onResume() {
         super.onResume()
-        fusedLocationClient.lastLocation.addOnSuccessListener {
-            var location = LatLng(it.latitude, it.longitude)
-            saveLocation(location)
+        val locationRequest = LocationRequest.create().apply {
+            interval = 10000
+            fastestInterval = 5000
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+        val REQUEST_CHECK_SETTINGS = 0
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+        val client: SettingsClient = LocationServices.getSettingsClient(this)
+        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+
+        task.addOnSuccessListener {
+            // All location settings are satisfied. The client can initialize
+            // location requests here.
+            // ...
+            Log.e("c", "tenemos permiso gente")
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                if (it != null){
+                    val location = LatLng(it.latitude, it.longitude)
+                    saveLocation(location)
+                }else{
+                    saveLocation(LatLng(0.0, 0.0))
+                }
+            }
         }
     }
 
