@@ -73,6 +73,7 @@ class ProfileFragment : Fragment() {
 
         val args = ProfileFragmentArgs.fromBundle(requireArguments())
 
+        //Si va des del mapa
         if (args.email != currentUserEmail) {
             //Mostrar el nom d'usuari al perfil
             db.collection("users").document(args.email!!.trim()).get().addOnSuccessListener {
@@ -85,10 +86,11 @@ class ProfileFragment : Fragment() {
             }
             binding.settingBT.isVisible = false
 
-            statsF()
+            statsF2()
 
 
-        } else {
+        } else { //Si va des del navDrawer
+
             //Mostrar el nom d'usuari al perfil
             binding.username.text = FirebaseAuth.getInstance().currentUser?.displayName.toString()
 
@@ -97,7 +99,7 @@ class ProfileFragment : Fragment() {
                 binding.description.text = it.getString("description")
             }
 
-            statsF2()
+            statsF()
         }
 
 
@@ -107,12 +109,8 @@ class ProfileFragment : Fragment() {
                 .navigate(ProfileFragmentDirections.actionMyRoutesToEditProfile())
         }
 
-
         //MY ROUTES FRAGMENTS
         myRoutesF(args.email)
-
-        //STATS FRAGMENT
-        statsF()
 
         //ACHIEVEMENTS FRAGMENT
         achievementsF(args.email)
@@ -348,20 +346,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun statsF() {
-        val args = ProfileFragmentArgs.fromBundle(requireArguments())
-
-        db.collection("users").document(args.email).get().addOnSuccessListener {
-            binding.distanceStat.text = "${"%.2f".format(it.get("distance"))}km"
-            binding.timeStat.text = SimpleDateFormat("HH:mm:ss").format(it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset))
-        }
-
-
-    }
-
-    private fun statsF2() {
 
         viewModel = ViewModelProvider(this)[StatsViewModel::class.java]
-
 
         viewModel.distance.observe(viewLifecycleOwner, {
             binding.distanceStat.text = it.toString()
@@ -371,7 +357,20 @@ class ProfileFragment : Fragment() {
             binding.timeStat.text = it.toString()
         })
 
+    }
 
+    private fun statsF2() {
+
+        viewModel = ViewModelProvider(this)[StatsViewModel::class.java]
+
+        viewModel.distance2.observe(viewLifecycleOwner, {
+            binding.distanceStat.text = it.toString()
+        })
+
+        viewModel.time2.observe(viewLifecycleOwner, {
+            binding.timeStat.text = it.toString()
+        })
+        
     }
 
     private fun achievementsF(email: String) {

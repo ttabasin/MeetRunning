@@ -151,7 +151,19 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
                     )
 
                     mMap.setOnMarkerClickListener { marker ->
-                        findNavController().navigate(MeetMapFragmentDirections.actionMeetMapToMyRoutes(marker.title!!))
+
+
+                        db.collection("profile").document(currentUser).get().addOnSuccessListener {
+                            db.collection("profile").document(currentUser).update(
+                                mapOf(
+                                    "email" to marker.title!!
+                                )
+                            ).addOnSuccessListener {
+                                findNavController().navigate(MeetMapFragmentDirections.actionMeetMapToMyRoutes(marker.title!!))
+                            }
+                        }
+
+
                         false
                     }
                 }

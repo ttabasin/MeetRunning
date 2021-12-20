@@ -22,6 +22,14 @@ class StatsViewModel: ViewModel() {
     val time: LiveData<String?>
         get() = _time
 
+    private val _distance2 = MutableLiveData<String?>()
+    val distance2: LiveData<String?>
+        get() = _distance2
+
+    private val _time2 = MutableLiveData<String?>()
+    val time2: LiveData<String?>
+        get() = _time2
+
     init{
 
         _currentUserEmail.value = FirebaseAuth.getInstance().currentUser?.email.toString()
@@ -30,5 +38,16 @@ class StatsViewModel: ViewModel() {
             _distance.value = "${"%.2f".format(it.get("distance"))}km"
             _time.value = SimpleDateFormat("HH:mm:ss").format(it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset))
         }
+
+        db.collection("profile").document(_currentUserEmail.value!!).get().addOnSuccessListener {
+            val email = it.getString("email")
+            db.collection("users").document(email!!).get().addOnSuccessListener {
+                _distance2.value = "${"%.2f".format(it.get("distance"))}km"
+                _time2.value = SimpleDateFormat("HH:mm:ss").format(it.get("time").toString().toInt().minus(TimeZone.getDefault().rawOffset))
+            }
+
+        }
+
+
     }
 }
