@@ -1,29 +1,35 @@
 package cat.copernic.meetrunning.adapters
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cat.copernic.meetrunning.R
 import cat.copernic.meetrunning.UI.favorites.FavoritesFragmentDirections
 import cat.copernic.meetrunning.dataClass.DataRoute
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.Target
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 class PostAdapterFav(private val postFavList: ArrayList<DataRoute>) :
     RecyclerView.Adapter<PostAdapterFav.MyViewHolder>(), Filterable {
 
     private lateinit var db: FirebaseFirestore
     private var filteredPost = arrayListOf<DataRoute>()
+    private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-
+        context = parent.context
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.item_row_fav,
             parent, false
@@ -31,9 +37,25 @@ class PostAdapterFav(private val postFavList: ArrayList<DataRoute>) :
         return MyViewHolder(itemView)
     }
 
+    private fun getDrawable(u: Uri): Drawable = runBlocking(Dispatchers.IO) {
+        Glide.with(context)
+            .load(u)
+            .into(Target.SIZE_ORIGINAL, 100).get()
+    }
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentPost = postFavList[position]
+
+        FirebaseStorage.getInstance()
+            .reference.child("users/${currentPost.user}/${currentPost.title}")
+            .listAll().addOnSuccessListener { d ->
+                if (d.items.size > 0) {
+                    d.items[0].downloadUrl.addOnSuccessListener { u ->
+                        holder.image.background = getDrawable(u)
+                    }
+                }
+            }
 
         holder.title.text = currentPost.title
         holder.location.text = currentPost.city
@@ -76,7 +98,7 @@ class PostAdapterFav(private val postFavList: ArrayList<DataRoute>) :
         val shareButton: ImageButton = itemView.findViewById(R.id.shareButton2)
         val favButton: ImageButton = itemView.findViewById(R.id.favButton2)
 
-        //val image : ImageView = itemView.findViewById(R.id.image_post)
+        val image : ImageView = itemView.findViewById(R.id.image_post2)
 
     }
 
