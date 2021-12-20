@@ -85,6 +85,11 @@ class SignUpActivity : AppCompatActivity() {
                         db.collection("users").document(binding.SignUpConfirmEmail.text.toString())
                             .set(user)
 
+                        db.collection("profile").document(binding.SignUpConfirmEmail.text.toString()).set(
+                            mapOf(
+                                "email" to ""
+                            )
+                        )
                         //Añade el nombre de usuario
                         val profileUpdates = UserProfileChangeRequest.Builder()
                             .setDisplayName(binding.SignUpEmail.text.toString()).build()

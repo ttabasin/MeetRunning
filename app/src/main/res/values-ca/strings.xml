@@ -17,6 +17,8 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Contrasenya</string>
     <string name="confirmPassword">Confirmar contrasenya</string>
+    <string name="forgot_password">Has oblidat la contrasenya?</string>
+    <string name="send_email">Envia email</string>
 
     <!-- Ruta -->
     <string name="time">Temps</string>

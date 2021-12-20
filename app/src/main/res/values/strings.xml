@@ -18,6 +18,8 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="confirmPassword">Confirm Password</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="send_email">Send email</string>
 
     <!-- Ruta -->
     <string name="time">Time</string>
