@@ -87,7 +87,7 @@ class SignUpActivity : AppCompatActivity() {
 
                         db.collection("profile").document(binding.SignUpConfirmEmail.text.toString()).set(
                             mapOf(
-                                "email" to ""
+                                "email" to binding.SignUpConfirmEmail.text.toString()
                             )
                         )
                         //Añade el nombre de usuario
@@ -106,11 +106,7 @@ class SignUpActivity : AppCompatActivity() {
                         uploadTask.addOnSuccessListener {  }
 
                         auth.currentUser?.updateProfile(profileUpdates)
-                            ?.addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    Log.d("User", "User profile updated.")
-                                }
-                            }
+
                         showHome()
                     } else {
                         showAlert()

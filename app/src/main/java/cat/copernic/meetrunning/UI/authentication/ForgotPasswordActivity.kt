@@ -1,5 +1,6 @@
 package cat.copernic.meetrunning.UI.authentication
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,8 @@ class ForgotPasswordActivity: AppCompatActivity() {
             Log.i("Forgot", "$emailAddress")
             binding.emailToSend.setText("")
             FirebaseAuth.getInstance().sendPasswordResetEmail(emailAddress)
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
 
         }
 
