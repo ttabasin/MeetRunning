@@ -222,6 +222,13 @@ class ProfileFragment : Fragment() {
             binding.achCompleteNumT.isVisible = false
             binding.textView11.isVisible = false
 
+            binding.achDist1.isVisible = false
+            binding.achDist2.isVisible = false
+            binding.achDist3.isVisible = false
+            binding.achTime1.isVisible = false
+            binding.achTime2.isVisible = false
+            binding.achTime3.isVisible = false
+
             binding.rvPhotos.isVisible = false
 
             binding.myRoutesBT.backgroundTintList =
