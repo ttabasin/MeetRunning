@@ -30,12 +30,12 @@
                 android:id="@+id/changeUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="72dp"
+                android:layout_marginTop="36dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Name"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.855"
+                app:layout_constraintHorizontal_bias="0.568"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -179,9 +179,10 @@
                 android:src="@drawable/ic_baseline_account_circle_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/changeUsername"
+                app:layout_constraintHorizontal_bias="0.354"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.107" />
+                app:layout_constraintVertical_bias="0.042" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
