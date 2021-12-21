@@ -35,6 +35,8 @@ class SignUpActivity : AppCompatActivity() {
         binding.signInBtn.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
+            this.finish()
+            true
         }
         setup(this)
     }
@@ -128,6 +130,8 @@ class SignUpActivity : AppCompatActivity() {
     private fun showHome() {
         val homeIntent = Intent(this, MainActivity::class.java)
         startActivity(homeIntent)
+        this.finish()
+        true
     }
 
 }

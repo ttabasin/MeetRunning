@@ -17,6 +17,8 @@ class ForgotPasswordActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
 
+        supportActionBar?.hide()
+
         binding =
             DataBindingUtil.setContentView<ActivityForgotPasswordBinding>(this, R.layout.activity_forgot_password)
 
@@ -30,6 +32,13 @@ class ForgotPasswordActivity: AppCompatActivity() {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
 
+        }
+
+        binding.signInBtnP.setOnClickListener {
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+            this.finish()
+            true
         }
 
     }

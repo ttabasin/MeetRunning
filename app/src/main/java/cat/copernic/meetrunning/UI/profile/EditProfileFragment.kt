@@ -120,11 +120,11 @@ class EditProfileFragment : Fragment() {
             uploadTask.addOnSuccessListener {  }
 
             //Reiniciar l'activity per fer efectius els canvis
-
             if(continueBT){
                 val intent = Intent(context, MainActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
+                true
             }
 
         }

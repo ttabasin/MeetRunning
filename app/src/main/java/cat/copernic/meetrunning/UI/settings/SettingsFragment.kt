@@ -32,11 +32,11 @@ class SettingsFragment : Fragment() {
         Log.i("settings", "${context!!.resources.configuration.locales}")
 
         //Mirar en quin idioma està l'app per posar el botó en qüestió checked
-        if (context!!.resources.configuration.locales.toString() == "[en_US]" || context!!.resources.configuration.locales.toString() == "[en_EN]") {
+        if (context!!.resources.configuration.locales[0].toString() == "[en_US]" || context!!.resources.configuration.locales.toString() == "[en_EN]") {
             binding.rbEnglish.isChecked = true
-        } else if (context!!.resources.configuration.locales.toString() == "[es_ES]") {
+        } else if (context!!.resources.configuration.locales[0].toString() == "[es_ES]") {
             binding.rbSpanish.isChecked = true
-        } else if (context!!.resources.configuration.locales.toString() == "[ca_ES]") {
+        } else if (context!!.resources.configuration.locales[0].toString() == "[ca_ES]") {
             binding.rbCat.isChecked = true
         }
 
@@ -118,6 +118,7 @@ class SettingsFragment : Fragment() {
             val intent = Intent(context, MainActivity::class.java)
             startActivity(intent)
             activity?.finish()
+            true
 
         }
 
