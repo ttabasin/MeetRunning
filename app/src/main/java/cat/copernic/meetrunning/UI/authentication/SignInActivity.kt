@@ -27,11 +27,15 @@ class SignInActivity : AppCompatActivity() {
         binding.signUpBt.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
+            this.finish()
+            true
         }
 
         binding.forgotPass.setOnClickListener{
             val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
+            this.finish()
+            true
         }
 
         //Funció per inciar sessió

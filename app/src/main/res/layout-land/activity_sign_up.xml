@@ -16,10 +16,10 @@
         <TextView
             android:id="@+id/titleSingUp"
             style="@style/txtViewLogin"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="4dp"
             android:text="@string/action_sign_up"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.078"
+            app:layout_constraintHorizontal_bias="0.026"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +28,7 @@
             style="@style/txtViewInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:text="@string/username"
             app:layout_constraintStart_toStartOf="@+id/titleSingUp"
             app:layout_constraintTop_toBottomOf="@+id/titleSingUp" />
@@ -38,10 +38,12 @@
             style="@style/txtViewInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:text="@string/confirmPassword"
-            app:layout_constraintStart_toStartOf="@+id/editPassword"
-            app:layout_constraintTop_toBottomOf="@+id/editPassword" />
+            app:layout_constraintBottom_toTopOf="@+id/editConfirmPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.659"
+            app:layout_constraintStart_toEndOf="@+id/textPassword"
+            app:layout_constraintTop_toTopOf="@+id/textPassword" />
 
         <EditText
             android:id="@+id/SignUpEmail"
@@ -91,30 +93,32 @@
             style="@style/editTxtPasswd"
             android:layout_marginTop="4dp"
             android:hint="@string/prompt_password"
+            app:layout_constraintBottom_toBottomOf="@+id/editPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textConfirmPassword"
-            app:layout_constraintTop_toBottomOf="@+id/textConfirmPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/textConfirmPassword"
+            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/signUpContinue"
             style="@style/buttonLog"
+            android:layout_marginBottom="256dp"
             android:text="@string/continuebtn"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="38dp"
             android:layout_height="33dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/termsService"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/editConfirmPassword"
-            app:layout_constraintTop_toBottomOf="@+id/editConfirmPassword" />
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/signInBtn"
@@ -132,11 +136,13 @@
             android:id="@+id/termsService"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:text="@string/checkBoxSignUp"
-            app:layout_constraintBottom_toTopOf="@+id/signUpContinue"
+            app:layout_constraintBottom_toBottomOf="@+id/checkBox"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editConfirmPassword"
-            app:layout_constraintVertical_bias="0.394" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/checkBox"
+            app:layout_constraintTop_toTopOf="@+id/checkBox" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

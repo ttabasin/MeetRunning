@@ -1,5 +1,6 @@
 package cat.copernic.meetrunning.UI.authentication
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,8 @@ class ForgotPasswordActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
 
+        supportActionBar?.hide()
+
         binding =
             DataBindingUtil.setContentView<ActivityForgotPasswordBinding>(this, R.layout.activity_forgot_password)
 
@@ -27,6 +30,13 @@ class ForgotPasswordActivity: AppCompatActivity() {
             binding.emailToSend.setText("")
             FirebaseAuth.getInstance().sendPasswordResetEmail(emailAddress)
 
+        }
+
+        binding.signInBtnP.setOnClickListener {
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+            this.finish()
+            true
         }
 
     }

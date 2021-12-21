@@ -15,9 +15,9 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="116dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="48dp"
+            android:layout_width="77dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,10 +41,10 @@
             android:text="Sign In"
             app:layout_constraintBottom_toTopOf="@+id/email"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.088"
+            app:layout_constraintHorizontal_bias="0.025"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleLogin"
-            app:layout_constraintVertical_bias="0.302" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/emailTxt"
@@ -59,6 +59,7 @@
         <EditText
             android:id="@+id/email"
             style="@style/editTxtLogin"
+            android:layout_marginTop="108dp"
             android:hint="@string/prompt_email"
             app:layout_constraintEnd_toEndOf="@+id/password"
             app:layout_constraintHorizontal_bias="0.0"
@@ -79,26 +80,28 @@
         <EditText
             android:id="@+id/password"
             style="@style/editTxtPasswd"
+            android:layout_marginTop="12dp"
             android:hint="@string/prompt_password"
             app:layout_constraintEnd_toEndOf="@+id/signInBt"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/signInBt"
             app:layout_constraintTop_toBottomOf="@+id/email" />
 
         <Button
             android:id="@+id/signInBt"
             style="@style/buttonLog"
+            android:layout_marginTop="3dp"
             android:text="@string/action_sign_in"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.448"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password"
-            app:layout_constraintVertical_bias="0.038" />
+            app:layout_constraintTop_toBottomOf="@+id/forgotPass" />
 
         <Button
             android:id="@+id/signUpBt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
             android:background="?android:attr/selectableItemBackground"
             android:backgroundTint="#B5FFFFFF"
             android:fontFamily="@font/asap_bold"
@@ -106,8 +109,7 @@
             android:textColor="#257A22"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/signInBt"
-            app:layout_constraintTop_toBottomOf="@+id/signInBt"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/password" />
 
         <ProgressBar
             android:id="@+id/loading"
@@ -127,16 +129,15 @@
             android:id="@+id/forgotPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
             android:background="?android:attr/selectableItemBackground"
             android:text="@string/forgot_password"
             android:textColor="#257A22"
             android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/signUpBt"
-            app:layout_constraintHorizontal_bias="0.219"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signInBt"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="@+id/password"
+            app:layout_constraintTop_toBottomOf="@+id/password" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
