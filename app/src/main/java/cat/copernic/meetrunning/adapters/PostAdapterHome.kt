@@ -44,7 +44,7 @@ class PostAdapterHome(private val dataRouteList: ArrayList<DataRoute>) :
 
     private fun getDrawable(u: Uri): Drawable = runBlocking(Dispatchers.IO) {
         Glide.with(context)
-            .load(u)
+            .load(u).optionalCenterCrop()
             .into(SIZE_ORIGINAL, 100).get()
     }
 

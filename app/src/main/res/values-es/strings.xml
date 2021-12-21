@@ -11,6 +11,7 @@
     <string name="santi">Santiago Alves</string>
     <string name="pau">Pau Camacho</string>
     <string name="auto_bio">Hey! Pon una bio aquí!</string>
+    <string name="current_password">Contraseña actual</string>
 
     <!-- Registrar/Login -->
     <string name="username">Username</string>

@@ -18,7 +18,8 @@
             app:argType="float" />
         <action
             android:id="@+id/action_addRoute_to_home"
-            app:destination="@id/home" />
+            app:destination="@id/home"
+            app:enterAnim="@android:anim/fade_in" />
         <argument
             android:name="time"
             app:argType="integer" />
@@ -31,6 +32,8 @@
         <action
             android:id="@+id/action_addRouteMap_to_addRoute"
             app:destination="@id/addRoute"
+            app:enterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_in"
             app:popUpTo="@id/home" />
     </fragment>
     <fragment
@@ -41,6 +44,7 @@
         <action
             android:id="@+id/action_editProfile_to_myRoutes"
             app:destination="@id/myRoutes"
+            app:enterAnim="@android:anim/fade_in"
             app:popUpTo="@id/myRoutes" />
     </fragment>
     <fragment
@@ -50,7 +54,8 @@
         tools:layout="@layout/fragment_favorites" >
         <action
             android:id="@+id/action_favorites_to_route"
-            app:destination="@id/route" />
+            app:destination="@id/route"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/meetMap"
@@ -59,7 +64,8 @@
         tools:layout="@layout/fragment_meet_map" >
         <action
             android:id="@+id/action_meetMap_to_myRoutes"
-            app:destination="@id/myRoutes" />
+            app:destination="@id/myRoutes"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/home"
@@ -68,10 +74,12 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_route"
-            app:destination="@id/route" />
+            app:destination="@id/route"
+            app:enterAnim="@android:anim/fade_in" />
         <action
             android:id="@+id/action_home_to_addRouteMap"
-            app:destination="@id/addRouteMap" />
+            app:destination="@id/addRouteMap"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/myRoutes"
@@ -81,10 +89,14 @@
         <action
             android:id="@+id/action_myRoutes_to_route"
             app:destination="@id/route"
-            app:popUpTo="@id/home"/>
+            app:enterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_in"
+            app:popUpTo="@id/myRoutes" />
         <action
             android:id="@+id/action_myRoutes_to_editProfile"
             app:destination="@id/editProfile"
+            app:enterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_in"
             app:popUpTo="@id/myRoutes" />
         <argument
             android:name="email"
@@ -106,7 +118,8 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_route_to_routeMap"
-            app:destination="@id/routeMap" />
+            app:destination="@id/routeMap"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/routeMap"
@@ -118,7 +131,8 @@
             app:argType="com.google.android.gms.maps.model.LatLng[]" />
         <action
             android:id="@+id/action_routeMap_to_home"
-            app:destination="@id/home" />
+            app:destination="@id/home"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/settings"
