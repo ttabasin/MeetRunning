@@ -104,6 +104,8 @@
             android:id="@+id/signUpContinue"
             style="@style/buttonLog"
             android:layout_marginBottom="248dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
             android:text="@string/continuebtn"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"

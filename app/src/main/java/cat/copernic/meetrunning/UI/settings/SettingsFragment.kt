@@ -49,7 +49,7 @@ class SettingsFragment : Fragment() {
                     .show()
 
                 val locale = Locale("en", "EN")
-                val config: Configuration = this.resources.configuration
+                val config: Configuration = context!!.resources.configuration
                 config.setLocale(locale)
 
                 this.resources.updateConfiguration(
@@ -73,7 +73,7 @@ class SettingsFragment : Fragment() {
                 Toast.makeText(context, binding.rbSpanish.text.toString(), Toast.LENGTH_SHORT).show()
 
                 val locale = Locale("es", "ES")
-                val config: Configuration = this.resources.configuration
+                val config: Configuration = context!!.resources.configuration
                 config.setLocale(locale)
 
                 this.resources.updateConfiguration(
@@ -96,7 +96,7 @@ class SettingsFragment : Fragment() {
                 Toast.makeText(context, binding.rbCat.text.toString(), Toast.LENGTH_SHORT).show()
 
                 val locale = Locale("ca", "ES")
-                val config: Configuration = this.resources.configuration
+                val config: Configuration = context!!.resources.configuration
                 config.setLocale(locale)
 
                 this.resources.updateConfiguration(

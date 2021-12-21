@@ -33,7 +33,7 @@
             android:id="@+id/action_addRouteMap_to_addRoute"
             app:destination="@id/addRoute"
             app:enterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_in"
             app:popUpTo="@id/home" />
     </fragment>
     <fragment
@@ -90,13 +90,13 @@
             android:id="@+id/action_myRoutes_to_route"
             app:destination="@id/route"
             app:enterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_in"
             app:popUpTo="@id/myRoutes" />
         <action
             android:id="@+id/action_myRoutes_to_editProfile"
             app:destination="@id/editProfile"
             app:enterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_in"
             app:popUpTo="@id/myRoutes" />
         <argument
             android:name="email"
