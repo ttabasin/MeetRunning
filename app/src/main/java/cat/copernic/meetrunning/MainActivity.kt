@@ -100,46 +100,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SignInActivity::class.java)
             FirebaseAuth.getInstance().signOut()
             startActivity(intent)
+            this.finish()
             true
         }
 
-        /*db = FirebaseFirestore.getInstance()
-
-        db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
-            language = it.getString("language").toString()
-            Log.i("Main", "IDIOMAAAAA: $language")
-
-            if (language.trim() == "[ca_ES]") {
-                val locale = Locale("ca", "ES")
-                val config: Configuration = this.resources.configuration
-                config.setLocale(locale)
-
-                this.resources.updateConfiguration(
-                    config,
-                    this.resources.displayMetrics
-                )
-            } else if (language.trim() == "[en_EN]" || language.trim() == "[en_US]") {
-                val locale = Locale("en", "EN")
-                val config: Configuration = this.resources.configuration
-                config.setLocale(locale)
-
-                this.resources.updateConfiguration(
-                    config,
-                    this.resources.displayMetrics
-                )
-            } else if (language.trim() == "[es_ES]") {
-                val locale = Locale("es", "ES")
-                val config: Configuration = this.resources.configuration
-                config.setLocale(locale)
-
-                this.resources.updateConfiguration(
-                    config,
-                    this.resources.displayMetrics
-                )
-            }
-
-
-        }*/
 
         createNotificationChannel()
         GlobalScope.launch {
