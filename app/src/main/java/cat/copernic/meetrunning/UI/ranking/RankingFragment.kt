@@ -2,6 +2,7 @@ package cat.copernic.meetrunning.UI.ranking
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,6 +47,7 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
                     //Canviar el text del mes
                     if (resultKey == "REQUEST_KEY") {
                         val date = bundle.getString("SELECTED_DATE")
+                        Log.e("Hola", "$date")
                         monthText.text = changeMonth(date.toString())
                     }
                 }
@@ -95,6 +97,42 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
     private fun changeMonth(date: String): String {
         lateinit var month: String
         when (date) {
+            "1" -> {
+                month = getString(R.string.january)
+            }
+            "2" -> {
+                month = getString(R.string.february)
+            }
+            "3" -> {
+                month = getString(R.string.march)
+            }
+            "4" -> {
+                month = getString(R.string.april)
+            }
+            "5" -> {
+                month = getString(R.string.may)
+            }
+            "6" -> {
+                month = getString(R.string.june)
+            }
+            "7" -> {
+                month = getString(R.string.july)
+            }
+            "8" -> {
+                month = getString(R.string.august)
+            }
+            "9" -> {
+                month = getString(R.string.september)
+            }
+            "10" -> {
+                month = getString(R.string.october)
+            }
+            "11" -> {
+                month = getString(R.string.november)
+            }
+            "12" -> {
+                month = getString(R.string.december)
+            }
             "01" -> {
                 month = getString(R.string.january)
             }
@@ -121,15 +159,6 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
             }
             "09" -> {
                 month = getString(R.string.september)
-            }
-            "10" -> {
-                month = getString(R.string.october)
-            }
-            "11" -> {
-                month = getString(R.string.november)
-            }
-            "12" -> {
-                month = getString(R.string.december)
             }
         }
         return month
