@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
 import cat.copernic.meetrunning.MainActivity
 import cat.copernic.meetrunning.R
@@ -44,8 +45,13 @@ class SignInActivity : AppCompatActivity() {
         binding.showHideBtn?.setOnClickListener {
             if(count % 2 == 0){
                 binding.password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                val drawable = AppCompatResources.getDrawable(this, R.drawable.ic_baseline_visibility_off_24)
+                binding.showHideBtn!!.setImageDrawable(drawable)
             }else{
                 binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
+
+                val drawable = AppCompatResources.getDrawable(this, R.drawable.ic_baseline_remove_red_eye_24)
+                binding.showHideBtn!!.setImageDrawable(drawable)
             }
                count ++
         }
