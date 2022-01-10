@@ -97,31 +97,31 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
     private fun changeMonth(date: String): String {
         lateinit var month: String
         when (date) {
-            "1" -> {
+            "1", "01" -> {
                 month = getString(R.string.january)
             }
-            "2" -> {
+            "2", "02" -> {
                 month = getString(R.string.february)
             }
-            "3" -> {
+            "3", "03" -> {
                 month = getString(R.string.march)
             }
-            "4" -> {
+            "4", "04" -> {
                 month = getString(R.string.april)
             }
-            "5" -> {
+            "5", "05" -> {
                 month = getString(R.string.may)
             }
-            "6" -> {
+            "6", "06" -> {
                 month = getString(R.string.june)
             }
-            "7" -> {
+            "7", "07" -> {
                 month = getString(R.string.july)
             }
-            "8" -> {
+            "8", "08" -> {
                 month = getString(R.string.august)
             }
-            "9" -> {
+            "9", "09" -> {
                 month = getString(R.string.september)
             }
             "10" -> {
@@ -132,33 +132,6 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
             }
             "12" -> {
                 month = getString(R.string.december)
-            }
-            "01" -> {
-                month = getString(R.string.january)
-            }
-            "02" -> {
-                month = getString(R.string.february)
-            }
-            "03" -> {
-                month = getString(R.string.march)
-            }
-            "04" -> {
-                month = getString(R.string.april)
-            }
-            "05" -> {
-                month = getString(R.string.may)
-            }
-            "06" -> {
-                month = getString(R.string.june)
-            }
-            "07" -> {
-                month = getString(R.string.july)
-            }
-            "08" -> {
-                month = getString(R.string.august)
-            }
-            "09" -> {
-                month = getString(R.string.september)
             }
         }
         return month

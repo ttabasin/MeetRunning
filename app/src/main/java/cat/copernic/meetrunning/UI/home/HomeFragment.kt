@@ -30,9 +30,7 @@ class HomeFragment : Fragment() {
     private lateinit var postRecyclerView: RecyclerView
     private lateinit var dataRouteArrayList: ArrayList<DataRoute>
     private lateinit var postAdapterHome: PostAdapterHome
-    private var language: String = "[en_EN]"
     private lateinit var db: FirebaseFirestore
-    private val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
     private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
@@ -64,7 +62,6 @@ class HomeFragment : Fragment() {
             it.findNavController().navigate(R.id.action_home_to_addRouteMap)
         }
 
-
         postRecyclerView = binding.recycler
         postRecyclerView.layoutManager = LinearLayoutManager(context)
         postRecyclerView.setHasFixedSize(true)
@@ -79,83 +76,6 @@ class HomeFragment : Fragment() {
         addRouteToList()
         val c: CharSequence = ""
         postAdapterHome.filter.filter(c)
-
-
-
-        /*db = FirebaseFirestore.getInstance()
-        db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
-            language = it.getString("language").toString()
-            Log.i("Home", "HOMEEEEEEEEEEEE: $language")
-            var count = 0
-            if (language == "[en_US]" || language == "[en_EN]") {
-
-                val locale = Locale("en", "EN")
-                val config: Configuration = context!!.resources.configuration
-                config.setLocale(locale)
-
-                context!!.resources.updateConfiguration(
-                    config,
-                    context!!.resources.displayMetrics
-                )
-
-                if (count < 2) {
-                    for (i in 1..2) {
-                        count++
-                        val intent = Intent(context, MainActivity::class.java)
-                        startActivity(intent)
-                        activity?.finish()
-                    }
-                }
-
-            } else if (language == "[es_ES]") {
-                Log.i("Home", "HOMEEEEEEEEEEEE: $language")
-
-                val locale = Locale("es", "ES")
-                val config: Configuration = context!!.resources.configuration
-                config.setLocale(locale)
-
-                context!!.resources.updateConfiguration(
-                    config,
-                    context!!.resources.displayMetrics
-                )
-
-                if (count < 2) {
-                    for (i in 1..2) {
-                        count++
-                        val intent = Intent(context, MainActivity::class.java)
-                        startActivity(intent)
-                        activity?.finish()
-                    }
-                }
-
-            } else if (language == "[ca_ES]") {
-                Log.i("Home", "HOMEEEEEEEEEEEE: $language")
-
-                val locale = Locale("ca", "ES")
-                val config: Configuration = context!!.resources.configuration
-                config.setLocale(locale)
-
-                context!!.resources.updateConfiguration(
-                    config,
-                    context!!.resources.displayMetrics
-                )
-
-                if (count < 2) {
-                    for (i in 1..2) {
-                        count++
-                        val intent = Intent(context, MainActivity::class.java)
-                        startActivity(intent)
-                        activity?.finish()
-                    }
-                }
-
-
-            }
-
-
-        }*/
-
-
 
         return binding.root
     }
@@ -180,7 +100,6 @@ class HomeFragment : Fragment() {
         binding.search.setText("")
 
     }
-
 
 }
 

@@ -31,6 +31,7 @@ class SignInActivity : AppCompatActivity() {
             true
         }
 
+        //Botó per anar a recuperar contrasenya
         binding.forgotPass.setOnClickListener{
             val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)

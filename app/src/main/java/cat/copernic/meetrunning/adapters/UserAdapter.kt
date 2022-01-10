@@ -28,7 +28,6 @@ class UserAdapter(private val userList: ArrayList<User>) :
         holder.username.text = currentPost.username
         holder.distance.text = currentPost.distance.toString() + "km"
 
-        //holder.image.imageAlpha = currentPost.image
     }
 
     override fun getItemCount(): Int {
@@ -40,7 +39,6 @@ class UserAdapter(private val userList: ArrayList<User>) :
         val username: TextView = itemView.findViewById(R.id.txt_username)
         val distance: TextView = itemView.findViewById(R.id.txt_distance)
 
-        //val image : ImageView = itemView.findViewById(R.id.image_post)
     }
 
 }

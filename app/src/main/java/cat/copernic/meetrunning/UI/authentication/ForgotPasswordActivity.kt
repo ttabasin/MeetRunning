@@ -17,6 +17,7 @@ class ForgotPasswordActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
 
+        //Amagar la app bar
         supportActionBar?.hide()
 
         binding =
@@ -24,16 +25,21 @@ class ForgotPasswordActivity: AppCompatActivity() {
 
         var emailAddress = ""
 
+        //Funcionalitat del botó enviar email
         binding.buttonSE.setOnClickListener{
+            //Agafar el email posat al edit text
             emailAddress = binding.emailToSend.text.toString().trim()
-            Log.i("Forgot", "$emailAddress")
+            //Posar el edit text en buit
             binding.emailToSend.setText("")
+            //Enviar el mail de recuperar contrasenya
             FirebaseAuth.getInstance().sendPasswordResetEmail(emailAddress)
+            //Iniciar el sign in activity
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
 
         }
 
+        //Botó per anar al sign in activity
         binding.signInBtnP.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
