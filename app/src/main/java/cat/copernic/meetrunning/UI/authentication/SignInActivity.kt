@@ -2,6 +2,8 @@ package cat.copernic.meetrunning.UI.authentication
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +21,7 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
+        var count = 0
         binding =
             DataBindingUtil.setContentView<ActivitySignInBinding>(this, R.layout.activity_sign_in)
 
@@ -37,6 +39,15 @@ class SignInActivity : AppCompatActivity() {
             startActivity(intent)
             this.finish()
             true
+        }
+
+        binding.showHideBtn?.setOnClickListener {
+            if(count % 2 == 0){
+                binding.password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            }else{
+                binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+               count ++
         }
 
         //Funció per inciar sessió
