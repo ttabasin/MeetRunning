@@ -84,8 +84,10 @@ class MainActivity : AppCompatActivity() {
         //Usuario al header
         GlobalScope.launch {
             delay(1000)
-            binding.navView.getHeaderView(0).findViewById<TextView>(R.id.usernameMenu).text =
-                FirebaseAuth.getInstance().currentUser?.displayName.toString()
+            runOnUiThread {
+                binding.navView.getHeaderView(0).findViewById<TextView>(R.id.usernameMenu).text =
+                    FirebaseAuth.getInstance().currentUser?.displayName.toString()
+            }
         }
 
         //logOut
