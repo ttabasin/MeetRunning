@@ -6,9 +6,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.IntentSender
-import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,7 +14,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -26,9 +22,7 @@ import androidx.navigation.ui.NavigationUI
 import cat.copernic.meetrunning.UI.authentication.SignInActivity
 import cat.copernic.meetrunning.databinding.ActivityMainBinding
 import com.bumptech.glide.Glide
-import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -44,7 +38,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private var language: String = "[en_EN]"
     private var db = FirebaseFirestore.getInstance()
     private val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -104,7 +97,6 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-
         createNotificationChannel()
         GlobalScope.launch {
             val user = FirebaseAuth.getInstance().currentUser?.email.toString()
@@ -162,43 +154,6 @@ class MainActivity : AppCompatActivity() {
         ) || super.onSupportNavigateUp()
     }
 
-/*override fun onSaveInstanceState(guardarEstado: Bundle) {
-    super.onSaveInstanceState(guardarEstado)
-
-    db = FirebaseFirestore.getInstance()
-
-    db.collection("users").document(currentUserEmail).get().addOnSuccessListener {
-        language = it.getString("language").toString()
-        Log.i("Main", "SAVE INSTANCE: $language")
-        guardarEstado.putString("language", language)
-    }
-
-}
-
-override fun onRestoreInstanceState(recEstado: Bundle) {
-    super.onRestoreInstanceState(recEstado)
-    language = recEstado.getString("language")!!
-    val config: Configuration = this.resources.configuration
-    Log.i("Main", "RESTORE INSTANCE: $language")
-
-    if(language == "[en_EN]"){
-        val locale = Locale("en", "EN")
-        config.setLocale(locale)
-    }else if(language == "[es_ES]"){
-        val locale = Locale("es", "ES")
-        config.setLocale(locale)
-    }else if(language == "[ca_ES]"){
-        val locale = Locale("ca", "ES")
-        config.setLocale(locale)
-    }
-
-    this.resources.updateConfiguration(
-        config,
-        this.resources.displayMetrics
-    )
-
-}*/
-
     private val CHANNEL_ID = "meetrunning"
     private val notificacioId = 1
 
@@ -226,7 +181,7 @@ override fun onRestoreInstanceState(recEstado: Bundle) {
         )
 
         val mBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(android.R.drawable.ic_notification_overlay)
+            .setSmallIcon(R.drawable.ic_baseline_directions_run_24)
             .setContentTitle("MeetRunning")
             .setContentText(m)
             //.setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))

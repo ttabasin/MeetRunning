@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/editTextTitle"
+            android:layout_width="567dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:textSize="24dp"
+            android:hint="@string/title"
+            android:inputType="textPersonName"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextDescription"
+            android:layout_width="0dp"
+            android:layout_height="184dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:textSize="24dp"
+            android:gravity="start|top"
+            android:hint="@string/description"
+            android:inputType="textMultiLine"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            app:layout_constraintEnd_toEndOf="@+id/editTextTitle"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/editTextTitle"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
+
+        <ImageView
+            android:id="@+id/photoGallery"
+            android:layout_width="0dp"
+            android:layout_height="142dp"
+            android:layout_marginTop="484dp"
+            android:background="@drawable/customborder"
+            app:layout_constraintEnd_toEndOf="@+id/editTextDescription"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/editTextDescription"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_photo_library_24"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <Button
+            android:id="@+id/continueRoute"
+            style="@style/buttonLog"
+            android:layout_width="607dp"
+            android:layout_height="82dp"
+            android:text="@string/continuebtn"
+            android:textColor="#000000"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/photoGallery"
+            app:layout_constraintVertical_bias="0.542" />
+
+        <TextView
+            android:id="@+id/distanceTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="14 KM"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/timeTxt"
+            app:layout_constraintHorizontal_bias="0.469"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.653" />
+
+        <TextView
+            android:id="@+id/timeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="2:00:00"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.414"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.652" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/txtViewLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INFO"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.143"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDescription"
+            app:layout_constraintVertical_bias="0.052" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/txtViewInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@string/distance"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/distanceTxt"
+            app:layout_constraintEnd_toStartOf="@+id/textView3"
+            app:layout_constraintHorizontal_bias="0.59"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/txtViewInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/timeTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.395"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.997" />
+
+        <ImageView
+            android:id="@+id/imagePrev"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/photoGallery"
+            app:layout_constraintEnd_toStartOf="@+id/photoGallery"
+            app:layout_constraintTop_toTopOf="@+id/photoGallery"
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_left_24" />
+
+        <ImageView
+            android:id="@+id/imageNext"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/photoGallery"
+            app:layout_constraintStart_toEndOf="@+id/photoGallery"
+            app:layout_constraintTop_toTopOf="@+id/photoGallery"
+            app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
