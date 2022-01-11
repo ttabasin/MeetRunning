@@ -128,8 +128,6 @@ class AddRouteFragment : Fragment() {
             val storage = FirebaseStorage.getInstance().reference
             for ((c, i) in mArrayUri.withIndex()){
                 val path = storage.child("users/$currentUser/${binding.editTextTitle.text}/$c.jpg")
-                //val bitmap = BitmapFactory.decodeStream(java.net.URL(i?.path.toString()).openStream())
-                //val bitmap = i. as Bitmap
                 val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, i)
                 val baos = ByteArrayOutputStream()
 
@@ -168,10 +166,11 @@ class AddRouteFragment : Fragment() {
                 for (i in 0 until data.itemCount) {
                     mArrayUri.add(data.getItemAt(i).uri)
                 }
-                Log.d("img", "$data")
+                Log.e("img", "$data")
                 binding.photoGallery.setImageURI(mArrayUri[0])
             } else if (result.data?.data != null) {
                 mArrayUri.add(result.data?.data)
+                Log.e("img", "${result.data?.data}")
                 binding.photoGallery.setImageURI(mArrayUri[0])
             }
         }
