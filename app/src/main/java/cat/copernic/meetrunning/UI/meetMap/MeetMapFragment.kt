@@ -250,11 +250,11 @@ class MeetMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.mapView.onDestroy()
         if (job.isActive) {
             btnPressed = true
             job.cancel()
         }
+        //binding.mapView.onDestroy()
     }
 
     override fun onLowMemory() {

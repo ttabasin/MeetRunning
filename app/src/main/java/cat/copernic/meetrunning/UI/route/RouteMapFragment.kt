@@ -41,7 +41,7 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var route: List<com.google.android.gms.maps.model.LatLng>
-    private lateinit var job: Job
+    private var job: Job = Job()
     private var distance: Double = 0.0
     private val positions: ArrayList<GLatLng> = arrayListOf()
     private var btnPressed = false
@@ -237,8 +237,8 @@ class RouteMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (job.isActive) {
-            binding.mapView.onDestroy()
+        if  (job.isActive) {
+            //binding.mapView.onDestroy()
             btnPressed = true
             job.cancel()
         }

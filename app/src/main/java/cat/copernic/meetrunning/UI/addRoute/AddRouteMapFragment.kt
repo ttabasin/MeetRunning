@@ -231,7 +231,7 @@ class AddRouteMapFragment : Fragment(), OnMapReadyCallback {
     override fun onDestroy() {
         super.onDestroy()
         if (job.isActive) {
-            binding.mapView.onDestroy()
+            //binding.mapView.onDestroy()
             btnPressed = true
             job.cancel()
         }
